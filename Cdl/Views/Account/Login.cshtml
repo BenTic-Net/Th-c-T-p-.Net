@@ -1,0 +1,109 @@
+﻿@using CarDealer.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+
+<div class="row">
+    <div class="">
+        <section id="loginForm">
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "login100-form validate-form", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+               
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="wrap-input100 validate-input m-b-26">
+                    @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label label-input100", })
+                    <div class="" data-validate="Username is required">
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control input100",placeholder = "Enter username" })
+                        @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger focus-input100" })
+                    </div>
+                </div>
+                <div class="wrap-input100 validate-input m-b-18">
+                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label label-input100" })
+                    <div class="" data-validate="Username is required">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control input100", placeholder = "Enter password" })
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger focus-input100" })
+                    </div>
+                </div>
+                <div class="flex-sb-m w-full p-b-30">
+                    <div class="contact100-form-checkbox">
+                        <div class="">
+                            @Html.CheckBoxFor(m => m.RememberMe, new { @class= "input-checkbox100", id= "ckb1" })
+                            @Html.LabelFor(m => m.RememberMe , new {@class="label-checkbox100", @for= "ckb1"})
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="container-login100-form-btn">
+                        <input type="submit" value="Log in" class="login100-form-btn" />
+                    </div>
+                </div>
+                @*<p>
+                    @Html.ActionLink("Register as a new user", "Register")
+                </p>*@
+                @* Enable this once you have account confirmation enabled for password reset functionality
+                    <p>
+                        @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                    </p>*@
+            }
+        </section>
+    </div>
+    
+</div>
+
+@section scripts {
+    <!--===============================================================================================-->
+    <script src="~/LoginTemp/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/LoginTemp/vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/LoginTemp/vendor/bootstrap/js/popper.js"></script>
+    <script src="~/LoginTemp/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/LoginTemp/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/LoginTemp/vendor/daterangepicker/moment.min.js"></script>
+    <script src="~/LoginTemp/vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/LoginTemp/vendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+<script src="~/LoginTemp/js/main.js"></script>
+}
+
+@*<form class="login100-form validate-form">
+    <div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
+        <span class="label-input100">Username</span>
+        <input class="input100" type="text" name="username" placeholder="Enter username">
+        <span class="focus-input100"></span>
+    </div>
+
+    <div class="wrap-input100 validate-input m-b-18" data-validate = "Password is required">
+        <span class="label-input100">Password</span>
+        <input class="input100" type="password" name="pass" placeholder="Enter password">
+        <span class="focus-input100"></span>
+    </div>
+
+    <div class="flex-sb-m w-full p-b-30">
+        <div class="contact100-form-checkbox">
+            <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+            <label class="label-checkbox100" for="ckb1">
+                Remember me
+            </label>
+        </div>
+
+        <div>
+            <a href="~/LoginTemp/#" class="txt1">
+                Forgot Password?
+            </a>
+        </div>
+    </div>
+
+    <div class="container-login100-form-btn">
+        <button class="login100-form-btn">
+            Login
+        </button>
+    </div>
+</form>*@

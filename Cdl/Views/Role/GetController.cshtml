@@ -1,0 +1,41 @@
+﻿@model IEnumerable<CarDealer.Models.AspController>
+@{
+    ViewBag.Title = "GetController";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>GetController</h2>
+<table class="table">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Controller)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Action)
+        </th>
+       
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Controller)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Action)
+            </td>            
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { @*ctrl = item.Controller,actn=item.Action*@ }) |
+                @Html.ActionLink("Details", "Details", new { @*ctrl = item.Controller, actn = item.Action*@ }) |
+                @Html.ActionLink("Delete", "Delete", new { @*ctrl = item.Controller, actn = item.Action*@ })
+            </td>
+        </tr>
+    }
+
+</table>
+}
+
+

@@ -1,0 +1,65 @@
+﻿@using Microsoft.AspNet.Identity
+@model List<CarDealer.Models.AspRoleController>
+@*@model List<CarDealer.Models.AspRoleController>*@
+
+<ul class="sidebar-menu" data-widget="tree">
+    <li class="header">HEADER</li>
+    <!-- Optionally, you can add icons to the links -->
+    <li class="active"><a href="~/#"><i class="fa fa-link"></i> <span>Link</span></a></li>
+    <li><a href="~/#"><i class="fa fa-dashboard"></i> <span>Another Link</span></a></li>
+    <li class="treeview">
+        <a href="~/#">
+            <i class="fa fa-link"></i> <span>Multilevel</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            @if (  Model.Where(ur => ur.RoleId == User.Identity.GetUserId().GetUserRole()).Select(c => c.Controller).Contains("NewsController"))
+            {
+                <li>@Html.ActionLink("News", "Index", "News", null, null)</li>
+            }
+            @if (  Model.Where(ur => ur.RoleId == User.Identity.GetUserId().GetUserRole()).Select(c => c.Controller).Contains("CarTypesController"))
+            {
+                <li>@Html.ActionLink("Car Type", "Index", "CarTypes", null, null)</li>
+            }
+            @if (  Model.Where(ur => ur.RoleId == User.Identity.GetUserId().GetUserRole()).Select(c => c.Controller).Contains("ManufacturesController"))
+            {
+                <li>@Html.ActionLink("Manufacture", "Index", "Manufactures", null, null)</li>
+            }
+            @if (  Model.Where(ur => ur.RoleId == User.Identity.GetUserId().GetUserRole()).Select(c => c.Controller).Contains("CarsController"))
+            {
+                <li>@Html.ActionLink("Car", "Index", "Cars", null, null)</li>
+            }
+            @if (  Model.Where(ur => ur.RoleId == User.Identity.GetUserId().GetUserRole()).Select(c => c.Controller).Contains("CarModelsController"))
+            {
+                <li>@Html.ActionLink("Car Model", "Index", "CarModels", null, null)</li>
+            }
+            @if (  Model.Where(ur => ur.RoleId == User.Identity.GetUserId().GetUserRole()).Select(c => c.Controller).Contains("CarSoldsController"))
+            {
+                <li>@Html.ActionLink("Car Sold", "Index", "CarSolds", null, null)</li>
+            }
+           
+        </ul>
+    </li>
+    <li class="treeview">
+        <a href="~/#">
+            <i class="fa fa-link"></i> <span>User</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            @if (  Model.Where(ur => ur.RoleId == User.Identity.GetUserId().GetUserRole()).Select(c => c.Controller).Contains("UsersController"))
+            {
+                <li>@Html.ActionLink("Users", "Index", "Users", null, null)</li>
+            }
+            @if (  Model.Where(ur => ur.RoleId == User.Identity.GetUserId().GetUserRole()).Select(c => c.Controller).Contains("RoleController"))
+            {
+                <li>@Html.ActionLink("Roles", "Index", "Role", null, null)</li>
+            }
+
+        </ul>
+    </li>
+</ul>
+<!-- /.sidebar-menu -->

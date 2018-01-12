@@ -1,0 +1,121 @@
+﻿@using Microsoft.AspNet.Identity
+@model IEnumerable<CarDealer.Models.CarSold>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Index</h2>
+@{
+    var action = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().CheckViewAct(User.Identity.GetUserId());
+
+
+    if (action != null && !string.IsNullOrEmpty(User.Identity.GetUserId()))
+    {
+        if (action.Contains("Create"))
+        {
+            <p>
+                @Html.ActionLink("Create New", "Create")
+            </p>
+        }
+    }
+}
+    <table class="table">
+    <tr>
+        <th>
+            @*@Html.DisplayNameFor(model => model.ToCar.Name)*@ Car Name
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.UserId)*@ Customer
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AgreedPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Datesold)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PaymentStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PaymentMethod)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PaymentStartDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PaymentEndDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ActurePaymentAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OtherDetail)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ToCar.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AgreedPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Datesold)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PaymentStatus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PaymentMethod)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PaymentStartDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PaymentEndDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ActurePaymentAmount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OtherDetail)
+        </td>
+        <td>
+            @{
+                // var action = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().CheckViewAct(User.Identity.GetUserId());
+
+
+                if (action != null && !string.IsNullOrEmpty(User.Identity.GetUserId()))
+                {
+                    if (action.Contains("Edit"))
+                    {
+
+                        <span>@Html.ActionLink("Edit", "Edit", new { id = item.CarSoldId })</span>
+                    }
+                    if (action.Contains("Details"))
+                    { <span>
+                          @Html.ActionLink("Details", "Details", new { id = item.CarSoldId })</span> }
+
+                    if (action.Contains("Delete"))
+                    {<span>
+                         @Html.ActionLink("Delete", "Delete", new { id = item.CarSoldId })</span>}
+                }
+
+
+
+
+
+            }
+        </td>
+    </tr>
+}
+
+</table>
