@@ -1,0 +1,111 @@
+﻿@model CarDealer.Models.ControllerRoleModel
+@{
+    ViewBag.Title = "AddController";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<link href="~/jquery-multitree/dist/jquery.tree-multiselect.min.css" rel="stylesheet" />
+
+
+
+<h2>Edit Rigths for @TempData["RoleName"]</h2>
+
+<div class="widget-content">
+    <div class="form-horizontal">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <input id="userid" name="userid" type="hidden" value="@Model.Role.Id" />
+            <select id="selectdController" multiple="multiple" name="selectedController">
+
+                @foreach(var item in Model.Controllers)
+                {
+
+                    if (item.IsSelected(Model.Role.Id))
+                    {
+                        <option name="selectedController" value="@item.Controller-@item.Action" data-section="@item.Controller.TransCtrl()" selected="selected" data-index="3">@item.Action</option>@*<div>@item.Action<input type="checkbox" value="true" id="Change" onchange="change()"/></div>*@
+                    }
+                    else
+                    {
+                        <option name="selectedController" value="@item.Controller-@item.Action" data-section="@item.Controller.TransCtrl()" data-index="3">@item.Action</option>@*<div>@item.Action<input type="checkbox" value="false" id="Change" onchange="change()"/></div>*@
+                    }
+
+
+                   
+        }
+                
+        </select>
+            <input type="submit" value="Save" class="btn-success" />
+
+        }
+
+
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/jquery-multitree/dist/jquery.tree-multiselect.min.js"></script>
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            //$("#demo").treeMultiselect(options);
+
+            $("#selectdController").treeMultiselect({
+
+                // Sections have checkboxes which when checked, check everything within them
+                allowBatchSelection: true,
+
+                // Selected options can be sorted by dragging 
+                // Requires jQuery UI
+                sortable: false,
+
+                // Adds collapsibility to sections
+                collapsible: true,
+
+                // Enables selection of all or no options
+                enableSelectAll: false,
+
+                // Only used if enableSelectAll is active
+                selectAllText: 'Select All',
+
+                // Only used if enableSelectAll is active
+                unselectAllText: 'Unselect All',
+
+                // Disables selection/deselection of options; aka display-only
+                freeze: false,
+
+                // Hide the right panel showing all the selected items
+                hideSidePanel: false,
+
+                // max amount of selections
+                maxSelections: 0,
+
+                // Only sections can be checked, not individual items
+                onlyBatchSelection: false,
+
+                // Separator between sections in the select option data-section attribute
+                sectionDelimiter: '/',
+
+                // Show section name on the selected items
+                showSectionOnSelected: true,
+
+                // Activated only if collapsible is true; sections are collapsed initially
+                startCollapsed: false,
+
+                // Allows searching of options
+                searchable: false,
+
+                // Set items to be searched. Array must contain 'value', 'text', or 'description', and/or 'section'
+                searchParams: ['value', 'text', 'description', 'section'],
+
+                // Callback
+                onChange: null
+  
+            });
+
+            
+        })
+
+        
+    </script>
+    }

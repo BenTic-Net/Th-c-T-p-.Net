@@ -1,0 +1,125 @@
+﻿@model CarDealer.Models.New
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>New</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Image)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Image)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TopHot)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TopHot)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ViewCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ViewCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedOn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedOn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ModifiedOn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ModifiedOn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ModifiedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ModifiedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Topic)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Topic)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Waranty)
+        </dt>
+
+        <dd id="waranty">
+            @{
+                string Wrt = Model.Waranty.Traslate();
+                
+            }
+            @(Wrt)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.NewId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+@section scripts{
+    
+    <script>
+        $(document).ready(function () {
+            var id = $('#waranty').text();
+            console.log(id);
+            switch (id) {
+                case 0: $('#waranty').html("Waiting"); break;
+           }
+        }
+
+        )
+
+
+    </script>
+    }

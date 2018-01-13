@@ -1,0 +1,97 @@
+﻿@using Microsoft.AspNet.Identity
+@model IEnumerable<CarDealer.Models.UserViewModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Index</h2>
+<h3>@TempData["EditMsg"]</h3>
+@{
+    var action = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().CheckViewAct(User.Identity.GetUserId());
+
+
+    if (action != null && !string.IsNullOrEmpty(User.Identity.GetUserId()))
+    {
+        if (action.Contains("Create"))
+        {
+            <p>@Html.ActionLink("Create User", "Create", "Users")</p>
+        }
+    }
+}
+
+    @if (ViewBag.displayMenu == "Yes")
+{
+    <h1>Welcome Admin. Now you can create user Role.</h1>
+    <h3>
+        <li>@Html.ActionLink("Manage Role", "Index", "Role")</li>
+    </h3>
+
+    <table class="table">
+        <tr>
+           
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Role)
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Role)
+                </td>
+
+                <td>
+
+                    @{
+
+                    if (action != null && !string.IsNullOrEmpty(User.Identity.GetUserId()))
+                    {
+                    if (action.Contains("Edit"))
+                    {
+
+                    <span>@Html.ActionLink("Edit", "Edit", new { id = item.Id })</span>
+                    }
+                    
+
+                    if (action.Contains("Delete"))
+                    {<span>
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })</span>}
+                    }
+
+
+
+
+
+                    }
+                </td>
+            </tr>
+        }
+       
+    </table>
+}
+
+        else
+        {
+        <h2>  Welcome <strong>@ViewBag.Name</strong> :) .We will add user module soon </h2>
+        }

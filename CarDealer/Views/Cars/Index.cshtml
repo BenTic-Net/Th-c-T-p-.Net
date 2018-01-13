@@ -1,0 +1,155 @@
+﻿@using Microsoft.AspNet.Identity
+@model IEnumerable<CarDealer.Models.Car>
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Index</h2>
+@{ Session["path"] = HttpContext.Current.Request.Url.AbsolutePath; }
+
+
+@{
+    var action = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().CheckViewAct(User.Identity.GetUserId());
+
+
+    if (action != null && !string.IsNullOrEmpty(User.Identity.GetUserId()))
+    {
+        if (action.Contains("Create"))
+        {
+            <p>
+                @Html.ActionLink("Create New", "Create")
+            </p>
+        }
+    }
+}
+
+
+@using (Html.BeginForm("Index", "Cars", FormMethod.Get, new { Ord = Request["Ord"], Col = Request["Col"], page = Request["page"] }))
+
+{
+    <div class="form-group">         
+        <div class="col-md-2">
+            @Html.TextBox("txtModelName",null, new { @class = "form-control" ,@placeholder="Name"})
+        </div>
+        <div class="col-md-2">
+            @Html.TextBox("txtBodyStyle", null, new { @class = "form-control", @placeholder = "BodyStyle" })
+        </div>
+        <div class="col-md-2">
+            @Html.TextBox("txtManufacture", null, new { @class = "form-control", @placeholder = "Manufacture" })
+        </div>
+        <div class="col-md-2">
+            @Html.DropDownList("Waranty",null, "SelectWaranty", new { @class = "form-control"})
+        </div>
+        <input type="submit" value="Search" class="btn btn-default" />
+    </div>
+
+}
+    <table class="table">
+    <tr>
+        <th>
+            @*@Html.DisplayNameFor(model => model.ToCarType.Name)*@ <a href="@Url.Action("Index", new { Col = "Manufacture", Ord = Request["Ord"] == null|| Request["Ord"] =="DESC"? "ASC":"DESC", txtModelName = Request["txtModelName"] ,page=Request["page"], Waranty=Request["Waranty"],txtBodyStyle=Request["txtBodyStyle"], txtManufacture=Request["txtManufacture"]})">Manufacture</a>
+</th>   
+        <th>
+            @*@Html.DisplayNameFor(model => model.ToCarModel.Name)*@ <a href="@Url.Action("Index", new { Col = "Waranty", Ord = Request["Ord"] == null|| Request["Ord"] =="DESC"? "ASC":"DESC",txtModelName = Request["txtModelName"] ,page=Request["page"], Waranty=Request["Waranty"],txtBodyStyle=Request["txtBodyStyle"], txtManufacture=Request["txtManufacture"]})">ModelName</a>
+</th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.ToCarType.Name)*@ <a href="@Url.Action("Index", new { Col = "BodyStyle", Ord = Request["Ord"] == null|| Request["Ord"] =="DESC"? "ASC":"DESC",txtModelName = Request["txtModelName"] ,page=Request["page"], Waranty=Request["Waranty"],txtBodyStyle=Request["txtBodyStyle"], txtManufacture=Request["txtManufacture"]})">BodyStyle</a>
+</th>      
+        
+       
+        
+        
+        <th>
+            <a href="@Url.Action("Index", new { Col = "Name", Ord = Request["Ord"] == null|| Request["Ord"] =="DESC"? "ASC":"DESC", txtModelName = Request["txtModelName"] ,page=Request["page"], Waranty=Request["Waranty"],txtBodyStyle=Request["txtBodyStyle"], txtManufacture=Request["txtManufacture"]})"> @Html.DisplayNameFor(model => model.Name)</a>
+</th>
+        
+        <th>
+            <a href="@Url.Action("Index", new { Col = "AskingPrice", Ord = Request["Ord"] == null|| Request["Ord"] =="DESC"? "ASC":"DESC",txtModelName = Request["txtModelName"] ,page=Request["page"], Waranty=Request["Waranty"],txtBodyStyle=Request["txtBodyStyle"], txtManufacture=Request["txtManufacture"]})"> @Html.DisplayNameFor(model => model.AskingPrice)</a>
+</th>
+        
+        <th>
+            <a href="@Url.Action("Index", new { Col = "Quantity", Ord = Request["Ord"] == null|| Request["Ord"] =="DESC"? "ASC":"DESC",txtModelName = Request["txtModelName"] ,page=Request["page"], Waranty=Request["Waranty"],txtBodyStyle=Request["txtBodyStyle"], txtManufacture=Request["txtManufacture"]})"> @Html.DisplayNameFor(model => model.Quantity)</a>
+</th>
+        
+       
+        <th>
+            <a href="@Url.Action("Index", new { Col = "ViewCount", Ord = Request["Ord"] == null|| Request["Ord"] =="DESC"? "ASC":"DESC", txtModelName = Request["txtModelName"] ,page=Request["page"], Waranty=Request["Waranty"],txtBodyStyle=Request["txtBodyStyle"], txtManufacture=Request["txtManufacture"]})">
+                @Html.DisplayNameFor(model => model.ViewCount)</a>
+</th>
+        <th>
+            @Html.DisplayNameFor(model => model.Warranty)
+        </th>
+      
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ToCarModel.ToManufacture.FullName)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.ToCarModel.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ToCarType.Name)
+        </td>
+        
+        
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.AskingPrice)
+        </td>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.Quantity)
+        </td>
+       
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.ViewCount)
+        </td>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.Warranty)*@ @{ string wrt = item.Warranty.Traslate();} @(wrt)
+        </td>       
+        
+        <td>
+            @{
+                // var action = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().CheckViewAct(User.Identity.GetUserId());
+
+
+                if (action != null && !string.IsNullOrEmpty(User.Identity.GetUserId()))
+                {
+                    if (action.Contains("Edit"))
+                    {
+
+                        <span>@Html.ActionLink("Edit", "Edit", new { id = item.CarId })</span>
+                    }
+                    if (action.Contains("Details"))
+                    { <span>
+                          @Html.ActionLink("Details", "Details", new { id = item.CarId })</span> }
+
+                    if (action.Contains("Delete"))
+                    {<span>
+                         @Html.ActionLink("Delete", "Delete", new { id = item.CarId })</span>}
+                }
+
+
+
+
+
+            }
+        </td>
+    </tr>
+}
+
+</table>
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page, Col = Request["Col"], Ord = Request["Ord"], txtModelName = Request["txtModelName"], Waranty = Request["Waranty"], txtBodyStyle = Request["txtBodyStyle"], txtManufacture = Request["txtManufacture"] }))

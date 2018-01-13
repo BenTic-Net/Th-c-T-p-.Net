@@ -1,0 +1,155 @@
+﻿@model CarDealer.Models.CarDetail
+
+@{
+    ViewBag.Title = "DetailsCar";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>DetailsCar</h2>
+
+<div>
+    <h4>CarDetail</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstRegistrationDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstRegistrationDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MoreImage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MoreImage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Feature)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Feature)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfSeat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfSeat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumberOfDoor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumberOfDoor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CupicCapacity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CupicCapacity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Horsepower)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Horsepower)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cylider)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cylider)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FuelType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FuelType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FuelConsumption)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FuelConsumption)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ModifiedOn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ModifiedOn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ModifiedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ModifiedBy)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TranmisionType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TranmisionType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmissionClass)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmissionClass)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InteriorColor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InteriorColor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExteriorColor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExteriorColor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WheelType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WheelType)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CarId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

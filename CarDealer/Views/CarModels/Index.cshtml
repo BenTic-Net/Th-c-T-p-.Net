@@ -1,0 +1,97 @@
+﻿@using Microsoft.AspNet.Identity
+@model IEnumerable<CarDealer.Models.CarModel>
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>List CarModels </h2>
+   
+
+    @{
+        var action = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().CheckViewAct(User.Identity.GetUserId());
+
+
+        if (action != null && !string.IsNullOrEmpty(User.Identity.GetUserId()))
+        {
+            if (action.Contains("Create"))
+            {
+                <p> @Html.ActionLink("Create New", "Create")</p>
+
+
+            }
+        }
+    }
+
+@using (Html.BeginForm("Index","CarModels",FormMethod.Get,new { Col=Request["Col"], Ord=Request["Ord"], page=Request["page"]    }))
+{
+    <div class="form-group"><label class="control-label col-md-1">Name:</label> <div class="col-md-2">
+    @Html.TextBox("txtModel", null, new { @class = "form-control" })
+</div>
+        <div class="col-md-2">
+            @Html.DropDownList("Waranty", null, "SelectWaranty", new { @class = "form-control" })
+            </div>
+            <input type="submit" value="Search" class="btn btn-default" />
+        </div>
+}
+<table class="table">
+    <tr>
+        <th>
+            <a href="@Url.Action("Index", new { Col = "Name", Ord = Request["Ord"] == null|| Request["Ord"] =="DESC"? "ASC":"DESC", txtModel = Request["txtModel"] ,page=Request["page"], Waranty=Request["Waranty"]})">@Html.DisplayNameFor(model => model.Name)</a>
+        </th>                                              
+        <th>
+           <a href="@Url.Action("Index", new { Col = "Waranty", Ord = Request["Ord"] == null|| Request["Ord"] =="DESC"? "ASC":"DESC", txtModel = Request["txtModel"] ,page=Request["page"], Waranty=Request["Waranty"]})">@Html.DisplayNameFor(model => model.Waranty)</a>
+        </th>
+        <th>
+            <a href="@Url.Action("Index", new { Col = "ManufactureName", Ord = Request["Ord"] == null|| Request["Ord"] =="DESC"? "ASC":"DESC", txtModel = Request["txtModel"] ,page=Request["page"], Waranty=Request["Waranty"]})"> Manufacture Name</a>
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>                                              
+        <td>
+            @*@Html.DisplayFor(modelItem => item.Waranty)*@
+            @{ string wrt = item.Waranty.Traslate();}
+            @(wrt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ToManufacture.FullName)
+        </td>
+        <td>
+        @{
+            // var action = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().CheckViewAct(User.Identity.GetUserId());
+
+
+            if (action != null && !string.IsNullOrEmpty(User.Identity.GetUserId()))
+            {
+                if (action.Contains("Edit"))
+                {
+
+                    <span>@Html.ActionLink("Edit", "Edit", new { id = item.ID })</span>
+                }
+                if (action.Contains("Details"))
+                { <span>
+                @Html.ActionLink("Details", "Details", new { id = item.ID })</span> }
+
+                if (action.Contains("Delete"))
+                {<span>
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })</span>}
+                }
+
+
+
+
+
+                }
+</td>
+    </tr>
+}
+
+</table>
+@Html.PagedListPager((IPagedList)Model,page=>Url.Action("Index",new { page,Col=Request["Col"],Ord=Request["Ord"], txtModel=Request["txtModel"], Waranty=Request["Waranty"]}))

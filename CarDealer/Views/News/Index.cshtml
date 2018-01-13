@@ -1,0 +1,125 @@
+﻿@using Microsoft.AspNet.Identity
+@model IEnumerable<CarDealer.Models.New>
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Index</h2>
+
+@{ Session["path"] = HttpContext.Current.Request.Url.AbsolutePath; }
+@{
+    var action = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().CheckViewAct(User.Identity.GetUserId());
+
+
+    if (action != null && !string.IsNullOrEmpty(User.Identity.GetUserId()))
+    {
+        if (action.Contains("Create"))
+        {
+            <p>
+                @Html.ActionLink("Create New", "Create")
+            </p>
+        }
+    }
+}
+@using (Html.BeginForm("Index", "News", FormMethod.Get, new { Ord = Request["Ord"], Col = Request["Col"], page = Request["page"] }))
+
+{
+    <div class="form-group">
+        <div class="col-md-2">
+            @Html.TextBox("txtTitle", null, new { @class = "form-control", @placeholder = "Title" })
+        </div>
+        <div class="col-md-2">
+            @Html.TextBox("txtTopic", null, new { @class = "form-control", @placeholder = "Topic" })
+        </div>
+        
+        <div class="col-md-2">
+            @Html.DropDownList("Waranty", null, "SelectWaranty", new { @class = "form-control" })
+        </div>
+        <input type="submit" value="Search" class="btn btn-default" />
+    </div>
+
+}
+
+    <table class="table">
+    <tr>
+        <th><a href="@Url.Action("Index",new {Col="Title", Ord=Request["Ord"]==null || Request["Ord"]=="DESC"?"ASC":"DESC",txtTitle=Request["txtTitle"],txtTopic=Request["txtTopic"],page=Request["page"] })">
+    @Html.DisplayNameFor(model => model.Title)</a>
+</a>
+        </th>        
+       
+        <th><a href="@Url.Action("Index",new {Col="ViewCount", Ord=Request["Ord"]==null || Request["Ord"]=="DESC"?"ASC":"DESC",txtTitle=Request["txtTitle"],txtTopic=Request["txtTopic"],page=Request["page"] })">
+    @Html.DisplayNameFor(model => model.ViewCount)</a>
+</th>                                      
+        <th><a href="@Url.Action("Index",new {Col="Topic", Ord=Request["Ord"]==null || Request["Ord"]=="DESC"?"ASC":"DESC",txtTitle=Request["txtTitle"],txtTopic=Request["txtTopic"],page=Request["page"] })">
+    @Html.DisplayNameFor(model => model.Topic)</a>
+</th>
+        <th>
+           
+                @Html.DisplayNameFor(model => model.Waranty)
+</th>
+        <th>
+           
+                @Html.DisplayNameFor(model => model.Content)
+</th>
+        <th></th>
+    </tr>
+    
+        @foreach (var item in Model) {
+
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>                                               
+        <td>
+            @Html.DisplayFor(modelItem => item.ViewCount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Topic)
+        </td>
+      
+        <td>
+            @{ string Wrt = item.Waranty.Traslate();}
+            @(Wrt)
+        </td>
+
+        <td>
+            @Html.ActionLink("Wacth On Page","","")
+        </td>
+        <td>
+            @{
+                // var action = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().CheckViewAct(User.Identity.GetUserId());
+
+
+                if (action != null && !string.IsNullOrEmpty(User.Identity.GetUserId()))
+                {
+                    if (action.Contains("Edit"))
+                    {
+
+                        <span>@Html.ActionLink("Edit", "Edit", new { id = item.NewId })</span>
+                    }
+                    if (action.Contains("Details"))
+                    { <span>
+                          @Html.ActionLink("Details", "Details", new { id = item.NewId })</span> }
+
+                    if (action.Contains("Delete"))
+                    {<span>
+                         @Html.ActionLink("Delete", "Delete", new { id = item.NewId })</span>}
+                }
+
+
+
+
+
+            }
+        </td>
+    </tr>
+            
+        }
+    
+    
+</table>
+
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page, Col = Request["Col"], Ord = Request["Ord"], txtTitle = Request["txtTitle"], txtTopic = Request["txtTopic"] }))
