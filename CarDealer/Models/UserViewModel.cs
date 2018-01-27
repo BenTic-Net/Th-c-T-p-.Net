@@ -25,7 +25,11 @@ LockoutEndDateUtc	datetime	Checked
        
         public string Id { get; set; }
         public string UserName { get; set; }
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
+        [DataType(DataType.PhoneNumber, ErrorMessage = "Provided phone number not valid")]
+        [RegularExpression(@"^(\d)$", ErrorMessage = "Wrong mobile")]
+        [StringLength(13, MinimumLength = 10)]
         public string PhoneNumber { get; set; }
         [Required]
         public int AccessFailedCount { get; set; }

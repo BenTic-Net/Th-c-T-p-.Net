@@ -1,0 +1,22 @@
+﻿@model CarDealer.Areas.Client.Models.ProfileViewModel
+
+<div class="sidebar_widget">
+    <div class="widget_heading">
+        <h5>
+            <i class="fa fa-address-card-o" aria-hidden="true"></i> Dealer Contact
+        </h5>
+    </div>
+    <div class="dealer_detail">
+        <img src="@Model.UImage" alt="image">
+        <p>
+            <span>Name:</span>@Model.FullName
+        </p>
+        <p>
+            <span>Email:</span> @Model.Email
+        </p>
+        <p>
+            <span>Phone:</span> @Model.Phonenumber
+        </p>
+        <a href="#" class="btn btn-xs">View Profile</a>
+    </div>
+</div>

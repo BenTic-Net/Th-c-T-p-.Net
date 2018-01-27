@@ -26,8 +26,8 @@ namespace CarDealer.Areas.Client.Models
         public string Feature { get; set; }
         public Nullable<byte> NumberOfSeat { get; set; }
         public Nullable<byte> NumberOfDoor { get; set; }
-        public Nullable<byte> CupicCapacity { get; set; }
-        public string Horsepower { get; set; }
+        public Nullable<int> CupicCapacity { get; set; }
+        public int? Horsepower { get; set; }
         public Nullable<byte> Cylider { get; set; }
         public string FuelType { get; set; }
         public Nullable<byte> FuelConsumption { get; set; }

@@ -21,6 +21,7 @@ namespace CarDealer.Models
         public short CarTypeId { get; set; }
         
         [Display(Name ="Body Style")]
+        [Required]
         public string Name { get; set; }
         public string MetaDescription { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
@@ -31,7 +32,8 @@ namespace CarDealer.Models
         public string MetaKeywords { get; set; }
         public int Waranty { get; set; }  
         //public Nullable<bool> ShowOnHome { get; set; }
-        public string SeoTitle { get; set; }        
+        public string SeoTitle { get; set; }    
+        
         public short? ParentId { get; set; }
 
         public virtual ICollection<CarType> ToChild { get; set; }

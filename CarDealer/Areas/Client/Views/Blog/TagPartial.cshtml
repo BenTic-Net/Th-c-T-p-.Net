@@ -1,0 +1,15 @@
+﻿
+
+<div class="sidebar_widget">
+    <div class="widget_heading">
+        <h5>Tag Widget</h5>
+    </div>
+    <div class="tag_list">
+        <ul>
+           @foreach (var t in ViewBag.TagList)
+           {
+            <li><a href="@Url.Action("Index",new { tag=t})">@t</a></li>
+           }
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+﻿@model CarDealer.Models.FeedBack
+
+@using (Ajax.BeginForm("PostComment", null, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "comments" }, new { @class = "comment-form", id = "cm" }))
+{
+    if (User.Identity.IsAuthenticated)
+    {
+        <input type="text" name="Type" id="Type" hidden="hidden" value="Comment"   />
+        <div class="form-group">
+            @Html.EditorFor(model=>model.Content, new { htmlAttributes = new { @class = "form-control", @id = "comenteditor", rows = "4" , placeholder = "Comment" } })
+
+        </div>
+        <div class="form-group"  >
+            <button class="btn" type="submit">Post Comment <span class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span></button>
+        </div>
+    }
+    else
+    {
+        <input type="text" name="Type"  hidden="hidden" id="Type" value="Comment"  />
+        <div class="form-group">
+            <input name="Name" type="text" class="form-control" placeholder="Full Name" required>
+        </div>
+        <div class="form-group">
+            <input name="Email" type="email" class="form-control" placeholder="Email Address">
+        </div>
+        <div class="form-group">
+            <textarea class="form-control" name="Content" rows="4" placeholder="Comment" id = "comenteditor"></textarea>
+        </div>
+        <div class="form-group">
+            <button class="btn" type="submit">Post Comment <span class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span></button>
+        </div>
+    }
+}

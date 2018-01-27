@@ -19,23 +19,35 @@ namespace CarDealer.Models
     {
         [Key]
         public long CarSoldId { get; set; }
-        
+        [Required]
         public long CarId { get; set; }
         
         public string UserId { get; set; }
         [Display(Name ="Customer Name")]
         public string Name  { get; set; }
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
+        [Required]
+        [DataType(DataType.PhoneNumber, ErrorMessage = "Provided phone number not valid")]
+        [RegularExpression(@"^(\d)$", ErrorMessage = "Wrong mobile")]
+        [StringLength(13,MinimumLength =10)]
         public string PhoneNumber { get; set; }
+        [Required]
+        [Range(0,1000000)]
         public Nullable<decimal> AgreedPrice { get; set; }
-        [DataType(DataType.DateTime)]
+        [DataType(DataType.Date)]
+        [Required]
+        
         public Nullable<System.DateTime> Datesold { get; set; }
+        [Required]
         public int PaymentStatus { get; set; }
+        [Required]
         public string PaymentMethod { get; set; }
-        [DataType(DataType.DateTime)]
+        [DataType(DataType.Date)]
         public Nullable<System.DateTime> PaymentStartDate { get; set; }
-        [DataType(DataType.DateTime)]
+        [DataType(DataType.Date)]
         public Nullable<System.DateTime> PaymentEndDate { get; set; }
+        [Range(0, 1000000)]
         public Nullable<decimal> ActurePaymentAmount { get; set; }
         public string OtherDetail { get; set; }
 

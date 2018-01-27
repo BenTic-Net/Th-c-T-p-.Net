@@ -117,6 +117,7 @@ namespace CarDealer.Controllers
                 ViewBag.showwrt = "Y";
             else ViewBag.showwrt = "N";
             ViewBag.NewId = id;
+           
             return View(@new);
         }
 
@@ -129,8 +130,8 @@ namespace CarDealer.Controllers
         {
 
             ViewBag.Name = new SelectList(Param._TransWrt, "Key", "Value");
-
             var Ur = User.Identity.GetUserId().GetUserRole();
+
             if (!db.AspRoleControllers.Where(r => r.RoleId == Ur).Select(a => a.Action).Contains("EditStat"))
                 @new.Waranty = 0;
 
@@ -138,9 +139,17 @@ namespace CarDealer.Controllers
             {
                 @new.ModifiedOn = DateTime.Now;
                 @new.ModifiedBy = User.Identity.GetUserName();
-                @new.Image = "/Content/Upload/" + Session["path"]+"images" ;
+                @new.Image = "/Content/Upload/" + Session["path"];
+                
+                    @new.CreatedBy = db.News.AsNoTracking().Single(n => n.NewId == @new.NewId).CreatedBy;
+                    @new.CreatedOn = db.News.AsNoTracking().Single(n=>n.NewId==@new.NewId).CreatedOn;
+                    
+                
                 db.Entry(@new).State = EntityState.Modified;
+
                 db.SaveChanges();
+
+               
 
                 return RedirectToAction("Index");
             }

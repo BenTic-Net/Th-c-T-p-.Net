@@ -10,8 +10,8 @@ using CarDealer.Models;
 
 namespace CarDealer.Areas.Client.Controllers
 {
-    //[Authorize]
-    [ClientCmsAttr]
+    [Authorize]
+    
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -290,7 +290,8 @@ namespace CarDealer.Areas.Client.Controllers
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                 }
-                return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
+                ViewBag.result = "Success";
+                return View(model);
             }
             AddErrors(result);
             return View(model);

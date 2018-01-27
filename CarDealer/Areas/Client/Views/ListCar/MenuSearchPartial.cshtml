@@ -22,10 +22,10 @@
                 </select>
             </div>
             <div class="form-group select">
-               @Html.DropDownList("ddlManufacture", null, "Select Brand", new { @class = "form-control" })
+               @Html.DropDownList("ddlManufacture", null, "Select Brand", new { @class = "form-control",@onchange="ajaxrq(this.value)" })
             </div>
             <div class="form-group select">
-                @Html.DropDownList("ddlModel", null, "Select Model", new { @class = "form-control" })
+                @Html.DropDownList("ddlModel", null, "Select Model", new { @class = "form-control" ,id="model"})
             </div>
             <div class="form-group select">
                 <select class="form-control">

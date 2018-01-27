@@ -19,6 +19,7 @@ namespace CarDealer.Models
     {
         [Key]
         public long NewId { get; set; }
+        [Required]
         public string Title { get; set; }
         public string Image { get; set; }
         public Nullable<System.DateTime> TopHot { get; set; }

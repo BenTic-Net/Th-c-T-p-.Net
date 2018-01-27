@@ -132,38 +132,40 @@
                         <li>
                             <a href="@Url.Action("Index","Home")">Home</a>
                         </li>
-                        <li><a href="./about_us.html">About Us</a></li>
-                        <li class="dropdown">
-                            <a href="#" data-toggle="dropdown" aria-haspopup="true"
-                               aria-expanded="false">Inventory</a>
-                            <ul class="dropdown-menu">
+                        <li><a href="@Url.Action("Index","About")">About Us</a></li>
+                        <li class="">
+                            <a href="@Url.Action("Index","ListCar")" data-toggle="" aria-haspopup=""
+                               aria-expanded="">Inventory</a>
+                            @*<ul class="dropdown-menu">
                                 <li><a href="./listing.html">Audi</a></li>
                                 <li><a href="./listing.html">BMW</a></li>
                                 <li><a href="./listing.html">Nissan</a></li>
                                 <li><a href="./listing.html">Toyota</a></li>
                                 <li><a href="#">Detail Page Style 1</a></li>
                                 <li><a href="#">Detail Page Style 2</a></li>
-                            </ul>
+                            </ul>*@
                         </li>
+                        <!--  
                         <li class="dropdown">
                             <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dealers</a>
-                            <ul class="dropdown-menu">
+                            @*<ul class="dropdown-menu">
                                 <li><a href="./dealer_profile.html">Hà Nội</a></li>
                                 <li><a href="./dealer_profile.html">Đà Nẵng</a></li>
                                 <li><a href="./dealer_profile.html">Hồ Chí Minh</a></li>
-                            </ul>
+                            </ul>*@
                         </li>
-                        <li>
-                            <a href="./contact_us.html">Contact Us</a>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" data-toggle="dropdown" aria-haspopup="true"
-                               aria-expanded="false">News</a>
-                            <ul class="dropdown-menu">
+                            -->
+                        @*<li>
+                            <a href="~/contact_us.html">Contact Us</a>
+                        </li>*@
+                        <li class="">
+                            <a href="@Url.Action("Index","Blog")" data-toggle="" aria-haspopup=""
+                               aria-expanded="">News</a>
+                            @*<ul class="dropdown-menu">
                                 <li><a href="#">Blog Left Sidebar</a></li>
                                 <li><a href="#">Blog Right Sidebar</a></li>
                                 <li><a href="#">Blog Detail</a></li>
-                            </ul>
+                            </ul>*@
                         </li>
                     </ul>
                 </div>

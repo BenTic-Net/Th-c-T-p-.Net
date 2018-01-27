@@ -13,7 +13,7 @@ namespace CarDealer
         public static Dictionary<int, string> _TransPayment = new Dictionary<int, string> { { 0, "Not Paid" }, { 1, "Paid" }, { 2, "Paying" }, { 3, "Dispose" } };
         public static Dictionary<string, string> _TransPayMeth = new Dictionary<string, string> { { "Part", "Part" }, { "On Hand", "On Hand" }};
 
-
+        public static Dictionary<string, string> _p = new Dictionary<string, string> { { "MsgToDl", "Message To Dealer" }, { "RqMrInf", "Request More Info" }, { "MkOfr", "Make An Offer" } };
         public static Dictionary<int, string> TransWrt { get; set; }
 
         public static string Traslate(this int n)
@@ -50,6 +50,14 @@ namespace CarDealer
             }
 
             return "";
+        }
+        public static string TransFeedType(this string type)
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                Dictionary<string, string> p = new Dictionary<string, string> { { "MsgToDl", "Message To Dealer" }, { "RqMrInf", "Request More Info" }, { "MkOfr", "Make An Offer" } };
+                return p[type];
+            }
         }
     }
 }

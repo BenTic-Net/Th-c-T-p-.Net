@@ -5,11 +5,11 @@
 
     <div class="result-sorting-wrapper">
         <div class="sorting-count">
-            <p>1 - @(ViewBag.Number / 2) <span>of @ViewBag.Number Listings</span></p>
+            <p>Showing 2 <span>of @ViewBag.Number Listings</span></p>
         </div>
         <div class="result-sorting-by">
             <p>Sort by:</p>
-            <form action="http://themes.webmasterdriver.net/carforyou/demo/listing-classic.html#" method="post">
+            <form action="#" method="post">
                 <div class="form-group select sorting-select">
                     <select class="form-control ">
                         <option>Price (low to high)</option>
@@ -46,7 +46,7 @@
         </div>
     }
 
-    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page, ddlModel=Request["ddlModel"],ddlManufacture=Request["ddlManufacture"] }), new PagedListRenderOptions() { ContainerDivClasses = new List<string> { "pagination" }, UlElementClasses = new List<string> { "" }, })
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page, ddlModel=Request["ddlModel"],ddlManufacture=Request["ddlManufacture"] }), new PagedListRenderOptions() { ContainerDivClasses = new List<string> { "pagination" }, UlElementClasses = new List<string> { "" } })
 
 
 

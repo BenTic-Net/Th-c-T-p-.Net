@@ -6,13 +6,14 @@
 }
 
 <h2>Edit</h2>
-@{ Session["path"] = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"]+ "/" + ViewBag.NewId + "/"; }
+@{ Session["path"] = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"] + "/" + ViewBag.NewId + "/"; }
 
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
+    @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+
     <div class="form-horizontal">
         <h4>New</h4>
         <hr />
@@ -91,8 +92,8 @@
 
 <script src="~/ckeditor/ckeditor.js"></script>
 <script type="text/javascript">
-        $(document).ready(function () {
-            var editor =  CKEDITOR.replace("NewEditor");
+    $(document).ready(function () {
+        var editor = CKEDITOR.replace("NewEditor", { language: 'es'});
             CKFinder.setupCKEditor(editor, '/ckfinder/');
         })
             //

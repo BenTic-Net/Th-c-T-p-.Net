@@ -19,7 +19,10 @@ namespace CarDealer.Models
     {
         [Key]
         public long CarId { get; set; }
+        [Range(0,10000)]       
         public Nullable<int> CurentMile { get; set; }
+        [Range(0, 10000)]
+        public int? TotalMile { get; set; }
         public Nullable<int> ModelID { get; set; }
         public Nullable<short> CarTypeId { get; set; }        
         public Nullable<System.DateTime> CreatedTime { get; set; }
@@ -31,8 +34,10 @@ namespace CarDealer.Models
         //public byte[] MetaTitle { get; set; }
         public string ThumpImage { get; set; }
         [DataType(DataType.Currency)]
+        [Range(0,1000000)]
         public Nullable<decimal> AskingPrice { get; set; }
         public Nullable<bool> IncludedVAT { get; set; }
+        [Range(0,1000)]
         public Nullable<int> Quantity { get; set; }
         //public Nullable<bool> Status { get; set; }
         
@@ -40,6 +45,7 @@ namespace CarDealer.Models
         public Nullable<int> ViewCount { get; set; }
         public int Warranty { get; set; }
         public Nullable<decimal> Discount { get; set; }
+        [StringLength(500,MinimumLength =0)]
         public string ShortNote { get; set; }
 
 

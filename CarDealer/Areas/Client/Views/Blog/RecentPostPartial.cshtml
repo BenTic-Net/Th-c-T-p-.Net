@@ -1,0 +1,21 @@
+﻿@model IEnumerable< CarDealer.Areas.Client.Models.BlogViewModel>
+
+
+<div class="sidebar_widget">
+    <div class="widget_heading">
+        <h5>Recent Post</h5>
+    </div>
+    <div class="popular_post">
+        <ul>
+            @foreach (var n in Model)
+            {
+            <li>
+                <div class="popular_post_img"> <a href="@Url.Action("Detail",new { id= n.NewId})"><img src="@(n.Image)images/New.jpg" alt="image"></a> </div>
+                <div class="popular_post_title"> <a href="@Url.Action("Detail",new { id= n.NewId})">@n.Title</a> </div>
+            </li>
+            }
+
+        </ul>
+    </div>
+</div>
+

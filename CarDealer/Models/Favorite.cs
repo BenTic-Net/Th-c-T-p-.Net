@@ -17,12 +17,15 @@ namespace CarDealer.Models
     {
         [Key]
         public long CartId { get; set; }
+        [Required]
         public long CarId { get; set; }
+        [Required]
         public string UseriD { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
         public string CreatedBy { get; set; }
         public string ModifiedBy { get; set; }
+        public bool? Active { get; set; }
       //  public Nullable<int> Quantity { get; set; }
     }
 }

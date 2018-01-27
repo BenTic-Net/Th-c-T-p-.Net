@@ -1,0 +1,47 @@
+﻿@model IEnumerable<CarDealer.Areas.Client.Models.UFavoriteViewModal>
+
+
+<div class="col-md-6 col-sm-8">
+    <div class="profile_wrap">
+        <h5 class="uppercase underline">My Vehicles (<span id="count">@ViewBag.count</span>)</h5>
+        <div class="my_vehicles_list">
+            <ul class="vehicle_listing">
+                @foreach (var c in Model)
+                {
+                    
+                <li class="@(c.Active==false ? "deactive_vehicle":"")">
+                   
+               
+                    <div class="vehicle_img"> <a href="@Url.Action("Index","CarDetail",new { Id=c.CarId})"><img src="@c.thumbImage" alt="image"></a> </div>
+                    <div class="vehicle_title">
+                        <h6><a href="@Url.Action("Index","CarDetail",new { Id=c.CarId})">@c.CarName</a></h6>
+                    </div>
+                    <div class="vehicle_status">
+                        @if (c.Active == true)
+                        {
+                            @Ajax.ActionLink("Active", "ManageFavorite", "Account", new { ation = "active-" + c.CarId }, new AjaxOptions { HttpMethod = "Get" }, new { @class = "btn outline btn-xs active-btn",@onclick= "Deactive(this)" }) 
+                        }
+                        else {@Ajax.ActionLink("Deactive", "ManageFavorite", "Account", new { ation = "Deactive-" + c.CarId   }, new AjaxOptions { HttpMethod = "Get" }, new
+                         {
+                             @class = "btn outline btn-xs",
+                             @onclick = "active(this)"
+                         })}
+                        <div class="clearfix"></div>
+                         <a onclick="delFav('del-@c.CarId',this)"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                    </div>
+                </li>
+
+                    }
+            </ul>
+            <div class="pagination">
+                <ul>
+                    <li class="current">1</li>
+                    <li><a href=" #">2</a></li>
+                    <li><a href=" #">3</a></li>
+                    <li><a href=" #">4</a></li>
+                    <li><a href=" #">5</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

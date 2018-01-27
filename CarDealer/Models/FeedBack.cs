@@ -17,12 +17,22 @@ namespace CarDealer.Models
     {
         [Key]
         public int ID { get; set; }
+        [Required]
         public string Name { get; set; }
+        [DataType(DataType.PhoneNumber, ErrorMessage = "Provided phone number not valid")]
+        [RegularExpression(@"^(\d)$", ErrorMessage = "Wrong mobile")]
+        [StringLength(13, MinimumLength = 10)]
         public string Phone { get; set; }
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
-        public Nullable<bool> Content { get; set; }
+        [DataType(DataType.MultilineText)]
+        [Required]
+        public string Content { get; set; }
         public string Address { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
+        public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<bool> Status { get; set; }
+        [Required]
+        public string Type { get; set; }
     }
 }

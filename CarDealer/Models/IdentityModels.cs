@@ -6,6 +6,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
 using System;
 using System.Data.Entity.ModelConfiguration;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CarDealer.Models
 {
@@ -22,13 +23,15 @@ namespace CarDealer.Models
 
         public string FullName { get; set; }
         public string Image { get; set; }
+        public string Address { get; set; }
 
+        public virtual ICollection<Favorite> ToFavorite { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConection", throwIfV1Schema: false)
+            : base("DefaultConection1", throwIfV1Schema: false)
         {
         }
 
@@ -53,14 +56,15 @@ namespace CarDealer.Models
         public virtual DbSet<Contact> Contacts { get; set; }
         public virtual DbSet<FeedBack> FeedBacks { get; set; }
         public virtual DbSet<Footter> Footters { get; set; }
-        public virtual DbSet<Menu> Menus { get; set; }
+       // public virtual DbSet<Menu> Menus { get; set; }
         public virtual DbSet<New> News { get; set; }
         public virtual DbSet<Manufacture> Manufactures { get; set; }
         public virtual DbSet<CarDetail> CarDetails { get; set; }
-        public virtual DbSet<Favorite> ShoppingCarts { get; set; }
+        
         public virtual DbSet<SystemConfig> SystemConfigs { get; set; }
-
-      //  public System.Data.Entity.DbSet<CarDealer.Models.ApplicationUser> ApplicationUsers { get; set; }
+        public virtual DbSet<Slider> Slides { get; set; }
+        public virtual DbSet<Favorite> UFavorite { get; set; }
+        //  public System.Data.Entity.DbSet<CarDealer.Models.ApplicationUser> ApplicationUsers { get; set; }
         //public virtual DbSet<User> Users { get; set; }
 
 

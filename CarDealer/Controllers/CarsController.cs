@@ -156,7 +156,10 @@ namespace CarDealer.Controllers
             {
                 car.ModifiedBy = User.Identity.Name;
                 car.ModifiedTime = DateTime.Now;
-                
+                car.CreatedBy = db.Cars.AsNoTracking().Single(c => c.CarId == car.CarId).CreatedBy;
+                car.CreatedTime = db.Cars.AsNoTracking().Single(c => c.CarId == car.CarId).CreatedTime;
+                car.ViewCount = db.Cars.AsNoTracking().Single(c => c.CarId == car.CarId).ViewCount;
+                car.ThumpImage = db.Cars.AsNoTracking().Single(c => c.CarId == car.CarId).ThumpImage;
                 db.Entry(car).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -220,7 +223,7 @@ namespace CarDealer.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-           
+            ViewBag.CarId = carDt.CarId; 
             return View(carDt);
         }
 

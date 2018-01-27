@@ -31,7 +31,7 @@ namespace CarDealer.Models
         public string MetaKeywords { get; set; }
         public string MetaDescriptions { get; set; }
         public int Waranty { get; set; }
-        
+       
         public Nullable<int> ManufactureId { get; set; }
         [ForeignKey("ManufactureId")]
         public virtual Manufacture ToManufacture { get; set; }

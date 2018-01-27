@@ -253,8 +253,9 @@ namespace CarDealer.Controllers
                if( UserManager.Update(edituser).Succeeded)
                 TempData["EditMsg"] = "Edit user success";
                else TempData["EditMsg"] = "Edit fail!";
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+            return View(u);
         }
 
         public ActionResult Delete(string id)

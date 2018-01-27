@@ -1,0 +1,131 @@
+﻿@model CarDealer.Areas.Client.Models.BlogViewModel
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Areas/Client/Views/Shared/_LayoutClientHome.cshtml";
+}
+
+<!--Page Header-->
+<section class="page-header blog_page">
+    <div class="container">
+        <div class="page-header_wrap">
+            <div class="page-heading">
+                <h1>Blog Detail</h1>
+            </div>
+            <ul class="coustom-breadcrumb">
+                <li><a href=" #">Home</a></li>
+                <li>Blog Detail</li>
+            </ul>
+        </div>
+    </div>
+    <!-- Dark Overlay-->
+    <div class="dark-overlay"></div>
+</section>
+<!-- /Page Header--> 
+
+
+<!--Our-Blog-->
+<section class="our_blog">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 col-md-8">
+               
+                <article class="article_wrap article_full_info">
+                    <div class="articale_header">
+                        <h2>@Model.Title</h2>
+                        <div class="article_meta">
+                            <ul>
+                                <li><i class="fa fa-user-circle-o" aria-hidden="true"></i> <a href=" #">@Model.CreatedBy</a></li>
+                                <li><i class="fa fa-calendar-check-o" aria-hidden="true"></i>@Model.CreatedOn</li>
+                                <li><i class="fa fa-tags" aria-hidden="true"></i>@foreach (var t in Model.Topics) {<a href="@Url.Action("Index", "Blog", new { tag = t })">@t</a> }</li>
+
+<li><i class="fa fa-comment" aria-hidden="true"></i> <a href=" #">10 Comments</a></li>
+                                <li><i class="fa fa-eye" aria-hidden="true"></i> <a href=" #">205 Views</a></li>
+                            </ul>
+                        </div>
+                    </div>                    
+                    <div class="article_info">
+                       @Html.Raw(Model.Content)
+                    </div>
+                    <div class="article_tag gray-bg">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                                <h6>Tags:</h6>
+                                <div class="tag_list">
+                                    <ul>
+                                        @foreach (var t in Model.Topics)
+                                        {
+                                            <li><a href=" #">@t</a></li> }
+                                       
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <div class="share_article ">
+                                    <h6>Share:</h6>
+                                    <ul>
+                                        <li><a href=" #"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                        <li><a href=" #"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                        <li><a href=" #"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                                        <li><a href=" #"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+               @{ Html.RenderAction("CommentPartial", new { id = Model.NewId });}
+                <!--Comments-Form-->
+                <div class="comment-respond" id="Form">
+                    <h5>Leave A Comment</h5>
+                    @{Html.RenderAction("PostComment"); }
+                </div>
+            </div>
+
+           
+
+            <!--Side-bar-->
+            <aside class="col-lg-3 col-md-4">
+                <div class="sidebar_widget">
+                    <div class="widget_heading">
+                        <h5>Search Blog</h5>
+                    </div>
+                    <div class="blog_search">
+                        <form action=" #" method="get">
+                            <input class="form-control" name="search" type="text" placeholder="Search...">
+                            <button type="submit" class="search_btn"><i class="fa fa-search" aria-hidden="true"></i></button>
+                        </form>
+                    </div>
+                </div>
+               @{ Html.RenderAction("RecentPostPartial");}
+            
+               @{ Html.RenderAction("TagPartial", "Blog");}
+            </aside>
+            <!--/Side-bar-->
+
+        </div>
+    </div>
+</section>
+<!-- /Our-Blog--> 
+
+
+@section script{
+    
+<script src="~/ckeditor/ckeditor.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#Type').attr('value', 'New-'+'@(Model.NewId)-' + 'Comment');
+        })
+        var SetcomentRes = function (p) {
+            $('#Type').attr('value', 'New-'+'@(Model.NewId)-'+'CommentRes-' + p);
+            if (!document.getElementById("ResCan") ){
+                $('#cm').append('<button class="btn" type="submit" id="ResCan" onclick="Setnewcoment()">Cancel Response<span class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span></button>');
+            }
+        }
+        var Setnewcoment = function () {
+            $('#Type').attr('value', 'New-'+'@(Model.NewId)-' + 'Comment');
+            $('#ResCan').remove();
+        }
+    </script>
+    
+    }

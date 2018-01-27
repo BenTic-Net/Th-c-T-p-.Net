@@ -4,7 +4,7 @@
         <li class="dropdown">
             <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-circle" aria-hidden="true"></i>@User.Identity.Name<i class="fa fa-angle-down" aria-hidden="true"></i></a>
             <ul class="dropdown-menu">
-                <li><a href="./profile_settings.html">Profile Settings</a></li>
+                <li>@Html.ActionLink("Profile Settings", "UserProfile","Account")</li>
                 <li><a href="./favorite.html">My favorite car</a></li>
                 <li>@using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
                 {

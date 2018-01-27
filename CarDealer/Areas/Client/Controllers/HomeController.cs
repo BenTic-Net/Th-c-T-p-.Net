@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data.Entity;
 using System.Web.Mvc;
 using CarDealer.Areas.Client.Models;
 using CarDealer.Models;
+using System.Threading.Tasks;
+
 namespace CarDealer.Areas.Client.Controllers
 {
     public class HomeController : Controller
@@ -12,8 +15,23 @@ namespace CarDealer.Areas.Client.Controllers
         ApplicationDbContext context = new ApplicationDbContext();
         // GET: Client/Home
         public ActionResult Index()
-        {                       
+        {
+            ViewBag.ddlManufacture = new SelectList(context.Manufactures, "FullName", "FullName");
+            ViewBag.ddlModel = new SelectList(context.CarModels, "Name", "Name");
+            //var q = from m in context.CarModels join mf in context.Manufactures on m.ID equals mf.ManufactureId select new Dictionary<string,string> { { m.Name, mf.FullName } };
+            //TempData["Link"] = new SelectList(q, "Key", "Value");
             return View();
+        }
+
+        public ActionResult UpdateModel(string BrandName)
+        {
+
+            ViewBag.ddlModel = new SelectList(context.CarModels, "Name", "Name");
+            if (!string.IsNullOrEmpty(BrandName))
+            {
+                ViewBag.ddlModel = new SelectList(context.CarModels.Where(c => c.ToManufacture.FullName == BrandName), "Name", "Name");
+            }
+            return PartialView();
         }
 
         public ActionResult SearchFormPartial()
@@ -46,9 +64,15 @@ namespace CarDealer.Areas.Client.Controllers
         {
             return PartialView();
         }
-        public ActionResult NewsPartial()
+        public ActionResult BlogPartial()
         {
-            var q = context.News.OrderByDescending(c => c.CreatedOn).Take(3);
+            var q = (from n in context.News where n.Waranty == 1 select new BlogViewModel() { Content = n.Content, ViewCount = n.ViewCount, CreatedOn = n.CreatedOn, Topic = n.Topic, Title = n.Title, Image = n.Image, NewId = n.NewId, CreatedBy = n.CreatedBy }).ToList().Take(3);
+                
+              foreach(var n in q)
+            {
+                n.Commentcount = context.FeedBacks.Where(t => t.Type.Contains("New-" + n.NewId)).Count();
+            }
+                
             return PartialView(q);
         }
     }

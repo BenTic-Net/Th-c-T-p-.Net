@@ -1,0 +1,79 @@
+﻿
+@{
+    ViewBag.Title = "UserProfile";
+    Layout = "~/Areas/Client/Views/Shared/_LayoutClientHome.cshtml";
+}
+
+
+
+<!--Page Header-->
+<section class="page-header profile_page">
+    <div class="container">
+        <div class="page-header_wrap">
+            <div class="page-heading">
+                <h1>Your Profile</h1>
+            </div>
+            <ul class="coustom-breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li>Profile</li>
+            </ul>
+        </div>
+    </div>
+    <!-- Dark Overlay-->
+    <div class="dark-overlay"></div>
+</section>
+<!-- /Page Header--> 
+
+<!--Profile-setting-->
+<section class="user_profile inner_pages">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-sm-3">
+                <div class="profile_nav">
+                    <ul>
+                        <li>@Ajax.ActionLink("Profile Settings", "GeneralPrfPartial", new AjaxOptions { UpdateTargetId = "generalSection", HttpMethod = "Get" })</li>
+                        <li>@Ajax.ActionLink("My Favorite Car", "UFavoriteCar",new AjaxOptions { UpdateTargetId= "generalSection", HttpMethod="Get" })</li>
+                        <li><a href="#">Sign Out</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="generalSection">
+                @{ Html.RenderAction("GeneralPrfPartial");}
+            </div>
+        </div>
+    </div>
+</section>
+
+@section script{
+        <script>
+            var Deactive = function (p) {
+                $(p).attr('class', 'btn outline btn-xs');
+                $(p).text('Deactive')
+                $(p).parent().parent().attr('class', 'deactive_vehicle');    
+                $(p).attr('onclick', 'active(this)');
+            }
+            var active = function (p) {
+                $(p).attr('class', 'btn outline btn-xs active-btn');
+                $(p).text('Active')
+                $(p).parent().parent().attr('class', '');
+                $(p).attr('onclick', 'Deactive(this)');
+            }
+            var delFav = function (o,p) {
+                $.ajax({
+                    type: "Get",
+                    url: "/Client/Account/ManageFavorite?ation=" + o,
+
+                    contentType: "application/json; charset=utf-8",
+                    success: function (result) {
+                        $(p).parent().parent().remove();
+                        var c = Number($('#count').text());
+                        c--;
+                        $('#count').text(c);
+                    },
+
+                });
+
+            }
+        </script>
+    
+    }

@@ -24,17 +24,24 @@ namespace CarDealer.Models
         public Nullable<System.DateTime> FirstRegistrationDate { get; set; }
         public string MoreImage { get; set; }
         public string Feature { get; set; }
+        [Range(0,200)]
         public Nullable<byte> NumberOfSeat { get; set; }
+        [Range(0, 200)]
         public Nullable<byte> NumberOfDoor { get; set; }
-        public Nullable<byte> CupicCapacity { get; set; }
-        public string Horsepower { get; set; }
+        [Range(0,10000)]
+        public int? CupicCapacity { get; set; }
+        [Range(0,5000)]
+        public int Horsepower { get; set; }
+        [Range(0,100)]
         public Nullable<byte> Cylider { get; set; }
+
         public string FuelType { get; set; }
-        
+        [Range(0,200)]
         public Nullable<byte> FuelConsumption { get; set; }
-        //public Nullable<System.DateTime> CreatedOn { get; set; }
+
+
         public Nullable<System.DateTime> ModifiedOn { get; set; }
-        //public string CreatedBy { get; set; }
+       
         public string ModifiedBy { get; set; }
         public string TranmisionType { get; set; }
         public string EmissionClass { get; set; }

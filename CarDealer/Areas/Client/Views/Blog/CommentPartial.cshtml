@@ -1,0 +1,37 @@
+﻿@model IEnumerable<CarDealer.Models.FeedBack>
+
+<!--Comments-->
+<div class="articale_comments">
+    <div id="comments">
+        <h5>@ViewBag.Cmcount Comments</h5>
+        <ul class="commentlist">
+            @foreach (var c in Model.Where(m => m.Type.Contains("Comment")))
+            {
+                if (c.Type.Contains("Res")) { continue; }
+            <li class="comment">
+                <div class="comment-body">
+                    <div class="comment-author"> <img class="avatar" src="~/images/User.png" alt="image"> <span class="fn">@c.Name</span> </div>
+                    <div class="comment-meta commentmetadata"> <a href=" #">@c.CreatedDate</a> </div>
+                    <p>@c.Content</p>
+                    <div class="reply"> <a href="#Form" class="btn btn-primary btn-xs outline" onclick="SetcomentRes('@c.ID')"><i class="fa fa-reply" aria-hidden="true" ></i> Reply</a> </div>
+                </div>
+                <ul class="children">
+                    @foreach (var cr in Model.Where(m => m.Type.Contains("Res-"+c.ID)))
+                    {
+                    <li class="comment">
+                        <div class="comment-body">
+                            <div class="comment-author"> <img class="avatar" src="~/images/User.png" alt="image"> <span class="fn">@cr.Name</span> </div>
+                            <div class="comment-meta commentmetadata"> <a href=" #">@cr.CreatedDate</a> </div>
+                            <p>@cr.Content</p>
+                            <div class="reply"> <a href="#Form" class="btn btn-primary btn-xs outline" onclick="SetcomentRes('@c.ID')"><i class="fa fa-reply" aria-hidden="true"></i> Reply</a> </div>
+                        </div>
+                    </li>
+                    }
+                </ul>
+            </li>
+            }
+        </ul>
+    </div>
+</div>
+
+

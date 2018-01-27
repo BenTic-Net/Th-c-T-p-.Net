@@ -62,8 +62,8 @@
                 </div>
                 <div class="add_compare">
                     <div class="checkbox">
-                        <input value="" id="compare14" type="checkbox">
-                        <label for="compare14">Add to Compare</label>
+                        <input @ViewBag.check  id="compare14" type="checkbox" onchange="AddFav('add-@Model.Id')">
+                        <label for="compare14">Add to Favorite</label>
                     </div>
                     <div class="share_vehicle">
                         <p>
@@ -86,7 +86,7 @@
             </div>
             <div class="col-md-3">
                 <div class="price_info">
-                    <p>@Html.DisplayFor(m=>m.DownPrice)</p>
+                    <p>@Html.DisplayFor(m => m.DownPrice)</p>
                     <p class="old_price">@Html.DisplayFor(m => m.AskingPrice)</p>
                 </div>
             </div>
@@ -296,103 +296,7 @@
                                 </div>
                             </div>
 
-                            <!-- Accessories 
-                            <div role="tabpanel" class="tab-pane" id="accessories">
-                                
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th colspan="2">Accessories</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Air Conditioner</td>
-                                            <td>
-                                                <i class="fa fa-check" aria-hidden="true"></i>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>AntiLock Braking System</td>
-                                            <td>
-                                                <i class="fa fa-check" aria-hidden="true"></i>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Power Steering</td>
-                                            <td>
-                                                <i class="fa fa-check" aria-hidden="true"></i>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Power Windows</td>
-                                            <td>
-                                                <i class="fa fa-check" aria-hidden="true"></i>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>CD Player</td>
-                                            <td>
-                                                <i class="fa fa-close" aria-hidden="true"></i>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Leather Seats</td>
-                                            <td>
-                                                <i class="fa fa-check" aria-hidden="true"></i>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Central Locking</td>
-                                            <td>
-                                                <i class="fa fa-check" aria-hidden="true"></i>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Power Door Locks</td>
-                                            <td>
-                                                <i class="fa fa-check" aria-hidden="true"></i>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Brake Assist</td>
-                                            <td>
-                                                <i class="fa fa-check" aria-hidden="true"></i>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Driver Airbag</td>
-                                            <td>
-                                                <i class="fa fa-check" aria-hidden="true"></i>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Passenger Airbag</td>
-                                            <td>
-                                                <i class="fa fa-check" aria-hidden="true"></i>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Crash Sensor</td>
-                                            <td>
-                                                <i class="fa fa-check" aria-hidden="true"></i>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Engine Check Warning</td>
-                                            <td>
-                                                <i class="fa fa-check" aria-hidden="true"></i>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Automatic Headlamps</td>
-                                            <td>
-                                                <i class="fa fa-check" aria-hidden="true"></i>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>-->
+                         
                         </div>
                     </div>
 
@@ -404,7 +308,7 @@
                         </div>
                     </div>
 
-                    <!--Comment-Form-->
+                    @*<!--Comment-Form-->
                     <div class="comment_form">
                         <h6>Leave a Comment</h6>
                         <form action="#">
@@ -422,21 +326,21 @@
                             </div>
                         </form>
                     </div>
-                    <!--/Comment-Form-->
+                    <!--/Comment-Form-->*@
 
                 </div>
             </div>
 
             <!--Side-Bar-->
             <aside class="col-md-3">
-                <div class="sidebar_widget">
+                @*<div class="sidebar_widget">
                     <div class="widget_heading">
                         <h5>
                             <i class="fa fa-calculator" aria-hidden="true"></i> Financing Calculator
                         </h5>
                     </div>
                     <div class="financing_calculatoe">
-                        <form action="http://themes.webmasterdriver.net/carforyou/demo/listing-detail-2.html#" method="get">
+                        <form action="#" method="get">
                             <div class="form-group">
                                 <label class="form-label">Vehicle Price ($)</label>
                                 <input class="form-control" type="text">
@@ -476,47 +380,15 @@
                             </div>
                         </form>
                     </div>
-                </div>
-                <div class="sidebar_widget">
-                    <div class="widget_heading">
-                        <h5>
-                            <i class="fa fa-address-card-o" aria-hidden="true"></i> Dealer Contact
-                        </h5>
-                    </div>
-                    <div class="dealer_detail">
-                        <img src="~/home_files/dealer_img.jpg" alt="image">
-                        <p>
-                            <span>Name:</span> Dealer Name
-                        </p>
-                        <p>
-                            <span>Email:</span> contact@example.com
-                        </p>
-                        <p>
-                            <span>Phone:</span> +61-1234-5678-09
-                        </p>
-                        <a href="http://themes.webmasterdriver.net/carforyou/demo/listing-detail-2.html#" class="btn btn-xs">View Profile</a>
-                    </div>
-                </div>
+                </div>*@
+               @{ Html.RenderAction("DealerPartial");}
                 <div class="sidebar_widget">
                     <div class="widget_heading">
                         <h5>
                             <i class="fa fa-envelope" aria-hidden="true"></i> Message to Dealer
                         </h5>
                     </div>
-                    <form action="http://themes.webmasterdriver.net/carforyou/demo/listing-detail-2.html#">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Name">
-                        </div>
-                        <div class="form-group">
-                            <input type="email" class="form-control" placeholder="Email">
-                        </div>
-                        <div class="form-group">
-                            <textarea rows="4" class="form-control" placeholder="Message"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <input type="submit" value="Send Message" class="btn btn-block">
-                        </div>
-                    </form>
+                    @{ Html.RenderAction("FeedBackForm");}
                 </div>
             </aside>
             <!--/Side-Bar-->
@@ -532,7 +404,7 @@
                 <div class="col-md-3 grid_listing">
                     <div class="product-listing-m gray-bg">
                         <div class="product-listing-img">
-                            <a href="http://themes.webmasterdriver.net/carforyou/demo/listing-detail-2.html#">
+                            <a href= #">
                                 <img src="~/home_files/featured-img-3.jpg" class="img-responsive" alt="image">
                             </a>
                             <div class="label_icon">New</div>
@@ -545,7 +417,7 @@
                         </div>
                         <div class="product-listing-content">
                             <h5>
-                                <a href="http://themes.webmasterdriver.net/carforyou/demo/listing-detail-2.html#">Maserati QUATTROPORTE 1,6</a>
+                                <a href= #">Maserati QUATTROPORTE 1,6</a>
                             </h5>
                             <p class="list-price">$89,000</p>
                             <div class="car-location">
@@ -573,7 +445,7 @@
                 <div class="col-md-3 grid_listing">
                     <div class="product-listing-m gray-bg">
                         <div class="product-listing-img">
-                            <a href="http://themes.webmasterdriver.net/carforyou/demo/listing-detail-2.html#">
+                            <a href= #">
                                 <img src="~/home_files/featured-img-1.jpg" class="img-responsive" alt="image">
                             </a>
                             <div class="label_icon">New</div>
@@ -586,7 +458,7 @@
                         </div>
                         <div class="product-listing-content">
                             <h5>
-                                <a href="http://themes.webmasterdriver.net/carforyou/demo/listing-detail-2.html#">Mazda CX-5 SX, V6, ABS, Sunroof </a>
+                                <a href= #">Mazda CX-5 SX, V6, ABS, Sunroof </a>
                             </h5>
                             <p class="list-price">$89,000</p>
                             <div class="car-location">
@@ -614,7 +486,7 @@
                 <div class="col-md-3 grid_listing">
                     <div class="product-listing-m gray-bg">
                         <div class="product-listing-img">
-                            <a href="http://themes.webmasterdriver.net/carforyou/demo/listing-detail-2.html#">
+                            <a href= #">
                                 <img src="~/home_files/featured-img-2.jpg" class="img-responsive" alt="image">
                             </a>
                             <div class="label_icon">Used</div>
@@ -627,7 +499,7 @@
                         </div>
                         <div class="product-listing-content">
                             <h5>
-                                <a href="http://themes.webmasterdriver.net/carforyou/demo/listing-detail-2.html#">Maserati QUATTROPORTE 1,6</a>
+                                <a href= #">Maserati QUATTROPORTE 1,6</a>
                             </h5>
                             <p class="list-price">$89,000</p>
                             <div class="car-location">
@@ -655,7 +527,7 @@
                 <div class="col-md-3 grid_listing">
                     <div class="product-listing-m gray-bg">
                         <div class="product-listing-img">
-                            <a href="http://themes.webmasterdriver.net/carforyou/demo/listing-detail-2.html#">
+                            <a href= #">
                                 <img src="~/home_files/featured-img-1.jpg" class="img-responsive" alt="image">
                             </a>
                             <div class="label_icon">Used</div>
@@ -668,7 +540,7 @@
                         </div>
                         <div class="product-listing-content">
                             <h5>
-                                <a href="http://themes.webmasterdriver.net/carforyou/demo/listing-detail-2.html#">Mazda CX-5 SX, V6, ABS, Sunroof </a>
+                                <a href= #">Mazda CX-5 SX, V6, ABS, Sunroof </a>
                             </h5>
                             <p class="list-price">$89,000</p>
                             <div class="car-location">
@@ -711,23 +583,30 @@
                 <h3 class="modal-title">Request More Info</h3>
             </div>
             <div class="modal-body">
-                <form action="#" method="get">
+                @using (Ajax.BeginForm("FeedBackForm", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "alert('Success')", OnFailure = "alert('Fail')" }, new { @class = "comment-form", id = "cm" }))
+                {
+                    <input type="text" name="Type" id="Type" hidden="hidden" value="RqMrInf" />
+                    if (!User.Identity.IsAuthenticated)
+                    {
+
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Full Name">
+                        <input type="text" name="Name" class="form-control" placeholder="Full Name">
                     </div>
                     <div class="form-group">
-                        <input type="email" class="form-control" placeholder="Email Address">
+                        <input type="email" name="Email" class="form-control" placeholder="Email Address">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Phone Number">
+                        <input type="text" name="Phone" class="form-control" placeholder="Phone Number">
                     </div>
+                    }
                     <div class="form-group">
-                        <textarea rows="4" class="form-control" placeholder="Message"></textarea>
+                        <textarea rows="4" name="Content" class="form-control" placeholder="Message"></textarea>
                     </div>
                     <div class="form-group">
                         <input type="submit" value="Submit Query" class="btn btn-block">
                     </div>
-                </form>
+                    
+                }
             </div>
         </div>
     </div>
@@ -744,26 +623,29 @@
                 <h3 class="modal-title">Make an Offer</h3>
             </div>
             <div class="modal-body">
-                <form action="#" method="get">
+                @using (Ajax.BeginForm("FeedBackForm", null, new AjaxOptions { HttpMethod = "Post", OnSuccess = "alert('Success')", OnFailure = "alert('Fail')" }, new { @class = "comment-form", id = "cm" }))
+                {
+                    <input type="text" name="Type" id="Type" hidden="hidden" value="MkOfr" />
+                    if (!User.Identity.IsAuthenticated)
+                    {
+
+                        <div class="form-group">
+                            <input type="text" name="Name" class="form-control" placeholder="Full Name">
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="Email" class="form-control" placeholder="Email Address">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="Phone" class="form-control" placeholder="Phone Number">
+                        </div>
+                    }
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Full Name">
-                    </div>
-                    <div class="form-group">
-                        <input type="email" class="form-control" placeholder="Email Address">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Phone Number">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Offer Price">
-                    </div>
-                    <div class="form-group">
-                        <textarea class="form-control" placeholder="Message"></textarea>
+                        <textarea class="form-control" name="Content" placeholder="Message"></textarea>
                     </div>
                     <div class="form-group">
                         <input type="submit" value="Submit Query" class="btn btn-block">
                     </div>
-                </form>
+                }
             </div>
         </div>
     </div>
@@ -789,6 +671,36 @@
             centerMode: true,
             focusOnSelect: true
         });
+
+        var AddFav = function (p) {
+            if (document.getElementById("compare14").checked==true) {
+                $.ajax({
+                    type: "Get",
+                    url: "/Client/Account/ManageFavorite?ation=" + p,
+                    contentType: "application/json; charset=utf-8",
+                    success: function (result) {
+                        alert('success');
+                    },
+                    error: errorFunc
+                });
+            }
+            else 
+                $.ajax({
+                    type: "Get",
+                    url: "/Client/Account/ManageFavorite?ation=del-@Model.Id",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (result) {
+                       
+                    },
+                    error: errorFunc
+                });
+            function errorFunc() {
+                alert('error');
+            };
+
+           
+        }
+
 </script>
 
     }

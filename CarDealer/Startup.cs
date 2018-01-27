@@ -64,7 +64,7 @@ namespace CarDealer
                                                                    !item.Action.Contains("Detail")) || item.Controller == "ManageController" || item.Action == "EditDetail" || item.Action == "DetailsCar" || item.Action == "DeleteConfirmed")
                         continue;
                     AspController itemAdd = context.AspControllers.Find(item.Controller, item.Action);
-                    if (context.AspControllers.Find(item.Controller, "EditStat") == null &&( item.Controller!= "UsersController" && item.Controller!= "RoleController"))
+                    if (context.AspControllers.Find(item.Controller, "EditStat") == null && (item.Controller != "UsersController" && item.Controller != "RoleController"))
                         context.AspControllers.Add(new AspController { Action = "EditStat", Controller = item.Controller });
                     if (itemAdd == null)
                     {

@@ -22,7 +22,7 @@ namespace CarDealer.Controllers
 
         public ActionResult Index(string txtModel , int? Waranty, string Col, string Ord, int? page)
         {
-            var carmodel = context.CarModels.Include(c => c.ToManufacture);
+            var carmodel = context.CarModels.Include(c=>c.ToManufacture);
             ViewBag.Waranty = new SelectList(Param._TransWrt, "Key", "Value");
             if (!string.IsNullOrEmpty(txtModel))
                 carmodel = carmodel.Where(c => c.Name.Contains(txtModel));

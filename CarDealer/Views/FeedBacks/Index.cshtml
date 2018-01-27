@@ -1,0 +1,98 @@
+﻿@model IEnumerable<CarDealer.Models.FeedBack>
+@using PagedList;
+@using PagedList.Mvc;
+@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Index</h2>
+@{
+    var action = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().CheckViewAct(User.Identity.GetUserId());
+}
+
+@using (Html.BeginForm("Index", "Feedbacks", FormMethod.Get))
+{
+    <div class="form-group">
+       
+        <div class="col-md-2">
+            @Html.DropDownList("type", null,"Select Type", new { @class = "form-control" })
+        </div>
+
+        <div class="col-md-2">
+            @Html.DropDownList("Readed", null, "Select Status", new { @class = "form-control" })
+        </div>
+        <input type="submit" value="Search" class="btn btn-default" />
+    </div>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        
+        <th>
+            Readed
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Type)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>        
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @{ string t = item.Type.TransFeedType();}
+            @(t)
+        </td>
+        <td>
+           @{
+
+               if (action != null && !string.IsNullOrEmpty(User.Identity.GetUserId()))
+               {
+
+                   if (action.Contains("Detail"))
+                   {<span>
+                @Html.ActionLink("Detail", "Detail", new { id = item.ID })
+            </span>}
+               }
+
+               if (action.Contains("Delete"))
+               {<span>
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </span>}
+               }
+
+
+
+
+
+        }
+        </td>
+    </tr>
+}
+
+</table>
+@Html.PagedListPager((IPagedList)Model,page=>Url.Action("Index",new { page, type =Request["type"], Readed=Request["Readed"] }))

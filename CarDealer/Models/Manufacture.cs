@@ -18,10 +18,14 @@ namespace CarDealer.Models
         [Key]
         public int ManufactureId { get; set; }
         [Display(Name ="Manufacture Name")]
+        [Required]
         public string FullName { get; set; }
         public string ShortName { get; set; }
         public string Detail { get; set; }
-
+        public string CreatedBy { get; set; }
+        public string CreatedOn { get; set; }
+        public string ModifiedOn { get; set; }
+        public string ModifiedBy { get; set; }
         public virtual ICollection<CarModel> ToModels { get; set; }
     }
 }

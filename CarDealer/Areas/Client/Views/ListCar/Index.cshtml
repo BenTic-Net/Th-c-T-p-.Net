@@ -100,3 +100,30 @@
     </div>
 </section>
 <!-- /Listing--> 
+@section script{
+    
+    <script>
+        var ajaxrq = function (o) {
+
+            $.ajax({
+                type: "Get",
+                url: "/Client/Home/UpdateModel?BrandName=" + o,
+                contentType: "application/json; charset=utf-8",
+                success: function (result) {
+                    $('#model').html(result);
+                },
+                error: errorFunc
+            });
+
+            function successFunc(result) {
+                $('#model').html(result);
+
+            }
+
+            function errorFunc() {
+                alert('error');
+            }
+        }
+    </script>
+    
+    }

@@ -10,6 +10,9 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using CarDealer.Models;
+using System.Net;
+using CarDealer.Areas.Client.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace CarDealer.Areas.Client.Controllers
 {
@@ -20,11 +23,99 @@ namespace CarDealer.Areas.Client.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         ApplicationDbContext context;
+
+       public ActionResult UFavoriteCar()
+       {
+            if (!User.Identity.IsAuthenticated)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            string uid = User.Identity.GetUserId();
+            var uf = (from c in context.Cars join f in context.UFavorite on c.CarId equals f.CarId where f.UseriD == uid select new UFavoriteViewModal() { Active = f.Active, CarName = c.Name, thumbImage = c.ThumpImage + "Car.jpg" , CarId=c.CarId}).ToList();
+            ViewBag.count = uf.Count();
+            return View(uf);
+       }
+        
+        public ActionResult ManageFavorite(string ation)
+        {
+            if(!User.Identity.IsAuthenticated)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            string act = ation.Split('-')[0];
+            long CarId;
+            try
+            {
+                string n = ation.Split('-')[1];
+               CarId = Int64.Parse(n); }
+            catch { return new HttpStatusCodeResult(HttpStatusCode.BadRequest); }
+            string uid = User.Identity.GetUserId();
+
+            if (act == "active" && context.UFavorite.Where(f => f.CarId == CarId && f.UseriD == uid) != null)
+            {
+                
+                context.UFavorite.Where(f => f.CarId == CarId && f.UseriD ==uid ).First().Active = false;
+                context.SaveChanges();
+                return Content("Success");
+            }
+           if(act == "Deactive" && context.UFavorite.Where(f => f.CarId == CarId && f.UseriD == uid) != null)
+            {
+                
+                context.UFavorite.Where(f => f.CarId == CarId && f.UseriD == uid).First().Active = true;
+                context.SaveChanges();
+                return Content("Success");
+            }
+            if(act=="add")
+            {
+                context.UFavorite.Add(new CarDealer.Models.Favorite() { Active = true, CarId = CarId, UseriD = uid });
+                context.SaveChanges();
+                return Content("Success");
+            }
+            if(act=="del")
+            {
+                var d = context.UFavorite.Where(c => c.CarId == CarId && c.UseriD == uid).First();
+                context.UFavorite.Remove(d);
+                context.SaveChanges();
+                return Content("Success");
+            }
+            return Content("Fail");
+;        }
+        public ActionResult UserProfile()
+        {
+            if (!User.Identity.IsAuthenticated)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+           
+            return View();
+        }
+
+        public ActionResult GeneralPrfPartial()
+        {
+            var user = context.Users.Find(User.Identity.GetUserId());
+            ProfileViewModel profile = new ProfileViewModel() { Address = user.Address, Email = user.Email, FullName = user.FullName, Phonenumber = user.PhoneNumber };
+            return View(profile);
+        }
+        [HttpPost]
+        public ActionResult SaveProfile([Bind(Include = "Email,Address,FullName,Phonenumber")] ProfileViewModel profile)
+        {
+            if(ModelState.IsValid)
+            {
+                var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+                var u = UserManager.FindById(User.Identity.GetUserId());
+                u.FullName = profile.FullName;
+                u.Email = profile.Email;
+                u.Address = profile.Address;
+                u.PhoneNumber = profile.Phonenumber;
+
+                if (UserManager.Update(u).Succeeded)
+                    return Content("Update Success");
+                return Content( UserManager.Update(u).Errors.ToString());
+            }
+            return Content("Update Fail");
+        }
         public AccountController()
         {
             context = new ApplicationDbContext();
             
         }
+
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
         {
@@ -71,7 +162,7 @@ namespace CarDealer.Areas.Client.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public async Task<ActionResult> Login(CarDealer.Models.LoginViewModel model, string returnUrl)
         {
             
             /* if (!ModelState.IsValid)
@@ -135,7 +226,7 @@ namespace CarDealer.Areas.Client.Controllers
             {
                 return View("Error");
             }
-            return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
+            return View(new CarDealer.Models.VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
 
         //
@@ -143,7 +234,7 @@ namespace CarDealer.Areas.Client.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> VerifyCode(VerifyCodeViewModel model)
+        public async Task<ActionResult> VerifyCode(CarDealer.Models.VerifyCodeViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -257,7 +348,7 @@ namespace CarDealer.Areas.Client.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        public async Task<ActionResult> ForgotPassword(CarDealer.Models.ForgotPasswordViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -301,7 +392,7 @@ namespace CarDealer.Areas.Client.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
+        public async Task<ActionResult> ResetPassword(CarDealer.Models.ResetPasswordViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -353,7 +444,7 @@ namespace CarDealer.Areas.Client.Controllers
             }
             var userFactors = await UserManager.GetValidTwoFactorProvidersAsync(userId);
             var factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
-            return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
+            return View(new CarDealer.Models.SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
 
         //
@@ -361,7 +452,7 @@ namespace CarDealer.Areas.Client.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> SendCode(SendCodeViewModel model)
+        public async Task<ActionResult> SendCode(CarDealer.Models.SendCodeViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -402,7 +493,7 @@ namespace CarDealer.Areas.Client.Controllers
                     // If the user does not have an account, then prompt the user to create an account
                     ViewBag.ReturnUrl = returnUrl;
                     ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
+                    return View("ExternalLoginConfirmation", new CarDealer.Models.ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
             }
         }
 
@@ -411,7 +502,7 @@ namespace CarDealer.Areas.Client.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
+        public async Task<ActionResult> ExternalLoginConfirmation(CarDealer.Models.ExternalLoginConfirmationViewModel model, string returnUrl)
         {
             if (User.Identity.IsAuthenticated)
             {

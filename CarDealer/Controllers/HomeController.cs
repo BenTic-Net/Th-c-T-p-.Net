@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using CarDealer.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.IO;
 
 namespace CarDealer.Controllers
 {
@@ -15,11 +16,24 @@ namespace CarDealer.Controllers
         ApplicationDbContext context =new ApplicationDbContext();
 
 
+        [HttpPost]
+        public ActionResult Upload(HttpPostedFileBase img)
+        {
+            if(img!=null)
+            {
+                Directory.CreateDirectory(Server.MapPath("~/Content/Upload/User/" + User.Identity.Name ));
+                img.SaveAs(Server.MapPath("~/Content/Upload/User/") + User.Identity.Name + "/" + img.FileName);
+                context.Users.Find(User.Identity.GetUserId()).Image = "/Content/Upload/User/" + User.Identity.Name + "/" + img.FileName;context.SaveChanges();
+                return Redirect(Request.UrlReferrer.ToString());
+            }
+
+            return Redirect(Request.UrlReferrer.ToString());
+        }
 
         public ActionResult MenuRender()
         {
             
-                ;
+                
            
             return PartialView("_MenuAdminPartial",
                 context.AspRoleControllers.ToList());            
