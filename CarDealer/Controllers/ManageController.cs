@@ -22,20 +22,24 @@ namespace CarDealer.Controllers
         }
         public ActionResult UserPartial()
         {
-          //var user=  context.Users.Find(User.Identity.GetUserId());
-            var usersWithRoles = (from user in context.Users
-                                  from userRole in user.Roles
-                                  join role in context.Roles on userRole.RoleId equals
-                                  role.Id
-                                  select new UserViewModel()
-                                  {
-                                      Id = user.Id,
-                                      UserName = user.UserName,
-                                      PhoneNumber = user.PhoneNumber,
-                                      Email = user.Email,
-                                      Role = role.Name
-                                  }).ToList();
-            return PartialView("_LoginPartialAdmin",usersWithRoles.Single(u=>u.Id==User.Identity.GetUserId()));
+            //var user=  context.Users.Find(User.Identity.GetUserId());
+            if (context.Users.Find(User.Identity.GetUserId()).Roles.Count!=0)
+            {
+                var usersWithRoles = (from user in context.Users
+                                      from userRole in user.Roles
+                                      join role in context.Roles on userRole.RoleId equals
+                                      role.Id
+                                      select new UserViewModel()
+                                      {
+                                          Id = user.Id,
+                                          UserName = user.UserName,
+                                          PhoneNumber = user.PhoneNumber,
+                                          Email = user.Email,
+                                          Role = role.Name
+                                      }).ToList();
+                return PartialView("_LoginPartialAdmin", usersWithRoles.Single(u => u.Id == User.Identity.GetUserId()));
+            }
+            return PartialView("_LoginPartialAdmin", null);
         }
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {

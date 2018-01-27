@@ -1,0 +1,8 @@
+C:\Users\TranVan\Desktop\CarDl\Car\CarDealer\ckfinder\_source\Resources\Plugins\Watermark\bin\Debug\CKFinder_Watermark.dll
+C:\Users\TranVan\Desktop\CarDl\Car\CarDealer\ckfinder\_source\Resources\Plugins\Watermark\bin\Debug\CKFinder_Watermark.pdb
+C:\Users\TranVan\Desktop\CarDl\Car\CarDealer\ckfinder\_source\Resources\Plugins\Watermark\bin\Debug\CKFinder.dll
+C:\Users\TranVan\Desktop\CarDl\Car\CarDealer\ckfinder\_source\Resources\Plugins\Watermark\bin\Debug\CKFinder.pdb
+C:\Users\TranVan\Desktop\CarDl\Car\CarDealer\ckfinder\_source\Resources\Plugins\Watermark\obj\Debug\Watermark.csprojResolveAssemblyReference.cache
+C:\Users\TranVan\Desktop\CarDl\Car\CarDealer\ckfinder\_source\Resources\Plugins\Watermark\obj\Debug\Watermark.csproj.CoreCompileInputs.cache
+C:\Users\TranVan\Desktop\CarDl\Car\CarDealer\ckfinder\_source\Resources\Plugins\Watermark\obj\Debug\CKFinder_Watermark.dll
+C:\Users\TranVan\Desktop\CarDl\Car\CarDealer\ckfinder\_source\Resources\Plugins\Watermark\obj\Debug\CKFinder_Watermark.pdb

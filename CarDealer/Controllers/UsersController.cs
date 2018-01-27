@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity.Owin;
-
+using PagedList;
 namespace CarDealer.Controllers
 {
     // [Authorize(Roles ="Admin")]
-    [Authorize]
+    [ClientCmsAttr]
     [AuthAttribute]
     public class UsersController : Controller
     {
@@ -42,7 +42,7 @@ namespace CarDealer.Controllers
 
         // GET: Users
         
-        public ActionResult Index()
+        public ActionResult Index(string txtUserName, string txtEmail, string ddlRole,int?page)
         {
             var alluser = context.Users.ToList();
 
@@ -74,24 +74,33 @@ namespace CarDealer.Controllers
             }
 
 
-            if (User.Identity.IsAuthenticated)
-            { 
-                var user = User.Identity;
-                ViewBag.Name = user.Name;
+            //if (User.Identity.IsAuthenticated)
+            //{ 
+            //    var user = User.Identity;
+            //    ViewBag.Name = user.Name;
 
-                ViewBag.displayMenu = "No";
+            //    ViewBag.displayMenu = "No";
 
-                if (isAdminUser())
-                {
-                    ViewBag.displayMenu = "Yes";
-                }
-                return View(usersWithRoles);
-            }
-            else
-            {
-                ViewBag.Name = "Not Logged IN";
-            }
-            return View();
+            //    if (isAdminUser())
+            //    {
+            //        ViewBag.displayMenu = "Yes";
+            //    }
+
+            ViewBag.ddlRole = new SelectList(context.Roles, "Id", "Name");
+            if (!string.IsNullOrEmpty(txtEmail))
+                usersWithRoles = usersWithRoles.Where(u => u.Email.Contains(txtEmail)).ToList();
+            if (!string.IsNullOrEmpty(txtUserName))
+                usersWithRoles = usersWithRoles.Where(u => u.UserName.Contains(txtUserName)).ToList();
+
+
+
+                return View(usersWithRoles.ToPagedList(page??1,5));
+            //}
+            //else
+            //{
+            //    ViewBag.Name = "Not Logged IN";
+            //}
+            //return View();
             
         }
 
@@ -172,8 +181,9 @@ namespace CarDealer.Controllers
                                 Email = user.Email,
                                 Role = role.Name,
                                 PhoneNumber = user.PhoneNumber,
-                                
-                                  }).ToList();
+                                Lockout=user.LockoutEnabled,
+                                LockoutEndDate = user.LockoutEndDateUtc,
+        }).ToList();
 
             //Get user without role
             var userwithoutrole = context.Users.Where(x => x.Roles.Count == 0);
@@ -184,6 +194,9 @@ namespace CarDealer.Controllers
                 newu.UserName = u.UserName;
                 newu.PhoneNumber = u.PhoneNumber;
                 newu.Email = u.Email;
+                newu.Lockout = u.LockoutEnabled;
+                newu.LockoutEndDate = u.LockoutEndDateUtc;
+
                 newu.Role = "";
                 thisuser.Add(newu);
             }
@@ -289,12 +302,13 @@ namespace CarDealer.Controllers
         public ActionResult DeleteConfirmed(string id)
         {
             var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
-           var deluser= UserManager.Users.SingleOrDefault(u => u.Id == id);
-            
+           var deluser= UserManager.Users.SingleOrDefault(u => u.Id == id); @TempData["EditMsg"] = "Deletefail";
+            if (deluser.UserName == "shanu") 
+                return RedirectToAction("Index");
 
 
             UserManager.Delete(deluser);
-           
+            @TempData["EditMsg"] = "Delete Success";
             return RedirectToAction("Index");
         }
 

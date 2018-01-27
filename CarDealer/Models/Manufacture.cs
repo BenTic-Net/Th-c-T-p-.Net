@@ -17,6 +17,7 @@ namespace CarDealer.Models
     {
         [Key]
         public int ManufactureId { get; set; }
+        [Display(Name ="Manufacture Name")]
         public string FullName { get; set; }
         public string ShortName { get; set; }
         public string Detail { get; set; }

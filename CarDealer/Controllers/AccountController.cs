@@ -100,13 +100,15 @@ namespace CarDealer.Controllers
 
             // This doesn't count login failures towards account lockout  
             // To enable password failures to trigger account lockout, change to shouldLockout: true  
-            var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: true);
             switch (result)
             {
                 case SignInStatus.Success:
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
-                    return View("Lockout");
+                    {
+                        ModelState.AddModelError("", "Account Locked.");return View(model);
+                    }
                 case SignInStatus.RequiresVerification:
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
@@ -210,7 +212,7 @@ namespace CarDealer.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);  
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");  
                     //Assign Role to user Here     
-                  //  await this.UserManager.AddToRoleAsync(user.Id, "Guest");
+                    await this.UserManager.AddToRoleAsync(user.Id, model.UserRoles);
                     //Ends Here   
                     return RedirectToAction("Index", "Users");
                 }

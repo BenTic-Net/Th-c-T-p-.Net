@@ -59,10 +59,12 @@
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ThumpImage, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form-group hidden">
+            @Html.LabelFor(model => model.ThumpImage, htmlAttributes: new { @class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ThumpImage, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.ThumpImage, new { htmlAttributes = new { @class = "form-control" ,@type="hidden"} })
+                @*<input id="ThumpImage" name="ThumpImage" type="text" />
+                <input type="button" value="Browse Server" onclick="BrowseServer();" />*@
                 @Html.ValidationMessageFor(model => model.ThumpImage, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -91,34 +93,25 @@
                 @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
             </div>
-        </div>
-
-       
+        </div>               
 
         <div class="form-group">
-            @Html.LabelFor(model => model.TopHot, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ShortNote, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.TopHot, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TopHot, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.ShortNote, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ShortNote, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ViewCount, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ViewCount, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ViewCount, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
+@if (ViewBag.showwrt == "Y")
+{
         <div class="form-group">
             @Html.LabelFor(model => model.Warranty, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("WarranTy",(SelectList)ViewBag.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownList("WarranTy", (SelectList)ViewBag.Name, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Warranty, "", new { @class = "text-danger" })
             </div>
         </div>
-
+}
         <div class="form-group">
             @Html.LabelFor(model => model.Discount, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -140,3 +133,20 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+@section scripts{
+<script src="~/ckfinder/ckfinder.js"></script>
+    <script>
+
+        function BrowseServer() {
+            var finder = new CKFinder();
+            var path='~/Content/Upload/Cars/@ViewBag.Carid/Thumpnails/';
+            finder.basePath = path;
+            finder.selectActionFunction = SetFileField(finder.basePath);
+            finder.popup();
+        }
+        function SetFileField(fileUrl) {
+            document.getElementById('ThumpImage').value = fileUrl;
+        }
+    </script>
+    
+    }

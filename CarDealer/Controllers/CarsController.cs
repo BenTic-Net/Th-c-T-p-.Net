@@ -8,6 +8,9 @@ using System.Web;
 using System.Web.Mvc;
 using CarDealer.Models;
 using PagedList;
+using Microsoft.AspNet.Identity;
+using System.IO;
+
 namespace CarDealer.Controllers
 {
     [AuthAttribute]
@@ -95,7 +98,7 @@ namespace CarDealer.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CarId,CurentMile,ModelID,CarTypeId,CreatedTime,ModifiedTime,CreatedBy,ModifiedBy,Name,ThumpImage,AskingPrice,IncludedVAT,Quantity,Status,TopHot,ViewCount,warranty,Discount,SellerNote")] Car car)
+        public ActionResult Create([Bind(Include = "CarId,CurentMile,ModelID,CarTypeId,CreatedTime,ModifiedTime,CreatedBy,ModifiedBy,Name,ThumpImage,AskingPrice,IncludedVAT,Quantity,Status,TopHot,ViewCount,Warranty,Discount,SellerNote")] Car car)
         {
             if (ModelState.IsValid)
             {
@@ -107,7 +110,7 @@ namespace CarDealer.Controllers
                 db.Cars.Add(car);
                 db.CarDetails.Add(cdt);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Edit",new { id=db.Cars.ToList().Last(c=>c.CreatedBy==User.Identity.Name).CarId});
             }
 
             ViewBag.ModelID = new SelectList(db.CarModels, "ID", "Name", car.ModelID);
@@ -130,6 +133,11 @@ namespace CarDealer.Controllers
             ViewBag.ModelID = new SelectList(db.CarModels, "ID", "Name", car.ModelID);
             ViewBag.CarTypeId = new SelectList(db.CarTypes, "CarTypeId", "Name", car.CarTypeId);
             ViewBag.Name = new SelectList(Param._TransWrt, "Key", "Value");
+            var Ur = User.Identity.GetUserId().GetUserRole();
+            if (db.AspRoleControllers.Where(r => r.RoleId == Ur).Select(a => a.Action).Contains("EditStat"))
+                ViewBag.showwrt = "Y";
+            else ViewBag.showwrt = "N";
+            ViewBag.Carid = id;
             return View(car);
         }
 
@@ -138,10 +146,17 @@ namespace CarDealer.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CarId,CurentMile,ModelID,CarTypeId,CreatedTime,ModifiedTime,CreatedBy,ModifiedBy,Name,ThumpImage,AskingPrice,IncludedVAT,Quantity,Status,TopHot,ViewCount,Warranty,Discount,SellerNote")] Car car)
+        public ActionResult Edit([Bind(Include = "CarId,CurentMile,ModelID,CarTypeId,CreatedTime,ModifiedTime,CreatedBy,ModifiedBy,ThumpImage,Name,AskingPrice,IncludedVAT,Quantity,TopHot,ViewCount,Warranty,Discount,ShortNote")] Car car)
         {
+            var Ur = User.Identity.GetUserId().GetUserRole();
+            if (!db.AspRoleControllers.Where(r => r.RoleId == Ur).Select(a => a.Action).Contains("EditStat"))
+                car.Warranty = 0;
+          
             if (ModelState.IsValid)
             {
+                car.ModifiedBy = User.Identity.Name;
+                car.ModifiedTime = DateTime.Now;
+                
                 db.Entry(car).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -177,7 +192,7 @@ namespace CarDealer.Controllers
             {
                 return HttpNotFound();
             }
-           
+            ViewBag.CarId = id;
             return View(carDt);
         }
 
@@ -186,7 +201,7 @@ namespace CarDealer.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditDetail([Bind(Include = "CarId,FirstRegistrationDate,MoreImage,Feature,NumberOfSeat,NumberOfDoor,CupicCapacity,Horsepower,Cylider,FuelType,FuelConsumption,ModifiedOn,ModifiedBy,TranmisionType,EmissionClass,InteriorColor,ExteriorColor,WheelType")] CarDetail carDt)
+        public ActionResult EditDetail([Bind(Include = "CarId,FirstRegistrationDate,MoreImage,Feature,NumberOfSeat,NumberOfDoor,CupicCapacity,Horsepower,Cylider,FuelType,FuelConsumption,ModifiedOn,ModifiedBy,TranmisionType,EmissionClass,InteriorColor,ExteriorColor,WheelType,SellerNote")] CarDetail carDt)
         {
 
            
@@ -195,10 +210,13 @@ namespace CarDealer.Controllers
                 carDt.ModifiedBy = User.Identity.Name;
                 carDt.ModifiedOn=DateTime.Now;
 
-                Car c = new Car { ThumpImage = "/Content/Upload" + Session["path"] + "/_thumbs/Images/" };
-
+                //Car c = new Car { ThumpImage = "/Content/Upload/" + Session["path"] + "/_thumbs/Images/" };
+                carDt.MoreImage = "/Content/Upload/" + Session["path"] + "images/";
                 db.Entry(carDt).State = EntityState.Modified;
-                db.Entry(c).State = EntityState.Modified;
+                //db.Entry(c).State = EntityState.Modified;
+                string y = Session["path"].ToString();
+                db.Cars.Find(carDt.CarId).ThumpImage = "/Content/Upload/" + Session["path"] + "_thumbs/Images/";
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -218,6 +236,7 @@ namespace CarDealer.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.CarId = id;
             return View(car);
         }
 
@@ -230,6 +249,9 @@ namespace CarDealer.Controllers
             CarDetail cdt = db.CarDetails.Find(id);
             db.Cars.Remove(car);
             db.CarDetails.Remove(cdt);
+            string mappedPath = Server.MapPath(@"~/Content/Upload/" + Session["path"]);
+
+            Directory.Delete(mappedPath, true);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

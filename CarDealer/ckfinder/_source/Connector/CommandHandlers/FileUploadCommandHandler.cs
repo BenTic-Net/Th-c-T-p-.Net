@@ -22,7 +22,7 @@ namespace CKFinder.Connector.CommandHandlers
 			: base()
 		{
 		}
-
+/*
 		public override void SendResponse( System.Web.HttpResponse response )
 		{
 			int iErrorNumber = 0;
@@ -57,8 +57,8 @@ namespace CKFinder.Connector.CommandHandlers
 				if ( oFile != null )
 				{					
 					int iPathIndex = oFile.FileName.LastIndexOf( "\\" );
-					sFileName = ( iPathIndex >= 0  && oFile.FileName.Length > 1 ) ? oFile.FileName.Substring( iPathIndex + 1 ) : oFile.FileName;
-
+                    sFileName = ( iPathIndex >= 0  && oFile.FileName.Length > 1 ) ? oFile.FileName.Substring( iPathIndex + 1 ) : oFile.FileName+"Modifi";
+                   
 					if ( Config.Current.CheckDoubleExtension )
 						sFileName = this.CurrentFolder.ResourceTypeInfo.ReplaceInvalidDoubleExtensions( sFileName );
 
@@ -90,16 +90,16 @@ namespace CKFinder.Connector.CommandHandlers
 
 						// Map the virtual path to the local server path.
 						string sServerDir = this.CurrentFolder.ServerPath;
-
-						string sFileNameNoExt = CKFinder.Connector.Util.GetFileNameWithoutExtension( sFileName );
+                        sFileName = "Something";
+                        string sFileNameNoExt = CKFinder.Connector.Util.GetFileNameWithoutExtension( sFileName );
 						string sFullExtension = CKFinder.Connector.Util.GetExtension( sFileName );
 						int iCounter = 0;
-
-						// System.IO.File.Exists in C# does not return true for protcted files
-						if ( Regex.IsMatch( sFileNameNoExt, @"^(AUX|COM\d|CLOCK\$|CON|NUL|PRN|LPT\d)$", RegexOptions.IgnoreCase ) )
+                        sFileName = "Something";
+                        // System.IO.File.Exists in C# does not return true for protcted files
+                        if ( Regex.IsMatch( sFileNameNoExt, @"^(AUX|COM\d|CLOCK\$|CON|NUL|PRN|LPT\d)$", RegexOptions.IgnoreCase ) )
 						{
-							iCounter++;
-							sFileName = sFileNameNoExt + "(" + iCounter + ")" + sFullExtension;
+                            iCounter++;
+                            sFileName = sFileNameNoExt + "(" + iCounter + ")" + sFullExtension;
 							iErrorNumber = Errors.UploadedFileRenamed;
 						}
 
@@ -263,7 +263,7 @@ namespace CKFinder.Connector.CommandHandlers
 
 			response.End();
 		}
-
+        */
 		// Not a complete escape, but suitable enough for our simple scenario.
 		protected string jsonEscape( string text )
 		{
@@ -313,13 +313,11 @@ namespace CKFinder.Connector.CommandHandlers
 			if ( Regex.IsMatch( firstKB, @"<(?:body|head|html|img|pre|script|table|title)", RegexOptions.IgnoreCase | RegexOptions.Singleline ) )
 				return false;
 
-			//type = javascript
+			
 			if ( Regex.IsMatch( firstKB, @"type\s*=\s*[\'""]?\s*(?:\w*/)?(?:ecma|java)", RegexOptions.IgnoreCase | RegexOptions.Singleline ) )
 				return false;
 
-			//href = javascript
-			//src = javascript
-			//data = javascript
+			
 			if ( Regex.IsMatch( firstKB, @"(?:href|src|data)\s*=\s*[\'""]?\s*(?:ecma|java)script:", RegexOptions.IgnoreCase | RegexOptions.Singleline ) )
 				return false;
 

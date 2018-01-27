@@ -1,0 +1,84 @@
+﻿@model IEnumerable<CarDealer.Models.About>
+@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Index</h2>
+@{
+    var action = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().CheckViewAct(User.Identity.GetUserId());
+
+
+    if (action != null && !string.IsNullOrEmpty(User.Identity.GetUserId()))
+    {
+        if (action.Contains("Create"))
+        {
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>}
+        } }
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.Detail)
+        </th>
+        
+                
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        
+        <td>
+           @Html.ActionLink("Watch On Page", "");
+        </td>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @{
+                // var action = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().CheckViewAct(User.Identity.GetUserId());
+
+
+                if (action != null && !string.IsNullOrEmpty(User.Identity.GetUserId()))
+                {
+                    if (action.Contains("Edit"))
+                    {
+
+                        <span>@Html.ActionLink("Edit", "Edit", new { id = item.ID })</span>
+                    }
+                    if (action.Contains("Details"))
+                    { <span>
+                @Html.ActionLink("Details", "Details", new { id = item.ID })
+            </span> }
+
+                    if (action.Contains("Delete"))
+                    {<span>
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </span>}
+                }
+
+
+
+
+
+            }
+        </td>
+    </tr>
+}
+
+</table>
+

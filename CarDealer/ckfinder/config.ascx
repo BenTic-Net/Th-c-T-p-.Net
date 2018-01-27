@@ -31,7 +31,7 @@
 		LicenseKey = "A7HT4CGHPA1B1M7N8S899RJLE8XQBJUH";
        
 		// The base URL used to reach files in CKFinder through the browser.
-		BaseUrl = "/Content/Upload"+Session["path"]+"/";
+		BaseUrl = "/Content/Upload/"+Session["path"]+"/";
 
 		// The phisical directory in the server where the file will end up. If
 		// blank, CKFinder attempts to resolve BaseUrl.
@@ -63,10 +63,10 @@
 			Thumbnails.Dir = BaseDir + "_thumbs/";
 		}
 		Thumbnails.Enabled = true;
-		Thumbnails.DirectAccess = false;
-		Thumbnails.MaxWidth = 100;
-		Thumbnails.MaxHeight = 100;
-		Thumbnails.Quality = 80;
+		Thumbnails.DirectAccess = true;
+		Thumbnails.MaxWidth = 600;
+		Thumbnails.MaxHeight = 300;
+		Thumbnails.Quality = 300;
 
 		// Set the maximum size of uploaded images. If an uploaded image is
 		// larger, it gets scaled down proportionally. Set to 0 to disable this

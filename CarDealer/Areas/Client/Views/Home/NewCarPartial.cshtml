@@ -1,0 +1,29 @@
+﻿@model IEnumerable<CarDealer.Areas.Client.Models.ShortCarViewModel>
+
+<!-- Recently Listed New Cars -->
+
+    <div role="tabpanel" class="tab-pane active" id="resentnewcar">
+        @foreach (var car in Model)
+        {
+            <div class="col-list-3">
+                <div class="recent-car-list">
+                    <div class="car-info-box">
+                        <a href="@Url.Action("Index","CarDetail",new {Id=car.id })"><img src="@(car.ThumpImage)Car.jpg" style="width:356px; height:222px" class="img-responsive" alt=""></a>
+                        <ul>
+                            <li><i class="fa fa-road" aria-hidden="true"></i>@car.CurentMile km</li>
+                            <li><i class="fa fa-calendar" aria-hidden="true"></i>@car.ModelName Model</li>
+                            <li><i class="fa fa-map-marker" aria-hidden="true"></i>Colorado, USA</li>
+                        </ul>
+                    </div>
+                    <div class="car-title-m">
+                        <h6><a href="@Url.Action("Index","CarDetail",new { Id=car.id})">@car.Name</a></h6>
+                        <span class="price">@Html.DisplayFor(modelcar=>car.AskingPrice)</span>
+                    </div>
+                    <div class="inventory_info_m">
+                        <p>@car.ShortNote</p>
+                    </div>
+                </div>
+            </div>
+        }
+        
+    </div>

@@ -62,6 +62,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -209,8 +211,19 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Client\ClientAreaRegistration.cs" />
+    <Compile Include="Areas\Client\Controllers\AccountController.cs" />
+    <Compile Include="Areas\Client\Controllers\CarDetailController.cs" />
+    <Compile Include="Areas\Client\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Client\Controllers\ListCarController.cs" />
+    <Compile Include="Areas\Client\Controllers\ManageController.cs" />
+    <Compile Include="Areas\Client\Models\AccountViewModels.cs" />
+    <Compile Include="Areas\Client\Models\DetailCarViewModel.cs" />
+    <Compile Include="Areas\Client\Models\ManageViewModels.cs" />
+    <Compile Include="Areas\Client\Models\MenuSearchViewModel.cs" />
+    <Compile Include="Areas\Client\Models\ShortCarViewModel.cs" />
     <Compile Include="AuthAtribute.cs" />
     <Compile Include="ClientCmsAttr.cs" />
+    <Compile Include="Controllers\AboutsController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CarModelsController.cs" />
     <Compile Include="Controllers\CarsController.cs" />
@@ -270,10 +283,38 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Areas\Client\Views\web.config" />
+    <Content Include="Areas\Client\Views\Shared\_LayoutClientHome.cshtml" />
+    <Content Include="Areas\Client\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Client\Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Areas\Client\Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Areas\Client\Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Areas\Client\Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Areas\Client\Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Areas\Client\Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Areas\Client\Views\Account\Register.cshtml" />
+    <Content Include="Areas\Client\Views\Account\ResetPassword.cshtml" />
+    <Content Include="Areas\Client\Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Areas\Client\Views\Account\SendCode.cshtml" />
+    <Content Include="Areas\Client\Views\Account\VerifyCode.cshtml" />
+    <Content Include="Areas\Client\Views\Account\Login.cshtml" />
+    <Content Include="Areas\Client\Views\Shared\UserPartial.cshtml" />
+    <Content Include="Areas\Client\Views\Home\SpecialOffer.cshtml" />
+    <Content Include="Areas\Client\Views\Home\TrendingCarPartial.cshtml" />
+    <Content Include="Areas\Client\Views\Home\BlogPartial.cshtml" />
+    <Content Include="Areas\Client\Views\Home\NewCarPartial.cshtml" />
+    <Content Include="Areas\Client\Views\Home\UsedCarPartial.cshtml" />
+    <Content Include="Areas\Client\Views\Home\SearchFormPartial.cshtml" />
+    <Content Include="Areas\Client\Views\ListCar\Index.cshtml" />
+    <Content Include="Areas\Client\Views\ListCar\MenuSearchPartial.cshtml" />
+    <Content Include="Areas\Client\Views\ListCar\NewCarPartial.cshtml" />
+    <Content Include="Areas\Client\Views\CarDetail\Index.cshtml" />
+    <Content Include="Areas\Client\Views\ListCar\CarListPartial.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -281,6 +322,11 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Views\Abouts\Create.cshtml" />
+    <Content Include="Views\Abouts\Delete.cshtml" />
+    <Content Include="Views\Abouts\Details.cshtml" />
+    <Content Include="Views\Abouts\Edit.cshtml" />
+    <Content Include="Views\Abouts\Index.cshtml" />
     <None Include="Views\Shared\_LoginLayout.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -362,9 +408,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Client\Controllers\" />
-    <Folder Include="Areas\Client\Models\" />
-    <Folder Include="Areas\Client\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -378,6 +421,9 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

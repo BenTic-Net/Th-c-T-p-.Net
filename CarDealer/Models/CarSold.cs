@@ -23,14 +23,18 @@ namespace CarDealer.Models
         public long CarId { get; set; }
         
         public string UserId { get; set; }
+        [Display(Name ="Customer Name")]
         public string Name  { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public Nullable<decimal> AgreedPrice { get; set; }
+        [DataType(DataType.DateTime)]
         public Nullable<System.DateTime> Datesold { get; set; }
-        public Nullable<int> PaymentStatus { get; set; }
+        public int PaymentStatus { get; set; }
         public string PaymentMethod { get; set; }
+        [DataType(DataType.DateTime)]
         public Nullable<System.DateTime> PaymentStartDate { get; set; }
+        [DataType(DataType.DateTime)]
         public Nullable<System.DateTime> PaymentEndDate { get; set; }
         public Nullable<decimal> ActurePaymentAmount { get; set; }
         public string OtherDetail { get; set; }

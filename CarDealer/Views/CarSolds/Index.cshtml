@@ -1,6 +1,7 @@
 ﻿@using Microsoft.AspNet.Identity
 @model IEnumerable<CarDealer.Models.CarSold>
-
+@using PagedList.Mvc;
+@using PagedList;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
@@ -21,38 +22,60 @@
         }
     }
 }
+
+@using (Html.BeginForm("Index", "CarSolds", FormMethod.Get, new { Ord = Request["Ord"], Col = Request["Col"], page = Request["page"] }))
+{
+    <div class="form-group">
+        <div class="col-md-2">
+            @Html.TextBox("txtCarName", null, new { @class = "form-control", @placeholder = "CarName" })
+        </div>
+        <div class="col-md-2">
+            @Html.TextBox("txtCustomer", null, new { @class = "form-control", @placeholder = "Customer" })
+        </div>
+        
+        <div class="col-md-2">
+            @Html.TextBox("DtDatesold", null, new { @class = "form-control datepicker", @placeholder = "Datesold" })
+        </div>
+        <div class="col-md-2">
+            @Html.DropDownList("ddlPayStat", null, "PaymentStatus", new { @class = "form-control" })
+        </div>
+        <div class="col-md-2">
+            @Html.DropDownList("ddlPayMeth", null, "Payment Method", new { @class = "form-control" })
+        </div>
+        
+        <input type="submit" value="Search" class="btn btn-default" />
+    </div>
+
+}
     <table class="table">
     <tr>
-        <th>
-            @*@Html.DisplayNameFor(model => model.ToCar.Name)*@ Car Name
+        <th><a href="@Url.Action("Index",new { Col="CarName",Ord=Request["Ord"]==null|| Request["Ord"]=="DESC"? "ASC":"DESC", txtCarName=Request["txtCarName"] ,txtCustomer=Request["txtCustomer"], txtAgreedPrice=Request["txtAgreedPrice"], txtDatesold=Request["txtDatesold"], ddlPayStat=Request["ddlPayStat"], ddlPayMeth =Request["ddlPayMeth"],page=Request["page"] })">
+            @Html.DisplayNameFor(model => model.ToCar.Name)</a>
         </th>
         <th>
-            @*@Html.DisplayNameFor(model => model.UserId)*@ Customer
-        </th>
+            <a href="@Url.Action("Index",new { Col="Customer",Ord=Request["Ord"]==null|| Request["Ord"]=="DESC"? "ASC":"DESC", txtCarName=Request["txtCarName"] ,txtCustomer=Request["txtCustomer"], txtAgreedPrice=Request["txtAgreedPrice"], txtDatesold=Request["txtDatesold"], ddlPayStat=Request["ddlPayStat"], ddlPayMeth =Request["ddlPayMeth"],page=Request["page"] })">
+                Customer
+            </a>
+</th>
         <th>
-            @Html.DisplayNameFor(model => model.AgreedPrice)
-        </th>
+            <a href="@Url.Action("Index",new { Col="AgreedPrice",Ord=Request["Ord"]==null|| Request["Ord"]=="DESC"? "ASC":"DESC", txtCarName=Request["txtCarName"] ,txtCustomer=Request["txtCustomer"], txtAgreedPrice=Request["txtAgreedPrice"], txtDatesold=Request["txtDatesold"], ddlPayStat=Request["ddlPayStat"], ddlPayMeth =Request["ddlPayMeth"],page=Request["page"] })">
+                @Html.DisplayNameFor(model => model.AgreedPrice)
+            </a>
+</th>
         <th>
-            @Html.DisplayNameFor(model => model.Datesold)
-        </th>
+            <a href="@Url.Action("Index",new { Col="Datesold",Ord=Request["Ord"]==null|| Request["Ord"]=="DESC"? "ASC":"DESC", txtCarName=Request["txtCarName"] ,txtCustomer=Request["txtCustomer"], txtAgreedPrice=Request["txtAgreedPrice"], txtDatesold=Request["txtDatesold"], ddlPayStat=Request["ddlPayStat"], ddlPayMeth =Request["ddlPayMeth"],page=Request["page"] })">
+                @Html.DisplayNameFor(model => model.Datesold)
+            </a>
+</th>
         <th>
-            @Html.DisplayNameFor(model => model.PaymentStatus)
-        </th>
+            
+                @Html.DisplayNameFor(model => model.PaymentStatus)
+</th>
         <th>
-            @Html.DisplayNameFor(model => model.PaymentMethod)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PaymentStartDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PaymentEndDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ActurePaymentAmount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.OtherDetail)
-        </th>
+            
+                @Html.DisplayNameFor(model => model.PaymentMethod)
+</th>                       
+       
         <th></th>
     </tr>
 
@@ -71,23 +94,16 @@
             @Html.DisplayFor(modelItem => item.Datesold)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.PaymentStatus)
+           @{ string p = item.PaymentStatus.TransP();}
+            @(p)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.PaymentMethod)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PaymentStartDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PaymentEndDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ActurePaymentAmount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OtherDetail)
-        </td>
+       
+        
+        
+        
         <td>
             @{
                 // var action = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().CheckViewAct(User.Identity.GetUserId());
@@ -119,3 +135,12 @@
 }
 
 </table>
+@section scripts{
+    
+    <script type="text/javascript">
+    $(function () { // will trigger when the document is ready
+       $('.datepicker').datepicker(); //Initialise any date pickers
+    });
+</script>
+    }
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page, Col = Request["Col"], Ord = Request["Ord"],  txtCarName=Request["txtCarName"] ,txtCustomer=Request["txtCustomer"], txtAgreedPrice=Request["txtAgreedPrice"], txtDatesold=Request["txtDatesold"], ddlPayStat=Request["ddlPayStat"], ddlPayMeth =Request["ddlPayMeth"]}))

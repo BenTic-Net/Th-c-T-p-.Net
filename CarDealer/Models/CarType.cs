@@ -20,6 +20,7 @@ namespace CarDealer.Models
         [Key]
         public short CarTypeId { get; set; }
         
+        [Display(Name ="Body Style")]
         public string Name { get; set; }
         public string MetaDescription { get; set; }
         public Nullable<System.DateTime> CreatedOn { get; set; }

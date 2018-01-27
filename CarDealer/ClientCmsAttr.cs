@@ -48,7 +48,7 @@ namespace CarDealer
                     return;
                     
                 }
-                if (context.Users.Find(user.Identity.GetUserId()).Roles == null)
+                if (context.Users.Find(user.Identity.GetUserId()).Roles.Count == 0)
                     filterContext.Result = new HttpUnauthorizedResult();
                 return;
             }

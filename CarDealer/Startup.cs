@@ -9,6 +9,7 @@ using System.Data;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 [assembly: OwinStartupAttribute(typeof(CarDealer.Startup))]
 namespace CarDealer
@@ -21,11 +22,12 @@ namespace CarDealer
 
         public void Configuration(IAppBuilder app)
         {
+            //AreaRegistration.RegisterAllAreas();
             ConfigureAuth(app);
             createRolesandUsers();
             GetAllController();
             AddController();
-
+            
 
 
         }
@@ -62,9 +64,12 @@ namespace CarDealer
                                                                    !item.Action.Contains("Detail")) || item.Controller == "ManageController" || item.Action == "EditDetail" || item.Action == "DetailsCar" || item.Action == "DeleteConfirmed")
                         continue;
                     AspController itemAdd = context.AspControllers.Find(item.Controller, item.Action);
+                    if (context.AspControllers.Find(item.Controller, "EditStat") == null &&( item.Controller!= "UsersController" && item.Controller!= "RoleController"))
+                        context.AspControllers.Add(new AspController { Action = "EditStat", Controller = item.Controller });
                     if (itemAdd == null)
                     {
                         itemAdd = new AspController {Controller = item.Controller, Action = item.Action};
+
                         context.AspControllers.Add(itemAdd);
                         var all =  context.AspControllers.GroupBy(c => c.Controller);
                         context.SaveChanges();

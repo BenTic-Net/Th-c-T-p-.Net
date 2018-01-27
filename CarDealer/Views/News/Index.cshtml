@@ -9,7 +9,6 @@
 
 <h2>Index</h2>
 
-@{ Session["path"] = HttpContext.Current.Request.Url.AbsolutePath; }
 @{
     var action = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().CheckViewAct(User.Identity.GetUserId());
 

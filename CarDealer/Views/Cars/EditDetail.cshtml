@@ -4,7 +4,7 @@
     ViewBag.Title = "EditDetail";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-
+@{ Session["path"] = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"] + "/" + ViewBag.CarId + "/"; }
 <h2>EditDetail</h2>
 
 @using (Html.BeginForm())
@@ -172,6 +172,10 @@
             CKFinder.setupCKEditor(editor, '/ckfinder/');
         })
             //
+
+
+    
+
 </script>
     
     }

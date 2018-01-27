@@ -1,0 +1,124 @@
+﻿@model IEnumerable<CarDealer.Areas.Client.Models.ShortCarViewModel>
+
+<div role="tabpanel" class="tab-pane" id="resentusecar">
+    @foreach (var car in Model)
+    {
+
+    <div class="col-list-3">
+        <div class="recent-car-list">
+            <div class="car-info-box">
+                <a href="@Url.Action("Index","CarDetail",new { Id=car.id})"><img src="@(car.ThumpImage)Car.jpg"  style="width:356px; height:222px" class="img-responsive" alt=""></a>
+                <ul>
+                    <li><i class="fa fa-road" aria-hidden="true"></i>@car.CurentMile km</li>
+                    <li><i class="fa fa-calendar" aria-hidden="true"></i>@car.ModelName Model</li>
+                    <li><i class="fa fa-map-marker" aria-hidden="true"></i>Colorado, USA</li>
+                </ul>
+            </div>
+            <div class="car-title-m">
+                <h6><a href="@Url.Action("Index","CarDetail",new { Id=car.id})">@car.Name</a></h6>
+                <span class="price">@Html.DisplayFor(modelcar=> car.AskingPrice)</span>
+            </div>
+            <div class="inventory_info_m">
+                <p>@car.ShortNote</p>
+            </div>
+        </div>
+    </div>
+    }
+
+
+    @*<div class="col-list-3">
+        <div class="recent-car-list">
+            <div class="car-info-box">
+                <a href="~/detail_car.html"><img src="~/home_files/recent-car-5.jpg" class="img-responsive" alt=""></a>
+                <ul>
+                    <li><i class="fa fa-road" aria-hidden="true"></i>20,000 km</li>
+                    <li><i class="fa fa-calendar" aria-hidden="true"></i>2005 Model</li>
+                    <li><i class="fa fa-map-marker" aria-hidden="true"></i>Colorado, USA</li>
+                </ul>
+            </div>
+            <div class="car-title-m">
+                <h6><a href="#">Audi A3</a></h6>
+                <span class="price">$49,000</span>
+            </div>
+            <div class="inventory_info_m">
+                <p>But I must explain to you how all this mistaken idea of denouncing.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-list-3">
+        <div class="recent-car-list">
+            <div class="car-info-box">
+                <a href="~/detail_car.html"><img src="~/home_files/recent-car-6.jpg" class="img-responsive" alt=""></a>
+                <ul>
+                    <li><i class="fa fa-road" aria-hidden="true"></i>20,000 km</li>
+                    <li><i class="fa fa-calendar" aria-hidden="true"></i>2005 Model</li>
+                    <li><i class="fa fa-map-marker" aria-hidden="true"></i>Colorado, USA</li>
+                </ul>
+            </div>
+            <div class="car-title-m">
+                <h6><a href="#">BMW 535i</a></h6>
+                <span class="price">$20,000</span>
+            </div>
+            <div class="inventory_info_m">
+                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-list-3">
+        <div class="recent-car-list">
+            <div class="car-info-box">
+                <a href="~/detail_car.html"><img src="~/home_files/recent-car-1.jpg" class="img-responsive" alt=""></a>
+                <ul>
+                    <li><i class="fa fa-road" aria-hidden="true"></i>20,000 km</li>
+                    <li><i class="fa fa-calendar" aria-hidden="true"></i>2005 Model</li>
+                    <li><i class="fa fa-map-marker" aria-hidden="true"></i>Colorado, USA</li>
+                </ul>
+            </div>
+            <div class="car-title-m">
+                <h6><a href="#">Ford Shelby GT350</a></h6>
+                <span class="price">$45,000</span>
+            </div>
+            <div class="inventory_info_m">
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-list-3">
+        <div class="recent-car-list">
+            <div class="car-info-box">
+                <a href="~/detail_car.html"><img src="~/home_files/recent-car-2.jpg" class="img-responsive" alt=""></a>
+                <ul>
+                    <li><i class="fa fa-road" aria-hidden="true"></i>20,000 km</li>
+                    <li><i class="fa fa-calendar" aria-hidden="true"></i>2005 Model</li>
+                    <li><i class="fa fa-map-marker" aria-hidden="true"></i>Colorado, USA</li>
+                </ul>
+            </div>
+            <div class="car-title-m">
+                <h6><a href="#">BMW 535i</a></h6>
+                <span class="price">$20,000</span>
+            </div>
+            <div class="inventory_info_m">
+                <p>Contrary to popular belief, Lorem Ipsum is not simply random text.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-list-3">
+        <div class="recent-car-list">
+            <div class="car-info-box">
+                <a href="~/detail_car.html"><img src="~/home_files/recent-car-3.jpg" class="img-responsive" alt=""></a>
+                <ul>
+                    <li><i class="fa fa-road" aria-hidden="true"></i>20,000 km</li>
+                    <li><i class="fa fa-calendar" aria-hidden="true"></i>2005 Model</li>
+                    <li><i class="fa fa-map-marker" aria-hidden="true"></i>Colorado, USA</li>
+                </ul>
+            </div>
+            <div class="car-title-m">
+                <h6><a href="#">Volvo v40</a></h6>
+                <span class="price">$60,000</span>
+            </div>
+            <div class="inventory_info_m">
+                <p>There are many variations of passages of Lorem Ipsum available, but the majority.</p>
+            </div>
+        </div>
+    </div>*@
+</div>

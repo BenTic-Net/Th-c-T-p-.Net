@@ -11,6 +11,8 @@ namespace CarDealer
         /*private static*/ public static Dictionary<int,string> _TransWrt = new Dictionary<int, string> { {0,"waitting" }, { 1,"Show On Home"},{2,"Dispose" }};
 
         public static Dictionary<int, string> _TransPayment = new Dictionary<int, string> { { 0, "Not Paid" }, { 1, "Paid" }, { 2, "Paying" }, { 3, "Dispose" } };
+        public static Dictionary<string, string> _TransPayMeth = new Dictionary<string, string> { { "Part", "Part" }, { "On Hand", "On Hand" }};
+
 
         public static Dictionary<int, string> TransWrt { get; set; }
 

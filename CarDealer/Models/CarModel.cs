@@ -19,6 +19,7 @@ namespace CarDealer.Models
     {
         [Key]
         public int ID { get; set; }
+        [Display(Name ="Model Name")]
         public string Name { get; set; }
         public string MetaTitle { get; set; }
         public Nullable<int> DisplayOrder { get; set; }

@@ -6,6 +6,7 @@
 }
 
 <h2>Edit</h2>
+@{ Session["path"] = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"]+ "/" + ViewBag.NewId + "/"; }
 
 
 @using (Html.BeginForm())
@@ -43,14 +44,16 @@
             </div>
         </div>
         
-        
+        @if (ViewBag.showwrt == "Y")
+        {
         <div class="form-group">
-            @Html.Label("Waranty",  new { @class = "control-label col-md-2" })
+            @Html.Label("Waranty", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(x=>x.Waranty, (SelectList)ViewBag.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(x => x.Waranty, (SelectList)ViewBag.Name, new { htmlAttributes = new { @class = "form-control" } })
                 @*@Html.ValidationMessageFor(model => model.Waranty, "", new { @class = "text-danger" })*@
             </div>
         </div>
+        }
         
         
         <div class="form-group">
@@ -64,7 +67,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Content, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control", id = "NewEditor" } })
                 @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -83,4 +86,16 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    
+<script src="~/ckfinder/ckfinder.js"></script>
+
+<script src="~/ckeditor/ckeditor.js"></script>
+<script type="text/javascript">
+        $(document).ready(function () {
+            var editor =  CKEDITOR.replace("NewEditor");
+            CKFinder.setupCKEditor(editor, '/ckfinder/');
+        })
+            //
+</script>
+
 }

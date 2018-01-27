@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using CarDealer.Models;
 using Microsoft.Ajax.Utilities;
+using Microsoft.AspNet.Identity;
 
 namespace CarDealer.Controllers
 {
@@ -121,6 +122,13 @@ namespace CarDealer.Controllers
             //ViewBag.CateParentId = new SelectList(db.Categories, "CateId", "CateName");
             ViewBag.ParentId = new SelectList(dsCate, "CarTypeId", "Name", carType.ParentId);
             //ViewBag.ParentId = new SelectList(db.CarTypes, "CarTypeId", "Name", carType.ParentId);
+
+            var Ur = User.Identity.GetUserId().GetUserRole();
+            if (db.AspRoleControllers.Where(r => r.RoleId == Ur).Select(a => a.Action).Contains("EditStat"))
+                ViewBag.showwrt = "Y";
+            else ViewBag.showwrt = "N";
+
+
             return View(carType);
         }
 
@@ -132,7 +140,9 @@ namespace CarDealer.Controllers
         public ActionResult Edit([Bind(Include = "CarTypeId,Name,MetaDescription,CreatedOn,ModifiedOn,CreatedBy,ModifiedBy,Metatitle,MetaKeywords,Status,ShowOnHome,SeoTitle,ParentId")] CarType carType)
         {
 
-
+            var Ur = User.Identity.GetUserId().GetUserRole();
+            if (!db.AspRoleControllers.Where(r => r.RoleId == Ur).Select(a => a.Action).Contains("EditStat"))
+                carType.Waranty = 0;
             if (ModelState.IsValid)
             {
                 db.Entry(carType).State = EntityState.Modified;

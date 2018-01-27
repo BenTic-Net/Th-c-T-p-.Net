@@ -9,6 +9,9 @@ using System.Web.Mvc;
 using CarDealer.Models;
 using Microsoft.AspNet.Identity;
 using PagedList;
+using System.Data.Entity.Infrastructure;
+using System.IO;
+
 namespace CarDealer.Controllers
 {
     [AuthAttribute]
@@ -17,6 +20,7 @@ namespace CarDealer.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         
         
+
 
         // GET: News
         public ActionResult Index(string txtTitle,string txtTopic,int? Waranty, int? page, string Ord, string Col)
@@ -70,18 +74,22 @@ namespace CarDealer.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "NewId,Title,Image,TopHot,ViewCount,CreatedOn,ModifiedOn,CreatedBy,ModifiedBy,Topic,Content,Waranty")] New @new)
         {
+            //decimal i = 0;
 
-           
+
             if (ModelState.IsValid)
             {
                 @new.Waranty = 0;
-                @new.Image = "/Content/Upload" + Session["path"]+"/";
-               
+                
+                //i = (db as IObjectContextAdapter).ObjectContext.ExecuteStoreQuery<decimal>(@"SELECT IDENT_CURRENT ({0}) AS Current_Identity;", "News").First();
+                //i++;
+                //@new.Image = "/Content/Upload/" + Session["path"] + "/"+i+"/";
                 @new.CreatedOn = DateTime.Now;
                 @new.CreatedBy = User.Identity.GetUserName();
                 db.News.Add(@new);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                
+                return RedirectToAction("Edit",new {id=db.News.ToList().Last(n => n.CreatedBy == User.Identity.GetUserName()).NewId });
             }
 
             return View(@new);
@@ -103,6 +111,12 @@ namespace CarDealer.Controllers
                 return HttpNotFound();
             }
             ViewBag.Name = new SelectList(Param._TransWrt, "Key", "Value");
+
+            var Ur = User.Identity.GetUserId().GetUserRole();
+            if (db.AspRoleControllers.Where(r => r.RoleId == Ur).Select(a => a.Action).Contains("EditStat"))
+                ViewBag.showwrt = "Y";
+            else ViewBag.showwrt = "N";
+            ViewBag.NewId = id;
             return View(@new);
         }
 
@@ -115,14 +129,22 @@ namespace CarDealer.Controllers
         {
 
             ViewBag.Name = new SelectList(Param._TransWrt, "Key", "Value");
+
+            var Ur = User.Identity.GetUserId().GetUserRole();
+            if (!db.AspRoleControllers.Where(r => r.RoleId == Ur).Select(a => a.Action).Contains("EditStat"))
+                @new.Waranty = 0;
+
             if (ModelState.IsValid)
             {
                 @new.ModifiedOn = DateTime.Now;
                 @new.ModifiedBy = User.Identity.GetUserName();
+                @new.Image = "/Content/Upload/" + Session["path"]+"images" ;
                 db.Entry(@new).State = EntityState.Modified;
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
+
             return View(@new);
         }
 
@@ -138,6 +160,7 @@ namespace CarDealer.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.NewId = id;
             return View(@new);
         }
 
@@ -146,9 +169,15 @@ namespace CarDealer.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(long id)
         {
+
             New @new = db.News.Find(id);
             db.News.Remove(@new);
             db.SaveChanges();
+
+            string mappedPath = Server.MapPath(@"~/Content/Upload/"+ Session["path"]);
+
+            Directory.Delete(mappedPath, true);
+
             return RedirectToAction("Index");
         }
 

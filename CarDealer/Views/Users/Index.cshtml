@@ -1,5 +1,7 @@
 ﻿@using Microsoft.AspNet.Identity
 @model IEnumerable<CarDealer.Models.UserViewModel>
+@using PagedList.Mvc;
+@using PagedList;
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
@@ -20,18 +22,32 @@
     }
 }
 
-    @if (ViewBag.displayMenu == "Yes")
-{
-    <h1>Welcome Admin. Now you can create user Role.</h1>
-    <h3>
-        <li>@Html.ActionLink("Manage Role", "Index", "Role")</li>
-    </h3>
+          @using (Html.BeginForm("Index", "Users", FormMethod.Get, new { Ord = Request["Ord"], Col = Request["Col"], page = Request["page"] }))
+
+          {
+            <div class="form-group">
+                <div class="col-md-2">
+                    @Html.TextBox("txtUserName", null, new { @class = "form-control", @placeholder = "UserName" })
+                </div>
+                <div class="col-md-2">
+                    @Html.TextBox("txtEmail", null, new { @class = "form-control", @placeholder = "Email" })
+                </div>
+
+                <div class="col-md-2">
+                    @Html.DropDownList("ddlRole", null, "Role", new { @class = "form-control" })
+                </div>
+                <input type="submit" value="Search" class="btn btn-default" />
+            </div>
+
+          }
 
     <table class="table">
         <tr>
            
             <th>
-                @Html.DisplayNameFor(model => model.UserName)
+                
+                    @Html.DisplayNameFor(model => model.UserName)
+                    
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Email)
@@ -89,9 +105,7 @@
         }
        
     </table>
-}
 
-        else
-        {
-        <h2>  Welcome <strong>@ViewBag.Name</strong> :) .We will add user module soon </h2>
-        }
+
+      
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page, txtUserName = Request["txtUserName"], txtEmail = Request["txtEmail"] ,ddlRole=Request["ddlRole"]}))

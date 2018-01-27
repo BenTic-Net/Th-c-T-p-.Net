@@ -128,6 +128,10 @@ namespace CarDealer.Controllers
 
             ViewBag.Name = new SelectList(Param._TransWrt, "Key", "Value");
             ViewBag.ManufactureId = new SelectList(context.Manufactures, "ManufactureId", "FullName",carModel.ToManufacture.FullName);
+            var Ur = User.Identity.GetUserId().GetUserRole();
+            if (context.AspRoleControllers.Where(r => r.RoleId == Ur).Select(a => a.Action).Contains("EditStat"))
+                ViewBag.showwrt = "Y";
+            else ViewBag.showwrt = "N";
             return View(carModel);
         }
 
@@ -142,7 +146,9 @@ namespace CarDealer.Controllers
             
             carModel.ModifeeDate=DateTime.Now;
             carModel.ModifieBy = User.Identity.Name;
-
+            var Ur = User.Identity.GetUserId().GetUserRole();
+            if (!context.AspRoleControllers.Where(r => r.RoleId == Ur).Select(a => a.Action).Contains("EditStat"))
+                carModel.Waranty = 0;
             if (ModelState.IsValid)
             {
                 context.Entry(carModel).State = EntityState.Modified;

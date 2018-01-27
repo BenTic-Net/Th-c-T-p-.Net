@@ -1,0 +1,50 @@
+﻿@model IEnumerable<CarDealer.Areas.Client.Models.ShortCarViewModel>
+
+<!--Featured Car-->
+@if (Model.Count() > 0)
+{
+<section class="section-padding">
+    <div class="container">
+        <div class="section-header text-center">
+            <h2>Featured Cars <span>Special Offers</span></h2>
+            <p>
+                There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some
+                form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use
+                a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.
+            </p>
+        </div>
+        <div class="row">
+            @foreach (var car in Model)
+            {
+
+
+            <div class="col-list-3">
+                <div class="featured-car-list">
+                    <div class="featured-car-img">
+                        <a href="@Url.Action("Index","CarDetail",new { Id=car.id})"><img src="@(car.ThumpImage)Car.jpg"  style="width:356px; height:222px"  class="img-responsive" alt="Image"></a>
+                        @if (car.CurentMile<=5 && car.CurentMile>=0) {<div class="label_icon">New</div>}
+                        else{<div class="label_icon">Used</div> }
+                    </div>
+                    <div class="featured-car-content">
+                        <h6><a href="@Url.Action("Index","CarDetail",new { Id=car.id})">@car.Name</a></h6>
+                        <div class="price_info">
+                            <p class="" style="text-decoration:line-through">@Html.DisplayFor(modelcar => car.AskingPrice)</p>
+                           
+                            <div class="car-location"><span><i class="fa fa-map-marker" aria-hidden="true"></i> Colorado, USA</span></div>
+                            <p class="featured-price" style="float:left">@(Html.DisplayFor(modelcar => car.DownPrice))</p>
+                        </div>
+                        <ul>
+                            <li><i class="fa fa-road" aria-hidden="true"></i>@car.CurentMile km</li>
+                            
+                            <li><i class="fa fa-calendar" aria-hidden="true"></i>@car.ModelName model</li>
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</section>
+<!-- /Featured Car-->
+}

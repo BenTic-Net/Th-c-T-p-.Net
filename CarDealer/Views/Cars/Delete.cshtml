@@ -4,7 +4,7 @@
     ViewBag.Title = "Delete";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-
+@{ Session["path"] = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"] + "/" + ViewBag.CarId + "/"; }
 <h2>Delete</h2>
 
 <h3>Are you sure you want to delete this?</h3>
@@ -108,13 +108,7 @@
             @Html.DisplayFor(model => model.Quantity)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>
+       
 
         <dt>
             @Html.DisplayNameFor(model => model.TopHot)
@@ -148,13 +142,7 @@
             @Html.DisplayFor(model => model.Discount)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.SellerNote)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SellerNote)
-        </dd>
+       
 
     </dl>
 

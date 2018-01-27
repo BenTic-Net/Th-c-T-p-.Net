@@ -21,25 +21,28 @@ namespace CarDealer.Models
         public long CarId { get; set; }
         public Nullable<int> CurentMile { get; set; }
         public Nullable<int> ModelID { get; set; }
-        public Nullable<short> CarTypeId { get; set; }
+        public Nullable<short> CarTypeId { get; set; }        
         public Nullable<System.DateTime> CreatedTime { get; set; }
         public Nullable<System.DateTime> ModifiedTime { get; set; }
         public string CreatedBy { get; set; }
         public string ModifiedBy { get; set; }
+        [Display(Name ="Car Name")]
         public string Name { get; set; }
         //public byte[] MetaTitle { get; set; }
         public string ThumpImage { get; set; }
+        [DataType(DataType.Currency)]
         public Nullable<decimal> AskingPrice { get; set; }
         public Nullable<bool> IncludedVAT { get; set; }
         public Nullable<int> Quantity { get; set; }
         //public Nullable<bool> Status { get; set; }
+        
         public Nullable<System.DateTime> TopHot { get; set; }
         public Nullable<int> ViewCount { get; set; }
         public int Warranty { get; set; }
         public Nullable<decimal> Discount { get; set; }
-                                                                                
-       
-        
+        public string ShortNote { get; set; }
+
+
         [ForeignKey("ModelID")]
         public virtual CarModel ToCarModel { get; set; }
 

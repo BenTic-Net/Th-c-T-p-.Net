@@ -153,3 +153,11 @@
 
 </table>
 @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page, Col = Request["Col"], Ord = Request["Ord"], txtModelName = Request["txtModelName"], Waranty = Request["Waranty"], txtBodyStyle = Request["txtBodyStyle"], txtManufacture = Request["txtManufacture"] }))
+@section scripts{
+    <script>
+
+        $.ajax()
+
+    </script>
+    
+    }

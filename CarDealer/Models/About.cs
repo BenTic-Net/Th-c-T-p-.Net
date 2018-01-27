@@ -19,7 +19,7 @@ namespace CarDealer.Models
         public int ID { get; set; }
         public string Name { get; set; }
         public byte[] MetaTitle { get; set; }
-        public string Image { get; set; }
+        
         public string Description { get; set; }
         [DataType(DataType.MultilineText)]
         public string Detail { get; set; }

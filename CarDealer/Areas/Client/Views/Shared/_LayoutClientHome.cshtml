@@ -1,0 +1,297 @@
+﻿@using Microsoft.AspNet.Identity;
+@using CarDealer.Areas.Client;
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <title>CarForYou - Responsive Car Dealer HTML5 Template</title>
+    <!--Bootstrap -->
+    <link rel="stylesheet" href="~/home_files/bootstrap.min.css" type="text/css">
+    <!--Custome Style -->
+    <link rel="stylesheet" href="~/home_files/style.css" type="text/css">
+    <!--OWL Carousel slider-->
+    <link rel="stylesheet" href="~/home_files/owl.carousel.css" type="text/css">
+    <link rel="stylesheet" href="~/home_files/owl.transitions.css" type="text/css">
+    <!--slick-slider -->
+    <link href="~/home_files/slick.css" rel="stylesheet">
+    <!--bootstrap-slider -->
+    <link href="~/home_files/bootstrap-slider.min.css" rel="stylesheet">
+    <!--FontAwesome Font Style -->
+    <link href="~/home_files/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- SWITCHER -->
+    <link rel="stylesheet" id="switcher-css" type="text/css" href="~/home_files/switcher.css" media="all">
+    <link rel="alternate stylesheet" type="text/css" href="~/home_files/red.css" title="red" media="all" data-default-color="true">
+    <link rel="alternate stylesheet" type="text/css" href="~/home_files/orange.css" title="orange" media="all">
+    <link rel="alternate stylesheet" type="text/css" href="~/home_files/blue.css" title="blue" media="all">
+    <link rel="alternate stylesheet" type="text/css" href="~/home_files/pink.css" title="pink" media="all">
+    <link rel="alternate stylesheet" type="text/css" href="~/home_files/green.css" title="green" media="all">
+    <link rel="alternate stylesheet" type="text/css" href="~/home_files/purple.css" title="purple" media="all">
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://themes.webmasterdriver.net/carforyou/demo/assets/images/favicon-icon/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://themes.webmasterdriver.net/carforyou/demo/assets/images/favicon-icon/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://themes.webmasterdriver.net/carforyou/demo/assets/images/favicon-icon/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="http://themes.webmasterdriver.net/carforyou/demo/assets/images/favicon-icon/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="http://themes.webmasterdriver.net/carforyou/demo/assets/images/favicon-icon/favicon.png">
+    <!-- Google-Font-->
+    <link href="~/home_files/css.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+    <!--Header-->
+    <header>
+        <div class="default-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-3 col-md-2">
+                        <div class="logo"> <a href="#"><img src="~/home_files/logo.png" alt="image"></a>              </div>
+                    </div>
+                    <div class="col-sm-9 col-md-10">
+                        <div class="header_info">
+                            <div class="header_widgets">
+                                <div class="circle_icon"> <i class="fa fa-envelope" aria-hidden="true"></i> </div>
+                                <p class="uppercase_text">For Support Mail us : </p>
+                                <a href="mailto:info@example.com">tuanluc97@gmail.com</a>
+                            </div>
+                            <div class="header_widgets">
+                                <div class="circle_icon"> <i class="fa fa-phone" aria-hidden="true"></i> </div>
+                                <p class="uppercase_text">Service Helpline Call Us: </p>
+                                <a href="tel:61-1234-5678-09">+61-1234-5678-9</a>
+                            </div>
+                            <div class="social-follow">
+                                <ul>
+                                    <li><a href="#"><i class="fa fa-facebook-square" aria-hidden="true"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter-square" aria-hidden="true"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-google-plus-square" aria-hidden="true"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                </ul>
+                            </div>
+                            @if (!User.Identity.IsAuthenticated)
+                            {
+                            <div class="login_btn">
+                                <a href="#loginform" class="btn btn-xs uppercase"
+                                   data-toggle="modal" data-dismiss="modal">Login / Register</a>
+                            </div>}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav id="navigation_bar" class="navbar navbar-default">
+            <div class="container">
+                <div class="navbar-header">
+                    <button id="menu_slide" data-target="#navigation" aria-expanded="false" data-toggle="collapse" class="navbar-toggle collapsed"
+                            type="button">
+                        <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="header_wrap">
+                    @*<div class="user_login">
+                        <ul>
+                            <li class="dropdown">
+                                <a href="#" data-toggle="dropdown" aria-haspopup="true"
+                                   aria-expanded="false"><i class="fa fa-user-circle" aria-hidden="true"></i>Tuanluc97<i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="./profile_settings.html">Profile Settings</a></li>
+                                    <li><a href="./favorite.html">My favorite car</a></li>
+                                    <li><a href="#">Sign Out</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>*@
+                    @if (User.Identity.IsAuthenticated) {
+                    @Html.Partial("UserPartial")}
+                    <div class="header_search">
+                        <div id="search_toggle"><i class="fa fa-search" aria-hidden="true"></i></div>
+                        <form action="#" method="get" id="header-search-form">
+                            <input type="text" placeholder="Search..." class="form-control">
+                            <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                        </form>
+                    </div>
+                </div>
+                <div class="collapse navbar-collapse" id="navigation">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="@Url.Action("Index","Home")">Home</a>
+                        </li>
+                        <li><a href="./about_us.html">About Us</a></li>
+                        <li class="dropdown">
+                            <a href="#" data-toggle="dropdown" aria-haspopup="true"
+                               aria-expanded="false">Inventory</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="./listing.html">Audi</a></li>
+                                <li><a href="./listing.html">BMW</a></li>
+                                <li><a href="./listing.html">Nissan</a></li>
+                                <li><a href="./listing.html">Toyota</a></li>
+                                <li><a href="#">Detail Page Style 1</a></li>
+                                <li><a href="#">Detail Page Style 2</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dealers</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="./dealer_profile.html">Hà Nội</a></li>
+                                <li><a href="./dealer_profile.html">Đà Nẵng</a></li>
+                                <li><a href="./dealer_profile.html">Hồ Chí Minh</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="./contact_us.html">Contact Us</a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" data-toggle="dropdown" aria-haspopup="true"
+                               aria-expanded="false">News</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Blog Left Sidebar</a></li>
+                                <li><a href="#">Blog Right Sidebar</a></li>
+                                <li><a href="#">Blog Detail</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Navigation end -->
+
+    </header>
+    <!-- /Header -->
+
+    <div> 
+        @RenderBody()
+    </div>
+  
+    
+
+
+    @RenderSection("scripts", required: false)
+
+    <!--Footer -->
+    <footer>
+        <div class="footer-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 col-sm-6">
+                        <h6>Top Categores</h6>
+                        <ul>
+                            <li><a href="#">Crossovers</a></li>
+                            <li><a href="#">Hybrids</a></li>
+                            <li><a href="#">Hybrid Cars</a></li>
+                            <li><a href="#">Hybrid SUVs</a></li>
+                            <li><a href="#">Concept Vehicles</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <h6>About Us</h6>
+                        <ul>
+                            <li><a href="#">Privacy</a></li>
+                            <li><a href="#">Hybrid Cars</a></li>
+                            <li><a href="#">Cookies</a></li>
+                            <li><a href="#">Trademarks</a></li>
+                            <li><a href="#">Terms of use</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <h6>Useful Links</h6>
+                        <ul>
+                            <li><a href="#">Our Partners</a></li>
+                            <li><a href="#">Careers</a></li>
+                            <li><a href="#">Sitemap</a></li>
+                            <li><a href="#">Investors</a></li>
+                            <li><a href="#">Request a Quote</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <h6>Subscribe Newsletter</h6>
+                        <div class="newsletter-form">
+                            <form action="#">
+                                <div class="form-group">
+                                    <input type="email" class="form-control newsletter-input" required="" placeholder="Enter Email Address">
+                                </div>
+                                <button type="submit" class="btn btn-block">Subscribe <span class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span></button>
+                            </form>
+                            <p class="subscribed-text">*We send great deals and latest auto news to our subscribed users very week.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-md-push-6 text-right">
+                        <div class="footer_widget">
+                            <p>Connect with Us:</p>
+                            <ul>
+                                <li><a href="#"><i class="fa fa-facebook-square" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter-square" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fa fa-google-plus-square" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-md-pull-6">
+                        <p class="copy-right">Copyright © 2017 CarForYou. All Rights Reserved</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- /Footer-->
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <div id="LoginForm1">
+            @{Html.RenderAction("Login", "Account", new { returnUrl = HttpContext.Current.Request.Url });
+            }
+        </div>
+        <div id="RegisterForm">
+            @{Html.RenderAction("Register","Account"); }
+        </div>
+                }
+
+    <!-- Scripts -->
+    <!--Back to top-->
+    <div id="back-top" class="back-top"> <a href="#top"><i class="fa fa-angle-up" aria-hidden="true"></i> </a>    </div>
+    <!--/Back to top-->
+    <script src="~/home_files/jquery.min.js"></script>
+    <script src="~/home_files/bootstrap.min.js"></script>
+    <script src="~/home_files/interface.js"></script>
+    <!--Switcher-->
+    <script src="~/home_files/switcher.js"></script>
+    <!--bootstrap-slider-JS-->
+    <script src="~/home_files/bootstrap-slider.min.js"></script>
+    <!--Slider-JS-->
+    <script src="~/home_files/slick.min.js"></script>
+    <script src="~/home_files/owl.carousel.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    @RenderSection("css", required: false)
+    @RenderSection("script", required: false)
+    <script>
+        var showmodal = function (pram) {
+            $('#'+pram+' .modal').modal('show');
+            $('.modal-backdrop').removeAttr("class");
+
+        }
+           
+        
+    </script>
+</body>
+</html>

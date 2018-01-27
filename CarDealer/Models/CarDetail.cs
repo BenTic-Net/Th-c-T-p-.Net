@@ -14,11 +14,13 @@ namespace CarDealer.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Web.Mvc;
 
     public class CarDetail
     {
         [Key]
         public long CarId { get; set; }
+        [DataType(DataType.DateTime)]
         public Nullable<System.DateTime> FirstRegistrationDate { get; set; }
         public string MoreImage { get; set; }
         public string Feature { get; set; }
@@ -40,6 +42,7 @@ namespace CarDealer.Models
         public string ExteriorColor { get; set; }
         public string WheelType { get; set; }
         [DataType(DataType.MultilineText)]
+        [AllowHtml]
         public string SellerNote { get; set; }
 
         // public virtual Car ToCar { get; set; }

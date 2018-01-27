@@ -1,0 +1,23 @@
+﻿@model IEnumerable<CarDealer.Areas.Client.Models.ShortCarViewModel>
+
+
+
+<div class="sidebar_widget">
+    <div class="widget_heading">
+        <h5><i class="fa fa-car" aria-hidden="true"></i> Recently Listed Cars</h5>
+    </div>
+    <div class="recent_addedcars">
+        <ul>
+            @foreach (var c in Model)
+            {
+            <li class="gray-bg">
+                <div class="recent_post_img"> <a href="@Url.Action("Index","CarDetail",new { Id=c.id})"><img src="@(c.ThumpImage)car.jpg" alt="image"></a> </div>
+                <div class="recent_post_title">
+                    <a href="@Url.Action("Index","CarDetail",new { Id=c.id})">@c.Name</a>
+                    <p class="widget_price">@c.AskingPrice</p>
+                </div>
+            </li>
+            }
+        </ul>
+    </div>
+</div>

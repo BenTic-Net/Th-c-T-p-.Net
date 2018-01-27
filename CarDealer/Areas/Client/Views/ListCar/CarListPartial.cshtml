@@ -1,0 +1,53 @@
+﻿
+@model IEnumerable<CarDealer.Areas.Client.Models.ShortCarViewModel>
+@using PagedList
+@using PagedList.Mvc
+
+    <div class="result-sorting-wrapper">
+        <div class="sorting-count">
+            <p>1 - @(ViewBag.Number / 2) <span>of @ViewBag.Number Listings</span></p>
+        </div>
+        <div class="result-sorting-by">
+            <p>Sort by:</p>
+            <form action="http://themes.webmasterdriver.net/carforyou/demo/listing-classic.html#" method="post">
+                <div class="form-group select sorting-select">
+                    <select class="form-control ">
+                        <option>Price (low to high)</option>
+                        <option>$100 to $500</option>
+                        <option>$500 to $1000</option>
+                        <option>$1000 to $1500</option>
+                        <option>$1500 to $2000</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    @foreach (var car in Model)
+    {
+        <div class="product-listing-m gray-bg">
+            <div class="product-listing-img">
+                <a href="@Url.Action("Index","CarDetail",new { Id=car.id})"><img src="@(car.ThumpImage)car.jpg" class="img-responsive" alt="Image"> </a>
+                <div class="label_icon">New</div>
+            </div>
+            <div class="product-listing-content">
+                <h5><a href="@Url.Action("Index","CarDetail",new { Id=car.id})">@car.Name </a></h5>
+                <p class="list-price">@Html.DisplayFor(modelcar => car.AskingPrice)</p>
+                <ul>
+                    <li><i class="fa fa-road" aria-hidden="true"></i>@car.CurentMile km</li>
+                    <li><i class="fa fa-tachometer" aria-hidden="true"></i>30.000 miles</li>
+
+                    <li><i class="fa fa-calendar" aria-hidden="true"></i>@car.ModelName model</li>
+
+                </ul>
+                <a href="#" class="btn">View Details <span class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
+                <div class="car-location"><span><i class="fa fa-map-marker" aria-hidden="true"></i> Colorado, USA</span></div>
+            </div>
+        </div>
+    }
+
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page, ddlModel=Request["ddlModel"],ddlManufacture=Request["ddlManufacture"] }), new PagedListRenderOptions() { ContainerDivClasses = new List<string> { "pagination" }, UlElementClasses = new List<string> { "" }, })
+
+
+
+
