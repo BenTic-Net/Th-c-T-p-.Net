@@ -14,7 +14,7 @@ namespace CarDealer.Areas.Client.Controllers
     {
         ApplicationDbContext context = new ApplicationDbContext();
         // GET: Client/ListCar
-        public ActionResult Index(int? page, string ddlModel, string ddlManufacture, string price, string NewOld)
+        public ActionResult Index(int? page, string ddlModel, string ddlManufacture, string price, string NewOld, string Name)
         {
             var q = (from car in context.Cars
                      join model in context.CarModels on car.ModelID equals model.ID
@@ -36,6 +36,9 @@ namespace CarDealer.Areas.Client.Controllers
                 q = q.Where(c => c.ModelName==ddlModel).ToList();
             if (!string.IsNullOrEmpty(ddlManufacture))
                 q = q.Where(c => c.Manufacture==ddlManufacture).ToList();
+
+            if (!string.IsNullOrEmpty(Name))
+                q = q.Where(c => c.Name.Contains(Name)).ToList();
             if (!string.IsNullOrEmpty(price))
             {
                 long min;
@@ -58,7 +61,7 @@ namespace CarDealer.Areas.Client.Controllers
             }
 
             ViewBag.Number = q.Count();
-
+            q = q.OrderBy(c => c.id).ToList();
             return View(q.ToPagedList(page??1,2));
         }
         public ActionResult CarListPartial(int? page, string ddlModel, string ddlManufacture, string price, string NewOld)
@@ -66,6 +69,7 @@ namespace CarDealer.Areas.Client.Controllers
             var q = (from car in context.Cars
                      join model in context.CarModels on car.ModelID equals model.ID
                      join manu in context.Manufactures on model.ManufactureId equals manu.ManufactureId
+                     where car.Warranty == 1
                      select new ShortCarViewModel()
                      {
                          AskingPrice = car.AskingPrice,

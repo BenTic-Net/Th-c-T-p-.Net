@@ -10,6 +10,8 @@ using CarDealer.Models;
 using PagedList;
 namespace CarDealer.Controllers
 {
+    [ClientCmsAttr]
+    [AuthAttribute]
     public class FeedBacksController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

@@ -73,17 +73,18 @@
                if (action != null && !string.IsNullOrEmpty(User.Identity.GetUserId()))
                {
 
-                   if (action.Contains("Detail"))
+                   if (action.Contains("Details"))
                    {<span>
-                @Html.ActionLink("Detail", "Detail", new { id = item.ID })
+                @Html.ActionLink("Details", "Details", new { id = item.ID })
             </span>}
-               }
-
-               if (action.Contains("Delete"))
-               {<span>
+                   if (action.Contains("Delete"))
+                   {<span>
                 @Html.ActionLink("Delete", "Delete", new { id = item.ID })
             </span>}
                }
+
+
+        }
 
 
 

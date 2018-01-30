@@ -24,7 +24,14 @@ namespace CarDealer.Areas.Client.Controllers
         private ApplicationUserManager _userManager;
         ApplicationDbContext context;
 
-       public ActionResult UFavoriteCar()
+        [AllowAnonymous]
+        public ActionResult UnAuthFav()
+        {
+            return View();
+        }
+
+
+        public ActionResult UFavoriteCar()
        {
             if (!User.Identity.IsAuthenticated)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -310,9 +317,9 @@ namespace CarDealer.Areas.Client.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);  
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");  
                     //Assign Role to user Here     
-                  //  await this.UserManager.AddToRoleAsync(user.Id, "Guest");
+                    //  await this.UserManager.AddToRoleAsync(user.Id, "Guest");
                     //Ends Here   
-                    return RedirectToAction("Index","Home");
+                    return JavaScript("location.reload()");
                 }
                
                 AddErrors(result);

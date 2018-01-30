@@ -28,7 +28,7 @@
 <section class="our_blog">
     <div class="container">
         <div class="row">
-            <div class="col-lg-9 col-md-8 col-md-push-4 col-lg-push-3">
+            <div class="col-lg-9 col-md-8 col-md-push-4 col-lg-push-3" id="Article">
                 <!--article-1-->
                 @foreach (var n in Model)
                 {
@@ -51,7 +51,7 @@
                         </div>
                     </div>
                     <div class="article_info">
-                        @foreach(var c in n.SubContent) { @Html.Raw(c + " "); }...
+                         @Html.Raw(n.Content)...
                         
                         <br/><a href="@Url.Action("Detail","Blog",new { id=n.NewId})" class="btn">Read More <span class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a>
                     </div>
@@ -84,3 +84,69 @@
     </div>
 </section>
 <!-- /Our-Blog--> 
+
+@section script{
+
+<script type="text/javascript">
+
+    var pageSize = 2;
+    var pageIndex = 1;
+    var ajaxstate = 1;
+    $(document).ready(function () {
+        //GetData();
+        $('footer').hide();
+        $(document).scroll(function () {
+            if ($(window).scrollTop() ==
+                $(document).height() - $(window).height()) {
+                console.log($(window).scrollTop());
+                GetData();
+            }
+        });
+    });
+
+    function GetData() {
+        if (ajaxstate == 1) {
+            $.ajax({
+                type: 'GET',
+                url: '/Client/Blog/GetData',
+                data: { "pageindex": pageIndex, "pagesize": pageSize },
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data);
+                    if (data == "Out") {
+                        ajaxstate = 0;
+                        console.log(ajaxstate);
+                        $('footer').show();
+                    }
+                    if (data != null && data != "Out") {
+
+                        for (var i = 0; i < data.length; i++) {
+                            $("#Article").append('<article class="article_wrap"><div class="article_img"><a href="/Client/Blog/Detail/' + data[i].NewId + '"><img src="' + data[i].Image + 'images/New.jpg" alt="image"></a><div class="articale_header"><h2><a href="/Client/Blog/Detail/' + data[i].NewId + '">' + data[i].Title + '</a></h2><div class="article_meta"><ul><li><i class="fa fa-user-circle-o" aria-hidden="true"></i> <a href="">' + data[i].CreatedBy + '</a></li><li><i class="fa fa-calendar-check-o" aria-hidden="true"></i>' + data[i].CreatedOn + '</li><li><i class="fa fa-tags" aria-hidden="true"></i></li><li><i class="fa fa-comment" aria-hidden="true"></i> <a >' + data[i].Commentcount + ' Comments</a></li><li><i class="fa fa-eye" aria-hidden="true"></i> <a >205 Views</a></li></ul></div></div></div><div class="article_info">' + data[i].Content + '...<br/><a href="/Client/Blog/Detail/' + data[i].NewId + '" class="btn">Read More <span class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a></div></article>');
+
+
+
+
+
+
+
+
+                        }
+                        pageIndex++;
+                    }
+                },
+                beforeSend: function () {
+                    $("#progress").show();
+                },
+                complete: function () {
+                    $("#progress").hide();
+
+                },
+                error: function () {
+                    alert("Error while retrieving data!");
+                }
+            });
+        }
+    }
+</script>
+
+}

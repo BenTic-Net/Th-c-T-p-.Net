@@ -222,8 +222,9 @@ namespace CarDealer.Controllers
                 //Get user
                 var edituser = UserManager.FindById(u.Id);
                 //Get Role id
-                if (edituser.Roles.Count == 0)
+                if (edituser.Roles.Count() == 0)
                 {
+                    
                     UserManager.AddToRoles(u.Id, u.Role);
                     goto h;
                    
@@ -237,7 +238,8 @@ namespace CarDealer.Controllers
                 if (u.Id != oldrolename && oldrolename != "Admin")
                 {
                     UserManager.RemoveFromRole(u.Id, oldrolename);
-                    UserManager.AddToRoles(u.Id, u.Role);
+                    if (u.Role != null)
+                        UserManager.AddToRoles(u.Id, u.Role);
                 }
                 h:
                 edituser.UserName = u.UserName;

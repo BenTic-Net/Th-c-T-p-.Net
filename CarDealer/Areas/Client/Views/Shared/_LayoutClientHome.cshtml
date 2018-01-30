@@ -50,7 +50,24 @@
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
+    <style>
+        .global-nav__profile-count-badge {
+            background-color: #a400b4;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 12px;
+            
+            line-height: .4;
+            position: absolute;
+            padding: 5px;
+            text-align: center;
+            top: 11px;
+            -webkit-transform: translate(50%,-50%);
+            -ms-transform: translate(50%,-50%);
+            transform: translate(50%,-50%);
+            text-rendering: optimizeLegibility;
+        }
+    </style>
 </head>
 <body>
     <!--Header-->
@@ -117,20 +134,33 @@
                             </li>
                         </ul>
                     </div>*@
-                    @if (User.Identity.IsAuthenticated) {
+                    @if (User.Identity.IsAuthenticated)
+                    {
                     @Html.Partial("UserPartial")}
+                    else
+                    {<div class="user_login">
+                        <ul>
+                            <li >
+                                <a href="/Client/Account/UnAuthFAv" ><i class="fa fa-user-circle" aria-hidden="true"></i>Favorite<span class="global-nav__profile-count-badge">
+                                    2
+                                </span></a>
+                                
+                        </li>
+                    </ul>
+                </div>}
                     <div class="header_search">
                         <div id="search_toggle"><i class="fa fa-search" aria-hidden="true"></i></div>
-                        <form action="#" method="get" id="header-search-form">
-                            <input type="text" placeholder="Search..." class="form-control">
+                        @using (Html.BeginForm("Index","ListCar",FormMethod.Get,new { id="header-search-form" }))
+                        {
+                            <input type="text" name="Name" placeholder="Search..." class="form-control">
                             <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-                        </form>
+                        }
                     </div>
                 </div>
                 <div class="collapse navbar-collapse" id="navigation">
                     <ul class="nav navbar-nav">
                         <li>
-                            <a href="@Url.Action("Index","Home")">Home</a>
+                            <a href="@Url.Action("Index", "Home")">Home</a>
                         </li>
                         <li><a href="@Url.Action("Index","About")">About Us</a></li>
                         <li class="">

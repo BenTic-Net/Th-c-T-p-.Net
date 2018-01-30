@@ -1,0 +1,131 @@
+﻿
+@{
+    ViewBag.Title = "UnAuthFav";
+    Layout = "~/Areas/Client/Views/Shared/_LayoutClientHome.cshtml";
+}
+
+<!--Page Header-->
+<section class="page-header profile_page">
+    <div class="container">
+        <div class="page-header_wrap">
+            <div class="page-heading">
+                <h1>Your Favorite Car</h1>
+            </div>
+            <ul class="coustom-breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li>Profile</li>
+            </ul>
+        </div>
+    </div>
+    <!-- Dark Overlay-->
+    <div class="dark-overlay"></div>
+</section>
+<!-- /Page Header-->
+<!--Profile-setting-->
+<section class="user_profile inner_pages">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-sm-3">
+                <div class="profile_nav">
+                    <ul>
+                       
+                        <li>@Ajax.ActionLink("My Favorite Car", "UFavoriteCar", new AjaxOptions { UpdateTargetId = "generalSection", HttpMethod = "Get" })</li>
+                        
+                    </ul>
+                </div>
+            </div>
+            <div id="generalSection">
+
+                <div class="col-md-6 col-sm-8">
+                    <div class="profile_wrap">
+                        <h5 class="uppercase underline">My Vehicles <span>(20 Cars)</span></h5>
+                        <div class="my_vehicles_list">
+                            <ul class="vehicle_listing">
+
+                                <li>
+                                    <div class="vehicle_img"> <a href="#"><img src="./favorite_files/recent-car-1.jpg" alt="image"></a> </div>
+                                    <div class="vehicle_title">
+                                        <h6><a href="#">Mazda CX-5 SX, V6, ABS, Sunroof </a></h6>
+                                    </div>
+                                    <div class="vehicle_status">
+                                        <a  class="btn outline btn-xs active-btn" onclick= "Deactive(this)">Active</a>
+                                        <div class="clearfix"></div>
+                                        <a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> <a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                    </div>
+                                </li>
+                               
+                              
+                            </ul>
+                            
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+@section script{
+    <script>
+        var listcar = [];
+            var Deactive = function (p) {
+                $(p).attr('class', 'btn outline btn-xs');
+                $(p).text('Deactive')
+                $(p).parent().parent().attr('class', 'deactive_vehicle');
+                $(p).attr('onclick', 'active(this)');
+            }
+            var active = function (p) {
+                $(p).attr('class', 'btn outline btn-xs active-btn');
+                $(p).text('Active')
+                $(p).parent().parent().attr('class', '');
+                $(p).attr('onclick', 'Deactive(this)');
+            }
+            var delFav = function (o,p) {
+                $.ajax({
+                    type: "Get",
+                    url: "/Client/Account/ManageFavorite?ation=" + o,
+
+                    contentType: "application/json; charset=utf-8",
+                    success: function (result) {
+                        $(p).parent().parent().remove();
+                        var c = Number($('#count').text());
+                        c--;
+                        $('#count').text(c);
+                    },
+
+                });
+
+            }
+
+
+            $(document).ready(function () {
+
+                if (('localStorage' in window) && (window.localStorage)) {
+                    var list = window.localStorage.getItem("lstcar");
+                    Console.log(list);
+                    if (list)
+                    {
+
+                    }
+                }
+
+            })
+
+            function showproduct() {
+                if (!listcar || listcar.length <= 0)
+                    return;
+
+                for (var i = 0; i < listcar.length; i++)
+                {
+                    var car = listcar[i];
+                    $('.vehicle_listing').append(' <li>< div class="vehicle_img"><a href="#"><img src="./favorite_files/recent-car-1.jpg" alt="image"></a> </div><div class="vehicle_title"><h6><a href="#">Mazda CX-5 SX, V6, ABS, Sunroof </a></h6></div><div class="vehicle_status"><a class="btn outline btn-xs active-btn" onclick="Deactive(this)">Active</a><div class="clearfix"></div><a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> <a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></div></li >');
+
+                }
+
+            }
+
+    </script>
+
+}
+

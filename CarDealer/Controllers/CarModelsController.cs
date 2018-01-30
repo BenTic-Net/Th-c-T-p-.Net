@@ -179,6 +179,11 @@ namespace CarDealer.Controllers
         public ActionResult Delete(int id)
         {
             CarModel carModel = context.CarModels.Find(id);
+            if(context.CarModels.Include(c=>c.ToCars).Single(v=>v.ID==id) !=null)
+            {
+                ViewBag.Msg = "Must Delete all car of this Model First";
+                return View();
+            }
             context.CarModels.Remove(carModel);
             context.SaveChanges();
             return RedirectToAction("Index");

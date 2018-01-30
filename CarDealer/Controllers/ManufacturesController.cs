@@ -107,6 +107,7 @@ namespace CarDealer.Controllers
             {
                 return HttpNotFound();
             }
+            
             return View(manufacture);
         }
 
@@ -116,6 +117,11 @@ namespace CarDealer.Controllers
         public ActionResult Delete(int id)
         {
             Manufacture manufacture = db.Manufactures.Find(id);
+            if (db.Manufactures.Include(m => m.ToModels).Single(n=>n.ManufactureId==id).ToModels!= null)
+            {
+                ViewBag.Msg = "Must delete all model of this Brand first";
+                return View();
+            }
             db.Manufactures.Remove(manufacture);
             db.SaveChanges();
             return RedirectToAction("Index");

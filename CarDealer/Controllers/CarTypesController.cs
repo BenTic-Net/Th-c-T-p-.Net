@@ -180,7 +180,7 @@ namespace CarDealer.Controllers
             CarType carType = db.CarTypes.Find(id);
 
             var categories = db.CarTypes.Where(c => c.ParentId == carType.CarTypeId).ToList();
-            if (categories == null || categories.Count != 0)
+            if (categories == null || categories.Count != 0 || db.CarTypes.Include(c=>c.ToCars).Single(v=>v.CarTypeId==id) !=null)
             { 
             TempData["Msg"] = "DeleteFail Exist Child";
                 return RedirectToAction("Index");

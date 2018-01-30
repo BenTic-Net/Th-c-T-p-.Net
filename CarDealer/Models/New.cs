@@ -33,5 +33,10 @@ namespace CarDealer.Models
         [DataType(DataType.MultilineText)]
         [AllowHtml]
         public string Content { get; set; }
+
+        //public string metaTitle { get; set; }
+        //public string metaDescription { get; set; }
+        //public string metaKeyword { get; set; }
+
     }
 }
