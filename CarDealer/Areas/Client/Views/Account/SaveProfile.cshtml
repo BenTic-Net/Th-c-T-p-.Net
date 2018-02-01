@@ -1,19 +1,15 @@
 ﻿@model CarDealer.Areas.Client.Models.ProfileViewModel
 
 
-<!--Profile-setting-->
 
-            <div class="col-md-6 col-sm-8"  >
-                <div class="profile_wrap" >
-                    <h5 class="uppercase underline">Genral Settings</h5>
-                    @using (Ajax.BeginForm("SaveProfile", null, new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "result1" },new { id="result1" }))
-                    {
-                        
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.FullName,htmlAttributes: new { @class = "control-label" })
-                            @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control white_bg"} })
-                            @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
-                        </div>
+@using (Ajax.BeginForm("SaveProfile", null, new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "result1" }, new { id= "result1" }))
+{
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.FullName, htmlAttributes: new { @class = "control-label" })
+        @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control white_bg" } })
+        @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
+    </div>
                         <div class="form-group">
                             @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })
                             @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control white_bg" } })
@@ -22,7 +18,7 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.Phonenumber, htmlAttributes: new { @class = "control-label" })
                             @Html.EditorFor(model => model.Phonenumber, new { htmlAttributes = new { @class = "form-control white_bg" } })
-                           @Html.ValidationMessageFor(model => model.Phonenumber, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.Phonenumber, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="form-group">
@@ -33,19 +29,4 @@
                         <div class="form-group">
                             <button type="submit" class="btn">Save Changes <span class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span></button>
                         </div><span id="result"></span>@Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    }
-                        <div class="gray-bg field-title">
-                            <h6>Update password</h6>
-                        </div>
-@using (Ajax.BeginForm("ChangePassword", "Manage", new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "resultp" }))
-{
-    <div id="resultp">
-        @{Html.RenderAction("ChangePassword", "Manage");
-        }
-    </div>
 }
-                </div>
-            </div>
-  
-<!--/Profile-setting-->
-

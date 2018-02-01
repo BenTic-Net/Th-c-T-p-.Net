@@ -16,6 +16,7 @@ namespace CarDealer.Areas.Client.Models
         public string Image { get; set; }
         public Nullable<System.DateTime> TopHot { get; set; }
         public Nullable<int> ViewCount { get; set; }
+        [DataType(DataType.Date)]
         public Nullable<System.DateTime> CreatedOn { get; set; }       
         public string CreatedBy { get; set; }        
         public string Topic { get; set; }

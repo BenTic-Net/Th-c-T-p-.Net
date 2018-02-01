@@ -68,7 +68,7 @@
 
 @section script{
     <script>
-        var listcar = [];
+        
             var Deactive = function (p) {
                 $(p).attr('class', 'btn outline btn-xs');
                 $(p).text('Deactive')
@@ -100,27 +100,30 @@
 
 
             $(document).ready(function () {
-
+               // window.localStorage.removeItem("lstcar");
                 if (('localStorage' in window) && (window.localStorage)) {
-                    var list = window.localStorage.getItem("lstcar");
-                    Console.log(list);
-                    if (list)
+                    listcar = JSON.parse(window.localStorage.getItem("lstcar"));
+                    console.log(listcar);
+                    if (listcar)
                     {
-
+                        
+                        showcar();  
                     }
                 }
 
             })
 
-            function showproduct() {
-                if (!listcar || listcar.length <= 0)
+            function showcar() {
+                if (!listcar || listcar.length <= 0) 
                     return;
-
+                console.log(listcar);
                 for (var i = 0; i < listcar.length; i++)
                 {
                     var car = listcar[i];
-                    $('.vehicle_listing').append(' <li>< div class="vehicle_img"><a href="#"><img src="./favorite_files/recent-car-1.jpg" alt="image"></a> </div><div class="vehicle_title"><h6><a href="#">Mazda CX-5 SX, V6, ABS, Sunroof </a></h6></div><div class="vehicle_status"><a class="btn outline btn-xs active-btn" onclick="Deactive(this)">Active</a><div class="clearfix"></div><a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> <a href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></div></li >');
-
+                    if (car.active==true)
+                        $('.vehicle_listing').append('<li><div class="vehicle_img"><a href="/Client/CarDetail/Index/' + car.ma + '"><img src="' + car.image + '" alt="image"></a></div><div class="vehicle_title"><h6><a href="/Client/CarDetail/Index/' + car.ma + '">' + car.ten + '</a></h6></div><div class="vehicle_status"><a class="btn outline btn-xs active-btn" onclick="Deactive(this);ModFav(' + car.ma +',false)">Active</a><div class="clearfix"></div><a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> <a onclick="DeleteFav('+car.ma+',this)" ><i class="fa fa-trash" aria-hidden="true"></i></a></div></li >');
+                    else 
+                        $('.vehicle_listing').append('<li class="deactive_vehicle"><div class="vehicle_img"><a href="/Client/CarDetail/Index/' + car.ma + '"><img src="' + car.image + '" alt="image"></a></div><div class="vehicle_title"><h6><a href="/Client/CarDetail/Index/' + car.ma + '">' + car.ten + '</a></h6></div><div class="vehicle_status"><a class="btn outline btn-xs active-btn" onclick="active(this);ModFav('+car.ma+',true)">Deactive</a><div class="clearfix"></div><a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> <a onclick="DeleteFav(' + car.ma + ',this)" ><i class="fa fa-trash" aria-hidden="true"></i></a></div></li >');
                 }
 
             }

@@ -334,6 +334,8 @@
     <Content Include="Areas\Client\Views\About\Index.cshtml" />
     <Content Include="Areas\Client\Views\Blog\RecentPostPartial.cshtml" />
     <Content Include="Areas\Client\Views\Account\UnAuthFav.cshtml" />
+    <Content Include="Areas\Client\Views\Account\SaveProfile.cshtml" />
+    <Content Include="Areas\Client\Views\CarDetail\RecentListedPartial.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

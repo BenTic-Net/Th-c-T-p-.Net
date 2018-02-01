@@ -115,7 +115,7 @@ namespace CarDealer.Areas.Client.Controllers
                     return Content("Update Success");
                 return Content( UserManager.Update(u).Errors.ToString());
             }
-            return Content("Update Fail");
+            return View(profile);
         }
         public AccountController()
         {

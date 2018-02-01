@@ -21,7 +21,11 @@ namespace CarDealer.Controllers
         {
             if(img!=null)
             {
-                Directory.CreateDirectory(Server.MapPath("~/Content/Upload/User/" + User.Identity.Name ));
+                if (Directory.Exists(Server.MapPath("~/Content/Upload/User/" + User.Identity.Name)))
+                {
+                    Directory.Delete(Server.MapPath("~/Content/Upload/User/" + User.Identity.Name),true);
+                    Directory.CreateDirectory(Server.MapPath("~/Content/Upload/User/" + User.Identity.Name));
+                }
                 img.SaveAs(Server.MapPath("~/Content/Upload/User/") + User.Identity.Name + "/" + img.FileName);
                 context.Users.Find(User.Identity.GetUserId()).Image = "/Content/Upload/User/" + User.Identity.Name + "/" + img.FileName;context.SaveChanges();
                 return Redirect(Request.UrlReferrer.ToString());

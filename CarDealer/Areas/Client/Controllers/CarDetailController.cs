@@ -20,7 +20,7 @@ namespace CarDealer.Areas.Client.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var car = from c in context.Cars join cdt in context.CarDetails on c.CarId equals cdt.CarId where c.CarId == Id select new DetailCarViewModel() { Name = c.Name, AskingPrice = c.AskingPrice, DownPrice = c.AskingPrice - c.AskingPrice * c.Discount / 100, MoreImage = cdt.MoreImage, SellerNote = cdt.SellerNote, CupicCapacity=cdt.CupicCapacity, CurentMile=c.CurentMile, Cylider=cdt.Cylider, FuelConsumption=cdt.FuelConsumption, FuelType=cdt.FuelType, Horsepower=cdt.Horsepower, ModelName=c.ToCarModel.Name, NumberOfSeat=cdt.NumberOfSeat, TranmisionType= cdt.TranmisionType ,Id=c.CarId};
+            var car = from c in context.Cars join cdt in context.CarDetails on c.CarId equals cdt.CarId where c.CarId == Id select new DetailCarViewModel() { Name = c.Name, AskingPrice = c.AskingPrice, DownPrice = c.AskingPrice - c.AskingPrice * c.Discount / 100, MoreImage = cdt.MoreImage, SellerNote = cdt.SellerNote, CupicCapacity=cdt.CupicCapacity, CurentMile=c.CurentMile, Cylider=cdt.Cylider, FuelConsumption=cdt.FuelConsumption, FuelType=cdt.FuelType, Horsepower=cdt.Horsepower, ModelName=c.ToCarModel.Name, NumberOfSeat=cdt.NumberOfSeat, TranmisionType= cdt.TranmisionType ,Id=c.CarId, ThumpImage=c.ThumpImage};
 
             if (car == null)
             {
@@ -73,6 +73,29 @@ namespace CarDealer.Areas.Client.Controllers
 
 
         }
+
+        public ActionResult RecentListedPartial ()
+        {
+            var q = (from car in context.Cars
+                     where car.Warranty == 1
+                     orderby car.CreatedTime descending
+                     select new ShortCarViewModel()
+                     {
+                         AskingPrice = car.AskingPrice,
+                         CurentMile = car.CurentMile,
+                         Name = car.Name,
+                         ThumpImage = car.ThumpImage,
+                         ModelName=car.ToCarModel.Name,
+                          ShortNote=car.ShortNote,
+                          
+                         id = car.CarId
+                     }).ToList().Take(4);
+
+            return PartialView(q);
+        }
+
+
+
 
     }
 }

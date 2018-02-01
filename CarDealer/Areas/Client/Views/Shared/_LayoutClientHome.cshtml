@@ -317,13 +317,73 @@
     @RenderSection("css", required: false)
     @RenderSection("script", required: false)
     <script>
+
+        var listcar = [];
+
+        $(document).ready(function () {
+            if (('localStorage' in window) && (window.localStorage)) {
+                listcar = JSON.parse(window.localStorage.getItem("lstcar"));
+
+                $('.global-nav__profile-count-badge').text(listcar.length);
+                console.log(listcar.length);
+
+            }
+
+        })
+
         var showmodal = function (pram) {
             $('#'+pram+' .modal').modal('show');
             $('.modal-backdrop').removeAttr("class");
 
         }
-           
-        
+
+        function DeleteFav(ma,p)
+        {
+            console.log('run'); var list = [];
+           list = JSON.parse(window.localStorage.getItem("lstcar"));
+            if (list || list.length > 0)
+                for (var i = 0; i < list.length; i++) {
+                    if (list[i].ma == ma) {
+                        list.splice(i, 1);
+                        window.localStorage.setItem("lstcar", JSON.stringify(list));
+                        $(p).parent().parent().remove();
+                        $('.global-nav__profile-count-badge').text(list.length);
+                        return true;
+                    }
+                }
+            return false;
+
+        }
+
+        function ModFav(ma,a) {
+            console.log('run');
+
+            for (var i = 0; i < listcar.length; i++) {
+                if (listcar[i].ma == ma) {
+                    listcar[i].active=a;
+                    window.localStorage.setItem("lstcar", JSON.stringify(listcar));
+                    $('.vehicle_listing').children().remove();
+                    showcar();
+                    return;
+                }
+            }
+        }
+
+           function CheckExist(ma) {
+               var list = [];
+              list = JSON.parse(window.localStorage.getItem("lstcar"));
+              if (list )
+                  if (list.length > 0)
+               for (var i = 0; i < list.length; i++)
+               {
+                   if (list[i].ma == ma)
+                   
+                   return true;
+               }
+               return false;
+           }
+
+
     </script>
 </body>
 </html>

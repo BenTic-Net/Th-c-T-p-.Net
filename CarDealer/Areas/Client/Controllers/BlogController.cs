@@ -57,19 +57,31 @@ namespace CarDealer.Areas.Client.Controllers
             return View(q);
         }
 
-        public ActionResult GetData(int pageIndex, int pageSize)
+        public ActionResult GetData(int pageIndex, int pageSize, string tag, string title)
         {
 
            
 
-            var q = (from n in context.News where n.Waranty == 1 select new BlogViewModel() { Content = n.Content, ViewCount = n.ViewCount, CreatedOn = n.CreatedOn, Topic = n.Topic, Title = n.Title, Image = n.Image, NewId = n.NewId, CreatedBy = n.CreatedBy }).OrderBy(c=>c.NewId).Skip(pageIndex * pageSize).Take(pageSize).ToList();
+            var q = (from n in context.News where n.Waranty == 1 orderby n.NewId select new BlogViewModel() { Content = n.Content, ViewCount = n.ViewCount, CreatedOn = n.CreatedOn, Topic = n.Topic, Title = n.Title, Image = n.Image, NewId = n.NewId, CreatedBy = n.CreatedBy }).Skip(pageIndex * pageSize).Take(pageSize).ToList();
             if (q.Count() == 0)
                 return Json("Out", JsonRequestBehavior.AllowGet);
+
+            if (!string.IsNullOrEmpty(title))
+            {
+                q = q.Where(t => t.Title.Contains(title)).ToList();
+            }
+            if (!string.IsNullOrEmpty(tag))
+            {
+                q = q.Where(t => t.Topics.Contains(tag)).ToList();
+            }
+
             foreach (var n in q)
             {
                 List<string> t= Regex.Replace(n.Content, "<.*?>", String.Empty).Split(' ').Take(70).ToList();
                 n.Content = string.Join(" ", t);
             }
+
+
 
             foreach (var n in q)
             {
