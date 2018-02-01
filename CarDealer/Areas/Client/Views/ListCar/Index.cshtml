@@ -42,7 +42,10 @@
             <div class="col-md-9 col-md-push-3" id="CarList">
                 <div class="result-sorting-wrapper">
                     <div class="sorting-count">
-                        <p>1 - @(ViewBag.Number/2) <span>of @ViewBag.Number Listings</span></p>
+                        <p>@ViewBag.page - @if (ViewBag.Number % 5 > 0)
+                        { <span>@(ViewBag.Number / 5 + 1)</span>}
+                        else
+                        {<span>@(ViewBag.Number / 5 )</span>} <span>of @ViewBag.Number Listings</span></p>
                     </div>
                     <div class="result-sorting-by">
                         <p>Sort by:</p>

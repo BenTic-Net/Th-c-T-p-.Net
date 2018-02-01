@@ -20,7 +20,7 @@ namespace CarDealer.Models
         [Required]
         public string Name { get; set; }
         [DataType(DataType.PhoneNumber, ErrorMessage = "Provided phone number not valid")]
-        [RegularExpression(@"^(\d)$", ErrorMessage = "Wrong mobile")]
+        [RegularExpression(@"^(\d)+$", ErrorMessage = "Wrong mobile")]
         [StringLength(13, MinimumLength = 10)]
         public string Phone { get; set; }
         [DataType(DataType.EmailAddress)]

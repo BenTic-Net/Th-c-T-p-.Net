@@ -14,7 +14,7 @@ namespace CarDealer.Areas.Client.Controllers
     {
         ApplicationDbContext context = new ApplicationDbContext();
         // GET: Client/ListCar
-        public ActionResult Index(int? page, string ddlModel, string ddlManufacture, string price, string NewOld, string Name)
+        public ActionResult Index(int? page, string ddlModel, string ddlManufacture,string ddlBodystyle, string price, string NewOld, string Name)
         {
             var q = (from car in context.Cars
                      join model in context.CarModels on car.ModelID equals model.ID
@@ -29,14 +29,15 @@ namespace CarDealer.Areas.Client.Controllers
                          Name = car.Name,
                          ShortNote = car.ShortNote,
                          ThumpImage = car.ThumpImage,
-                         
+                          Bodystyle=car.ToCarType.Name,
                          id = car.CarId
                      }).ToList();
             if (!string.IsNullOrEmpty(ddlModel))
                 q = q.Where(c => c.ModelName==ddlModel).ToList();
             if (!string.IsNullOrEmpty(ddlManufacture))
                 q = q.Where(c => c.Manufacture==ddlManufacture).ToList();
-
+            if (!string.IsNullOrEmpty(ddlBodystyle))
+                q = q.Where(c => c.Bodystyle == ddlBodystyle).ToList();
             if (!string.IsNullOrEmpty(Name))
                 q = q.Where(c => c.Name.Contains(Name)).ToList();
             if (!string.IsNullOrEmpty(price))
@@ -61,8 +62,9 @@ namespace CarDealer.Areas.Client.Controllers
             }
 
             ViewBag.Number = q.Count();
+            ViewBag.page = page??1;
             q = q.OrderBy(c => c.id).ToList();
-            return View(q.ToPagedList(page??1,2));
+            return View(q.ToPagedList(page??1,5));
         }
         public ActionResult CarListPartial(int? page, string ddlModel, string ddlManufacture, string price, string NewOld)
         {

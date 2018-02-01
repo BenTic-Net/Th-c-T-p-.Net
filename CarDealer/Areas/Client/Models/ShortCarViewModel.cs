@@ -19,5 +19,6 @@ namespace CarDealer.Areas.Client.Models
         public decimal? DownPrice { get; set; }
         public string ShortNote { get; set; }
         public string Manufacture { get; set; }
+        public string Bodystyle { get; set; }
     }
 }

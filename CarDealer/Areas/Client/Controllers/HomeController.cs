@@ -20,6 +20,7 @@ namespace CarDealer.Areas.Client.Controllers
             ViewBag.ddlModel = new SelectList(context.CarModels, "Name", "Name");
             //var q = from m in context.CarModels join mf in context.Manufactures on m.ID equals mf.ManufactureId select new Dictionary<string,string> { { m.Name, mf.FullName } };
             //TempData["Link"] = new SelectList(q, "Key", "Value");
+            ViewBag.ddlBodystyle = new SelectList(context.CarTypes, "Name", "Name");
             return View();
         }
 
@@ -40,7 +41,7 @@ namespace CarDealer.Areas.Client.Controllers
             m.Mnfct = context.Manufactures.ToList();
             m.model = context.CarModels.ToList();
             m.Bodystyle = context.CarTypes.ToList();
-
+            
             return PartialView(m);
         }
         public ActionResult NewCarPartial()
