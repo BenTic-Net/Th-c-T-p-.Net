@@ -1,0 +1,37 @@
+﻿<!--Forgot-password-Form -->
+<div class="modal fade" id="forgotpassword">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h3 class="modal-title">Email Verifi</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="forgotpassword_wrap">
+                        <div class="col-md-12">
+                            <h5 style="color:red">@ViewBag.Msg</h5>
+                            @using (Ajax.BeginForm("VerifiEmail", "Account", new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "FogotPasswordform", OnSuccess = "showmodal('FogotPasswordform')" }))
+                            
+                            {
+                            @Html.AntiForgeryToken()
+                            <div class="form-group">
+                                <input type="text" name="code" class="form-control" placeholder="Your Verifi Code Here*">
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Verify" class="btn btn-block">
+                            </div>
+                            }
+                            <div class="text-center">
+                                <p class="gray_text">Check Your Email For Code.</p>
+                                <p><a href="#loginform" data-toggle="modal" data-dismiss="modal"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Back to Login</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/Forgot-password-Form -->

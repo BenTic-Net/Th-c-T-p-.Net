@@ -4,6 +4,12 @@
     Layout = "~/Areas/Client/Views/Shared/_LayoutClientHome.cshtml";
 }
 
+
+@section tag{
+    <title>CarForYou | Blog</title>
+    
+    }
+
 <!--Page Header-->
 <section class="page-header blog_page">
     <div class="container">
@@ -68,8 +74,8 @@
                         <h5>Search Blog</h5>
                     </div>
                     <div class="blog_search">
-                        <form action="#" method="get">
-                            <input class="form-control" name="search" type="text" placeholder="Search...">
+                        <form action="/Client/Blog/Index" method="get">
+                            <input class="form-control" name="title" type="text" placeholder="Search...">
                             <button type="submit" class="search_btn"><i class="fa fa-search" aria-hidden="true"></i></button>
                         </form>
                     </div>
@@ -90,7 +96,7 @@
 <script type="text/javascript">
     var i;
     var pageSize = 2;
-    var pageIndex = 1;
+    var pageIndex = 2;
     var ajaxstate = 1;
     $(document).ready(function () {
         //GetData();
@@ -106,6 +112,30 @@
             }
         });
     });
+
+    function Fomatdate(date) {
+        var a = 'AM';
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
+        var minute = date.getMinutes();
+        var hour = date.getHours();
+        var seccond = date.getSeconds();
+        if (hour > 12)
+        { a = 'PM'; hour -= 12; }
+        if (day < 10) {
+            day = '0' + day;
+        }
+        if (minute < 10) { minute = '0' + minute; }
+        if (hour < 10) { hour = '0' + hour; }
+        if (seccond < 10) { seccond = '0' + seccond; }
+        
+        if (month < 10) {
+            month = '0' + month;
+        }
+
+        return formattedDate = month + '/' + day + '/' + year + " " + hour + ":" + minute + ":" + seccond + ' ' + a;
+    }
 
     function GetData() {
         if (ajaxstate == 1) {
@@ -137,9 +167,15 @@
                             console.log(ajaxstate);
                             $('footer').show();
                         }
-                        if (data != null && data != "Out") {                            
+                        if (data != null && data != "Out") {    
+                            //var d = new Date(parseInt(data[i].CreatedOn.replace("/Date(", "").replace(")/", ""), 20));
+                            //
+
                             for (var i = 0; i < data.length; i++) {
-                                $("#Article").append('<article class="article_wrap"><div class="article_img"><a href="/Client/Blog/Detail/' + data[i].NewId + '"><img src="' + data[i].Image + 'images/New.jpg" alt="image"></a><div class="articale_header"><h2><a href="/Client/Blog/Detail/' + data[i].NewId + '">' + data[i].Title + '</a></h2><div class="article_meta"><ul><li><i class="fa fa-user-circle-o" aria-hidden="true"></i> <a href="">' + data[i].CreatedBy + '</a></li><li><i class="fa fa-calendar-check-o" aria-hidden="true"></i>' + data[i].CreatedOn + '</li><li><i class="fa fa-tags" aria-hidden="true"></i></li><li><i class="fa fa-comment" aria-hidden="true"></i> <a >' + data[i].Commentcount + ' Comments</a></li><li><i class="fa fa-eye" aria-hidden="true"></i> <a >205 Views</a></li></ul></div></div></div><div class="article_info">' + data[i].Content + '...<br/><a href="/Client/Blog/Detail/' + data[i].NewId + '" class="btn">Read More <span class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a></div></article>');
+
+                                //var date = new Date(parseInt(data[i].CreatedOn.replace("/Date(", "").replace(")/", ""), 10));                                                            
+                                
+                                $("#Article").append('<article class="article_wrap"><div class="article_img"><a href="/Client/Blog/Detail/' + data[i].NewId + '"><img src="' + data[i].Image + 'images/New.jpg" alt="image"></a><div class="articale_header"><h2><a href="/Client/Blog/Detail/' + data[i].NewId + '">' + data[i].Title + '</a></h2><div class="article_meta"><ul><li><i class="fa fa-user-circle-o" aria-hidden="true"></i> <a href="">' + data[i].CreatedBy + '</a></li><li><i class="fa fa-calendar-check-o" aria-hidden="true"></i>' + Fomatdate(new Date(parseInt(data[i].CreatedOn.replace("/Date(", "").replace(")/", ""), 10)))  + '</li><li><i class="fa fa-tags" aria-hidden="true"></i></li><li><i class="fa fa-comment" aria-hidden="true"></i> <a >' + data[i].Commentcount + ' Comments</a></li><li><i class="fa fa-eye" aria-hidden="true"></i> <a >205 Views</a></li></ul></div></div></div><div class="article_info">' + data[i].Content + '...<br/><a href="/Client/Blog/Detail/' + data[i].NewId + '" class="btn">Read More <span class="angle_arrow"><i class="fa fa-angle-right" aria-hidden="true"></i></span></a></div></article>');
 
                                 for (var j = 0; j < data[i].Topics.length; j++)
                                 {

@@ -336,6 +336,9 @@
     <Content Include="Areas\Client\Views\Account\UnAuthFav.cshtml" />
     <Content Include="Areas\Client\Views\Account\SaveProfile.cshtml" />
     <Content Include="Areas\Client\Views\CarDetail\RecentListedPartial.cshtml" />
+    <Content Include="Areas\Client\Views\Account\SendMail.cshtml" />
+    <Content Include="Areas\Client\Views\Account\VerifiEmail.cshtml" />
+    <Content Include="Areas\Client\Views\Account\NewPassWord.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -409,7 +412,7 @@
     <Content Include="Views\Users\Delete.cshtml" />
     <Content Include="Views\Shared\_LoginPartialAdmin.cshtml" />
     <Content Include="Views\Role\GetController.cshtml" />
-    <Content Include="Views\Role\AddController.cshtml" />
+    <Content Include="Views\Role\EditRolesAtuthentication.cshtml" />
     <Content Include="Views\Manufactures\Create.cshtml" />
     <Content Include="Views\Manufactures\Delete.cshtml" />
     <Content Include="Views\Manufactures\Details.cshtml" />

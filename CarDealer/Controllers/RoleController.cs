@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace CarDealer.Controllers
 {
-    [Authorize]
+    [AuthAttribute]
     public class RoleController : Controller
     {
         ApplicationDbContext context = new ApplicationDbContext();
@@ -58,7 +58,7 @@ namespace CarDealer.Controllers
 
         }
 
-        public ActionResult AddController(string id)
+        public ActionResult EditRolesAtuthentication(string id)
         {
             var role = context.Roles.SingleOrDefault(x => x.Id == id);
             if(role!=null)
@@ -77,7 +77,7 @@ namespace CarDealer.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddController(string userId, params string[] selectedController)
+        public ActionResult EditRolesAtuthentication(string userId, params string[] selectedController)
         {
             var ctx = ((System.Data.Entity.Infrastructure.IObjectContextAdapter)context).ObjectContext;
             ctx.ExecuteStoreCommand("DELETE FROM [AspRoleControllers] WHERE RoleID={0}", userId);
@@ -161,19 +161,7 @@ namespace CarDealer.Controllers
         // GET: Role
         public ActionResult Index()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-
-
-                if (!isAdminUser())
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-            }
-            else
-            {
-                return RedirectToAction("Index", "Home");
-            }
+           
 
             var Roles = context.Roles.ToList();
             return View(Roles);

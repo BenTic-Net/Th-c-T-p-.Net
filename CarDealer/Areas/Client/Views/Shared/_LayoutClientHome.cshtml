@@ -12,7 +12,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="keywords" content="">
     <meta name="description" content="">
-    <title>CarForYou - Responsive Car Dealer HTML5 Template</title>
+    
+    @RenderSection("tag", required: false)
     <!--Bootstrap -->
     <link rel="stylesheet" href="~/home_files/bootstrap.min.css" type="text/css">
     <!--Custome Style -->
@@ -104,7 +105,7 @@
                             </div>
                             <div class="social-follow">
                                 <ul>
-                                    <li><a href="#"><i class="fa fa-facebook-square" aria-hidden="true"></i></a></li>
+                                    <li data-href="http://localhost:3856/Client" ><a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A3856%2FClient&amp;src=sdkpreparse" target="_blank"><i class="fa fa-facebook-square" aria-hidden="true"></i></a></li>
                                     <li><a href="#"><i class="fa fa-twitter-square" aria-hidden="true"></i></a></li>
                                     <li><a href="#"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a></li>
                                     <li><a href="#"><i class="fa fa-google-plus-square" aria-hidden="true"></i></a></li>
@@ -307,8 +308,14 @@
             }
         </div>
         <div id="RegisterForm">
-            @{Html.RenderAction("Register","Account"); }
+            @{Html.RenderAction("Register", "Account"); }
         </div>
+
+         <div id="FogotPasswordform">
+             @{ Html.RenderAction("SendMail", "Account");}
+         </div>
+
+
                 }
 
     <!-- Scripts -->
@@ -326,18 +333,23 @@
     <script src="~/home_files/slick.min.js"></script>
     <script src="~/home_files/owl.carousel.min.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
-    @RenderSection("css", required: false)
-    @RenderSection("script", required: false)
+   
     <script>
 
         var listcar = [];
 
         $(document).ready(function () {
+            
+
             if (('localStorage' in window) && (window.localStorage)) {
                 listcar = JSON.parse(window.localStorage.getItem("lstcar"));
-
-                $('.global-nav__profile-count-badge').text(listcar.length);
-                console.log(listcar.length);
+                if (listcar != null) {
+                    $('.global-nav__profile-count-badge').text(listcar.length);
+                    console.log(listcar.length);
+                }
+                else {
+                    $('.global-nav__profile-count-badge').text(0); listcar = [];
+                }
 
             }
 
@@ -389,13 +401,34 @@
                for (var i = 0; i < list.length; i++)
                {
                    if (list[i].ma == ma)
-                   
+
                    return true;
                }
                return false;
            }
-
+         
 
     </script>
+
+
+    @RenderSection("css", required: false)
+    @RenderSection("script", required: false)
+
+    <!-- FacebookShare-->
+    <div id="fb-root"></div>
+    <script>
+(function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = 'https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v2.12';
+            fjs.parentNode.insertBefore(js, fjs);
+           }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+    <!-- FacebookShare-->
+
+
+
 </body>
 </html>

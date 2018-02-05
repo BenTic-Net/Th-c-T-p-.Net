@@ -63,10 +63,10 @@
 			Thumbnails.Dir = BaseDir + "_thumbs/";
 		}
 		Thumbnails.Enabled = true;
-		Thumbnails.DirectAccess = true;
+		Thumbnails.DirectAccess = false;
 		Thumbnails.MaxWidth = 600;
 		Thumbnails.MaxHeight = 300;
-		Thumbnails.Quality = 300;
+		Thumbnails.Quality = 50;
 
 		// Set the maximum size of uploaded images. If an uploaded image is
 		// larger, it gets scaled down proportionally. Set to 0 to disable this

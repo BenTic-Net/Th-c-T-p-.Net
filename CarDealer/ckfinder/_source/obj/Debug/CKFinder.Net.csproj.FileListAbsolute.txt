@@ -4,3 +4,9 @@ C:\Users\TranVan\Desktop\CarDl\Car\CarDealer\ckfinder\_source\obj\Debug\CKFinder
 C:\Users\TranVan\Desktop\CarDl\Car\CarDealer\ckfinder\_source\obj\Debug\CKFinder.Net.csproj.CoreCompileInputs.cache
 C:\Users\TranVan\Desktop\CarDl\Car\CarDealer\ckfinder\_source\obj\Debug\CKFinder.dll
 C:\Users\TranVan\Desktop\CarDl\Car\CarDealer\ckfinder\_source\obj\Debug\CKFinder.pdb
+C:\Users\TranVan\Desktop\Th-c-T-p-.Net\CarDealer\ckfinder\_source\bin\Debug\CKFinder.dll
+C:\Users\TranVan\Desktop\Th-c-T-p-.Net\CarDealer\ckfinder\_source\bin\Debug\CKFinder.pdb
+C:\Users\TranVan\Desktop\Th-c-T-p-.Net\CarDealer\ckfinder\_source\obj\Debug\CKFinder.Net.csprojResolveAssemblyReference.cache
+C:\Users\TranVan\Desktop\Th-c-T-p-.Net\CarDealer\ckfinder\_source\obj\Debug\CKFinder.Net.csproj.CoreCompileInputs.cache
+C:\Users\TranVan\Desktop\Th-c-T-p-.Net\CarDealer\ckfinder\_source\obj\Debug\CKFinder.dll
+C:\Users\TranVan\Desktop\Th-c-T-p-.Net\CarDealer\ckfinder\_source\obj\Debug\CKFinder.pdb

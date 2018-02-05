@@ -12,6 +12,7 @@ namespace CarDealer.Models
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Web.Mvc;
 
     public class About
     {
@@ -22,6 +23,7 @@ namespace CarDealer.Models
         
         public string Description { get; set; }
         [DataType(DataType.MultilineText)]
+        [AllowHtml]
         public string Detail { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public string CreatedBy { get; set; }

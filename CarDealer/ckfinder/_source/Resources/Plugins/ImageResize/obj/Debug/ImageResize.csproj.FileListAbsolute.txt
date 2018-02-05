@@ -6,3 +6,11 @@ C:\Users\TranVan\Desktop\CarDl\Car\CarDealer\ckfinder\_source\Resources\Plugins\
 C:\Users\TranVan\Desktop\CarDl\Car\CarDealer\ckfinder\_source\Resources\Plugins\ImageResize\obj\Debug\ImageResize.csproj.CoreCompileInputs.cache
 C:\Users\TranVan\Desktop\CarDl\Car\CarDealer\ckfinder\_source\Resources\Plugins\ImageResize\obj\Debug\CKFinder_ImageResize.dll
 C:\Users\TranVan\Desktop\CarDl\Car\CarDealer\ckfinder\_source\Resources\Plugins\ImageResize\obj\Debug\CKFinder_ImageResize.pdb
+C:\Users\TranVan\Desktop\Th-c-T-p-.Net\CarDealer\ckfinder\_source\Resources\Plugins\ImageResize\bin\Debug\CKFinder_ImageResize.dll
+C:\Users\TranVan\Desktop\Th-c-T-p-.Net\CarDealer\ckfinder\_source\Resources\Plugins\ImageResize\bin\Debug\CKFinder_ImageResize.pdb
+C:\Users\TranVan\Desktop\Th-c-T-p-.Net\CarDealer\ckfinder\_source\Resources\Plugins\ImageResize\bin\Debug\CKFinder.dll
+C:\Users\TranVan\Desktop\Th-c-T-p-.Net\CarDealer\ckfinder\_source\Resources\Plugins\ImageResize\bin\Debug\CKFinder.pdb
+C:\Users\TranVan\Desktop\Th-c-T-p-.Net\CarDealer\ckfinder\_source\Resources\Plugins\ImageResize\obj\Debug\ImageResize.csprojResolveAssemblyReference.cache
+C:\Users\TranVan\Desktop\Th-c-T-p-.Net\CarDealer\ckfinder\_source\Resources\Plugins\ImageResize\obj\Debug\ImageResize.csproj.CoreCompileInputs.cache
+C:\Users\TranVan\Desktop\Th-c-T-p-.Net\CarDealer\ckfinder\_source\Resources\Plugins\ImageResize\obj\Debug\CKFinder_ImageResize.dll
+C:\Users\TranVan\Desktop\Th-c-T-p-.Net\CarDealer\ckfinder\_source\Resources\Plugins\ImageResize\obj\Debug\CKFinder_ImageResize.pdb

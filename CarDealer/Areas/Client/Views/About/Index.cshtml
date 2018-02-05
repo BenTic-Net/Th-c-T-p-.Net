@@ -1,4 +1,4 @@
-﻿
+﻿@model CarDealer.Models.About
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Client/Views/Shared/_LayoutClientHome.cshtml";
@@ -22,7 +22,10 @@
 </section>
 <!-- /Page Header--> 
 
-<!--About-us-->
+@Html.Raw(Model.Detail);
+
+
+@*<!--About-us-->
 <section class="about_us section-padding">
     <div class="container">
         <div class="section-header text-center">
@@ -153,4 +156,4 @@
     <!-- Dark Overlay-->
     <div class="dark-overlay"></div>
 </section>
-<!-- /Fun-Facts--> 
+<!-- /Fun-Facts-->*@ 

@@ -6,3 +6,11 @@ C:\Users\TranVan\Desktop\CarDl\Car\CarDealer\ckfinder\_source\Resources\Plugins\
 C:\Users\TranVan\Desktop\CarDl\Car\CarDealer\ckfinder\_source\Resources\Plugins\FileEditor\obj\Debug\FileEditor.csproj.CoreCompileInputs.cache
 C:\Users\TranVan\Desktop\CarDl\Car\CarDealer\ckfinder\_source\Resources\Plugins\FileEditor\obj\Debug\CKFinder_FileEditor.dll
 C:\Users\TranVan\Desktop\CarDl\Car\CarDealer\ckfinder\_source\Resources\Plugins\FileEditor\obj\Debug\CKFinder_FileEditor.pdb
+C:\Users\TranVan\Desktop\Th-c-T-p-.Net\CarDealer\ckfinder\_source\Resources\Plugins\FileEditor\bin\Debug\CKFinder_FileEditor.dll
+C:\Users\TranVan\Desktop\Th-c-T-p-.Net\CarDealer\ckfinder\_source\Resources\Plugins\FileEditor\bin\Debug\CKFinder_FileEditor.pdb
+C:\Users\TranVan\Desktop\Th-c-T-p-.Net\CarDealer\ckfinder\_source\Resources\Plugins\FileEditor\bin\Debug\CKFinder.dll
+C:\Users\TranVan\Desktop\Th-c-T-p-.Net\CarDealer\ckfinder\_source\Resources\Plugins\FileEditor\bin\Debug\CKFinder.pdb
+C:\Users\TranVan\Desktop\Th-c-T-p-.Net\CarDealer\ckfinder\_source\Resources\Plugins\FileEditor\obj\Debug\FileEditor.csprojResolveAssemblyReference.cache
+C:\Users\TranVan\Desktop\Th-c-T-p-.Net\CarDealer\ckfinder\_source\Resources\Plugins\FileEditor\obj\Debug\FileEditor.csproj.CoreCompileInputs.cache
+C:\Users\TranVan\Desktop\Th-c-T-p-.Net\CarDealer\ckfinder\_source\Resources\Plugins\FileEditor\obj\Debug\CKFinder_FileEditor.dll
+C:\Users\TranVan\Desktop\Th-c-T-p-.Net\CarDealer\ckfinder\_source\Resources\Plugins\FileEditor\obj\Debug\CKFinder_FileEditor.pdb

@@ -11,7 +11,10 @@ namespace CarDealer.Areas.Client.Controllers
         // GET: Client/About
         public ActionResult Index()
         {
-            return View();
+            CarDealer.Models.ApplicationDbContext context = new CarDealer.Models.ApplicationDbContext();
+
+
+            return View(context.Abouts.FirstOrDefault());
         }
     }
 }

@@ -118,7 +118,7 @@
             @Html.DisplayFor(modelItem => item.ViewCount)
         </td>
         <td>
-            @*@Html.DisplayFor(modelItem => item.Warranty)*@ @{ string wrt = item.Warranty.Traslate();} @(wrt)
+            <a href="/Client/CarDetail/Index/@item.CarId">@*@Html.DisplayFor(modelItem => item.Warranty)*@ @{ string wrt = item.Warranty.Traslate();} @(wrt)</a>
         </td>       
         
         <td>

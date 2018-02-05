@@ -99,7 +99,8 @@
     <script src="~/ckeditor/ckeditor.js"></script>
 <script src="~/ckfinder/ckfinder.js"></script>
     <script>
-       var editor= CKEDITOR.replace("DetailEdit");
+        var editor = CKEDITOR.replace("DetailEdit");
+        editor.config.allowedContent = true;
         CKFinder.setupCKEditor(editor, '/ckfinder/');
     </script>
 

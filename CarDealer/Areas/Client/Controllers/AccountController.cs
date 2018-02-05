@@ -13,13 +13,20 @@ using CarDealer.Models;
 using System.Net;
 using CarDealer.Areas.Client.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Net.Mail;
+using System.Collections.Generic;
 
 namespace CarDealer.Areas.Client.Controllers
 {
+   
+
+
     [Authorize]
     //[ClientCmsAttr] 
     public class AccountController : Controller
     {
+        
+        
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         ApplicationDbContext context;
@@ -29,8 +36,134 @@ namespace CarDealer.Areas.Client.Controllers
         {
             return View();
         }
+       
+        [AllowAnonymous]        
+        private async Task SendmailAsync(string Sendto,string code)
+        {
+            var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
+            var message = new MailMessage();
+            message.To.Add(new MailAddress(Sendto));  // replace with valid value 
+            message.From = new MailAddress("long231998@gmail.com");  // replace with valid value
+            message.Subject = "Your email subject";
+            message.Body =code;
+            message.IsBodyHtml = true;
+
+            using (var smtp = new SmtpClient())
+            {
+                await smtp.SendMailAsync(message);
+               
+            }
 
 
+            //using (var smtp = new SmtpClient())
+            //{
+            //    var credential = new NetworkCredential
+            //    {
+            //        UserName = "long231998@gmail.com",  // replace with valid value
+            //        Password = "long1974"  // replace with valid value
+            //    };
+            //    smtp.Credentials = credential;
+            //    smtp.Host = "smtp.gmail.com";
+            //    smtp.Port = 465;
+            //    smtp.EnableSsl = true;
+            //    await smtp.SendMailAsync(message);
+
+            //MailMessage mailMessage = new MailMessage();
+            //MailAddress fromAddress = new MailAddress("long231998@gmail.com");
+            //mailMessage.From = fromAddress;
+            //mailMessage.To.Add(Sendto);
+            //mailMessage.Body = "This is Testing Email Without Configured SMTP Server";
+            //mailMessage.IsBodyHtml = true;
+            //mailMessage.Subject = " Testing Email";
+            //SmtpClient smtpClient = new SmtpClient();
+            //smtpClient.Host = "localhost";
+            //smtpClient.Send(mailMessage);        
+        }
+        [AllowAnonymous]
+        public ActionResult SendMail()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [AllowAnonymous]
+        public async Task<ActionResult> SendMail(string mailto)
+        {
+            if (context.Users.Where(u => u.Email == mailto).Count()>0)
+            {
+                Random random = new Random();
+                int randomNumber = random.Next(0, 1000);
+                string randomNumbert = randomNumber.ToString();
+                randomNumbert = context.Users.Where(u => u.Email == mailto).First().Id +"splice"+ randomNumbert;
+                Param.VrfCodes.Add(randomNumbert);
+                await SendmailAsync(mailto, randomNumbert);
+                ViewBag.Msg = "Check Your Email For Verifitation Code";
+                return RedirectToAction("VerifiEmail");
+            }
+
+            else { ViewBag.Msg = "Email not Registered"; return View(); }
+        }
+        [AllowAnonymous]
+        public ActionResult VerifiEmail()
+        {
+            return View();
+        }
+        [AllowAnonymous]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult VerifiEmail(string code)
+        {
+            if(Param.VrfCodes.Contains(code) )
+            {
+                var User = UserManager.FindById(code.Split(new[] { "splice" }, StringSplitOptions.None)[0]);
+                SignInManager.SignIn(User, isPersistent: false, rememberBrowser: false);
+                return View("NewPassWord");
+            }
+            ViewBag.Msg = "Wrong Code";
+            return JavaScript("location.reload()");
+        }
+        
+        public ActionResult NewPassWord()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> NewPassWordAsync(CarDealer.Areas.Client.Models.SetPasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("NewPassWord",model);
+            }
+            else
+            {
+
+                string uid = User.Identity.GetUserId();
+                var user1 = context.Users.Single(u => u.Id == uid);
+                string oldpass = user1.PasswordHash;
+                var removepassResult = await UserManager.RemovePasswordAsync(User.Identity.GetUserId());
+
+                if (removepassResult.Succeeded)
+                {
+                    var result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
+                    if (result.Succeeded)
+                    {
+                        var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+                        if (user != null)
+                        {
+                            await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        }
+                        return JavaScript("location.reload()");
+                    }
+                    AddErrors(result);
+
+                }
+                else { context.Users.Single(u => u.Id == User.Identity.GetUserId()).PasswordHash = oldpass;context.SaveChanges();ModelState.AddModelError("", "Some Error occur, Try again"); return View(model); }
+
+            }
+            return View(model);
+        }
         public ActionResult UFavoriteCar()
        {
             if (!User.Identity.IsAuthenticated)

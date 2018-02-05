@@ -34,61 +34,73 @@ namespace CarDealer.Areas.Client.Controllers
         {
 
             
+            
+            var q = (from n in context.News where n.Waranty == 1 orderby n.NewId descending select new BlogViewModel() { Content = n.Content, ViewCount = n.ViewCount, CreatedOn = n.CreatedOn, Topic = n.Topic, Title = n.Title, Image = n.Image, NewId = n.NewId, CreatedBy = n.CreatedBy }).ToList().Take(4);
+            if (q.Count() > 0)
+            {
+                foreach (var n in q)
+                {
+                    List<string> t = Regex.Replace(n.Content, "<.*?>", String.Empty).Split(' ').Take(70).ToList();
+                    n.Content = string.Join(" ", t);
+                }
+                if (!string.IsNullOrEmpty(title))
+                {
+                    q = q.Where(t => t.Title.Contains(title)).ToList();
+                }
+                if (!string.IsNullOrEmpty(tag))
+                {
+                    q = q.Where(t => t.Topics.Contains(tag)).ToList();
+                }
 
-            var q = (from n in context.News where n.Waranty == 1 select new BlogViewModel() { Content = n.Content, ViewCount = n.ViewCount, CreatedOn = n.CreatedOn, Topic = n.Topic, Title = n.Title, Image = n.Image, NewId = n.NewId, CreatedBy = n.CreatedBy }).ToList().Take(5);
-           
-            foreach(var n in q)
-            {
-                List<string> t= Regex.Replace(n.Content, "<.*?>", String.Empty).Split(' ').Take(70).ToList();
-                n.Content = string.Join(" ",t);
-            }
-            if(!string.IsNullOrEmpty(title))
-            {
-                q = q.Where(t => t.Title.Contains(title)).ToList() ;
-            }
-            if (!string.IsNullOrEmpty(tag))
-            {
-                q = q.Where(t => t.Topics.Contains(tag)).ToList();
-            }
-            foreach (var n in q)
-            {
-                n.Commentcount = context.FeedBacks.Where(t => t.Type.Contains("New-" + n.NewId)).Count();
+                foreach (var n in q)
+                {
+                    n.Commentcount = context.FeedBacks.Where(t => t.Type.Contains("New-" + n.NewId)).Count();
+                }
             }
             return View(q);
         }
 
         public ActionResult GetData(int pageIndex, int pageSize, string tag, string title)
         {
+            var lasti = context.News.Count();
+            if (!string.IsNullOrEmpty(title)) 
+            title= title.Replace('+', ' ');
+            Search:
 
-           
-
-            var q = (from n in context.News where n.Waranty == 1 orderby n.NewId select new BlogViewModel() { Content = n.Content, ViewCount = n.ViewCount, CreatedOn = n.CreatedOn, Topic = n.Topic, Title = n.Title, Image = n.Image, NewId = n.NewId, CreatedBy = n.CreatedBy }).Skip(pageIndex * pageSize).Take(pageSize).ToList();
-            if (q.Count() == 0)
+            if (pageIndex * pageSize >= lasti)
                 return Json("Out", JsonRequestBehavior.AllowGet);
 
-            if (!string.IsNullOrEmpty(title))
-            {
-                q = q.Where(t => t.Title.Contains(title)).ToList();
-            }
-            if (!string.IsNullOrEmpty(tag))
-            {
-                q = q.Where(t => t.Topics.Contains(tag)).ToList();
-            }
+            var q = (from n in context.News where n.Waranty == 1 orderby n.NewId descending select new BlogViewModel() { Content = n.Content, ViewCount = n.ViewCount, CreatedOn = n.CreatedOn, Topic = n.Topic, Title = n.Title, Image = n.Image, NewId = n.NewId, CreatedBy = n.CreatedBy }).Skip(pageIndex * pageSize).Take(pageSize).ToList();
+           
 
-            foreach (var n in q)
-            {
-                List<string> t= Regex.Replace(n.Content, "<.*?>", String.Empty).Split(' ').Take(70).ToList();
-                n.Content = string.Join(" ", t);
-            }
+            
+                if (!string.IsNullOrEmpty(title))
+                {
+                    q = q.Where(t => t.Title.Contains(title)).ToList();
+                }
+                if (!string.IsNullOrEmpty(tag))
+                {
+                    q = q.Where(t => t.Topics.Contains(tag)).ToList();
+                }
+
+                foreach (var n in q)
+                {
+                    List<string> t = Regex.Replace(n.Content, "<.*?>", String.Empty).Split(' ').Take(70).ToList();
+                    n.Content = string.Join(" ", t);
+                }
 
 
 
-            foreach (var n in q)
-            {
-                n.Commentcount = context.FeedBacks.Where(t => t.Type.Contains("New-" + n.NewId)).Count();
-            }
+                foreach (var n in q)
+                {
+                    n.Commentcount = context.FeedBacks.Where(t => t.Type.Contains("New-" + n.NewId)).Count();
+                }
 
-            return Json(q.ToList(), JsonRequestBehavior.AllowGet);
+
+               
+            
+            if(q.Count()>0) return Json(q.ToList(), JsonRequestBehavior.AllowGet);
+            else { pageIndex++; goto Search; }
         }
 
         public ActionResult Detail(long? id)

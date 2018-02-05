@@ -309,12 +309,7 @@
                     </div>
 
                     <!--Vehicle-Video-->
-                    <div class="video_wrap">
-                        <h6>Watch Video </h6>
-                        <div class="video-box">
-                            <iframe class="mfp-iframe" src="https://www.youtube.com/embed/rqSoXtKMU3Q" allowfullscreen=""></iframe>
-                        </div>
-                    </div>
+                   
 
                     @*<!--Comment-Form-->
                     <div class="comment_form">
@@ -539,7 +534,7 @@
 
         }
 
-        function AddUnAuthFav() {
+       function AddUnAuthFav() {
             console.log('st');
             var car = {
                 ma: '@Model.Id',
@@ -547,7 +542,7 @@
                 image:'@(Model.ThumpImage)Car.jpg',
                 active: true
             };
-
+            console.log(car);
             listcar.push(car);
             if (('localStorage' in window) && (window.localStorage)) {
                 if (!CheckExist(car.ma)) {

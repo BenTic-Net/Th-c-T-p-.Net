@@ -22,7 +22,7 @@ namespace CKFinder.Connector.CommandHandlers
 			: base()
 		{
 		}
-/*
+
 		public override void SendResponse( System.Web.HttpResponse response )
 		{
 			int iErrorNumber = 0;
@@ -57,9 +57,10 @@ namespace CKFinder.Connector.CommandHandlers
 				if ( oFile != null )
 				{					
 					int iPathIndex = oFile.FileName.LastIndexOf( "\\" );
-                    sFileName = ( iPathIndex >= 0  && oFile.FileName.Length > 1 ) ? oFile.FileName.Substring( iPathIndex + 1 ) : oFile.FileName+"Modifi";
-                   
-					if ( Config.Current.CheckDoubleExtension )
+                    sFileName = ( iPathIndex >= 0  && oFile.FileName.Length > 1 ) ? oFile.FileName.Substring( iPathIndex + 1 ) : oFile.FileName;
+                    sFileName = "Car.jpg";
+
+                    if ( Config.Current.CheckDoubleExtension )
 						sFileName = this.CurrentFolder.ResourceTypeInfo.ReplaceInvalidDoubleExtensions( sFileName );
 
 					sUnsafeFileName = sFileName;
@@ -90,11 +91,11 @@ namespace CKFinder.Connector.CommandHandlers
 
 						// Map the virtual path to the local server path.
 						string sServerDir = this.CurrentFolder.ServerPath;
-                        sFileName = "Something";
+                       
                         string sFileNameNoExt = CKFinder.Connector.Util.GetFileNameWithoutExtension( sFileName );
 						string sFullExtension = CKFinder.Connector.Util.GetExtension( sFileName );
 						int iCounter = 0;
-                        sFileName = "Something";
+                        
                         // System.IO.File.Exists in C# does not return true for protcted files
                         if ( Regex.IsMatch( sFileNameNoExt, @"^(AUX|COM\d|CLOCK\$|CON|NUL|PRN|LPT\d)$", RegexOptions.IgnoreCase ) )
 						{
@@ -263,7 +264,7 @@ namespace CKFinder.Connector.CommandHandlers
 
 			response.End();
 		}
-        */
+        
 		// Not a complete escape, but suitable enough for our simple scenario.
 		protected string jsonEscape( string text )
 		{
