@@ -56,11 +56,11 @@ namespace CarDealer.Models
         public virtual DbSet<Contact> Contacts { get; set; }
         public virtual DbSet<FeedBack> FeedBacks { get; set; }
         public virtual DbSet<Footter> Footters { get; set; }
-       // public virtual DbSet<Menu> Menus { get; set; }
+        public virtual DbSet<Menu> Menus { get; set; }
         public virtual DbSet<New> News { get; set; }
         public virtual DbSet<Manufacture> Manufactures { get; set; }
         public virtual DbSet<CarDetail> CarDetails { get; set; }
-        
+        public virtual DbSet<VerifyCode> VerifyCodes { get; set; }
         public virtual DbSet<SystemConfig> SystemConfigs { get; set; }
         public virtual DbSet<Slider> Slides { get; set; }
         public virtual DbSet<Favorite> UFavorite { get; set; }

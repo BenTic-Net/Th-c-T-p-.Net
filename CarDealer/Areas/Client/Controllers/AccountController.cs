@@ -90,33 +90,34 @@ namespace CarDealer.Areas.Client.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> SendMail(string mailto)
         {
-            if (context.Users.Where(u => u.Email == mailto).Count()>0)
+            if (context.Users.Where(u => u.Email == mailto).Count() > 0)
             {
                 Random random = new Random();
-                int randomNumber = random.Next(0, 1000);
-                string randomNumbert = randomNumber.ToString();
-                randomNumbert = context.Users.Where(u => u.Email == mailto).First().Id +"splice"+ randomNumbert;
-                Param.VrfCodes.Add(randomNumbert);
-                await SendmailAsync(mailto, randomNumbert);
+                CodeGenerater code = new CodeGenerater();
+
+                await SendmailAsync(mailto, code.GetCode());
                 ViewBag.Msg = "Check Your Email For Verifitation Code";
-                return RedirectToAction("VerifiEmail");
+                return RedirectToAction("VerifiEmail",new { email=mailto});
             }
 
             else { ViewBag.Msg = "Email not Registered"; return View(); }
         }
         [AllowAnonymous]
-        public ActionResult VerifiEmail()
+        public ActionResult VerifiEmail(string email)
         {
+            ViewBag.Email = email;
             return View();
         }
         [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult VerifiEmail(string code)
+        public ActionResult VerifiEmail(string code,string email)
         {
-            if(Param.VrfCodes.Contains(code) )
+            if(context.VerifyCodes.Find(code) !=null )
+
             {
-                var User = UserManager.FindById(code.Split(new[] { "splice" }, StringSplitOptions.None)[0]);
+                var User = UserManager.FindByEmail(email);
+                if (User == null) return View();
                 SignInManager.SignIn(User, isPersistent: false, rememberBrowser: false);
                 return View("NewPassWord");
             }

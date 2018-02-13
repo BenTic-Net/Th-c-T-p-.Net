@@ -2,11 +2,11 @@
 @model List<CarDealer.Models.AspRoleController>
 @*@model List<CarDealer.Models.AspRoleController>*@
 
-<ul class="sidebar-menu" data-widget="tree">
+@*<ul class="sidebar-menu" data-widget="tree">
     <li class="header">HEADER</li>
-    <!-- Optionally, you can add icons to the links -->
+    
     <li class="active">@Html.ActionLink("FeedBacks","Index","FeedBacks")</li>
-    @*<li><a href="~/#"><i class="fa fa-dashboard"></i> <span>Another Link</span></a></li>*@
+    
     <li class="treeview">
         <a href="~/#">
             <i class="fa fa-link"></i> <span>Website Data</span>
@@ -61,5 +61,10 @@
 
         </ul>
     </li>
-</ul>
+</ul>*@
+
+@Html.Raw(ViewBag.Menu)
+
+
 <!-- /.sidebar-menu -->
+

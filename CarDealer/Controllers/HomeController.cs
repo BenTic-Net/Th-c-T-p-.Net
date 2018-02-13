@@ -15,6 +15,24 @@ namespace CarDealer.Controllers
     {
         ApplicationDbContext context =new ApplicationDbContext();
 
+       
+                                 string BuildTreeView(int? id, int level,string type,IQueryable<Menu> Menus)
+                                 {
+                                     
+                                     var SMenus = Menus.Where(c => (c.ParentId == id )).ToList();
+                                          SMenus = SMenus.AsQueryable().OrderBy(c => c.DisplayOrder).ToList().Where(v=>v.Status==true).ToList();
+                                     if (SMenus == null || level == 0 ||SMenus.Count()==0) return "";
+                                     string result = "<ul name='level"+level+"'>";
+                                     foreach (var m in SMenus)
+                                     {
+                                            result += "<li><a href="+m.Link+">" + m.Text+ "</a>";                   
+                                        result+= BuildTreeView(m.ID, level + 1,type,Menus);
+                                        result += "</li>";
+                                     }
+                                     result += "</ul>";
+                                     return result;
+
+                                 }
 
         [HttpPost]
         public ActionResult Upload(HttpPostedFileBase img)
@@ -36,18 +54,37 @@ namespace CarDealer.Controllers
 
         public ActionResult MenuRender()
         {
-            
+
+            var Menus = context.Menus.Where(m=>m.Type=="Admin");
+            string Usercontroller = "";
+            string ur = User.Identity.GetUserId().GetUserRole();
+            foreach (var c in context.AspRoleControllers.Where(r=>r.RoleId==ur).Select(r=>r.Controller))
+            {
                 
-           
+                Usercontroller += c.Replace("Controller", "") + '-';
+            }
+            foreach(var m in Menus)
+            {
+                if (!string.IsNullOrEmpty(m.Link))
+                {
+
+                    if (!Usercontroller.Contains(m.Link.Replace("/", string.Empty)))
+                    {
+                        m.Status = false;
+                    }
+                }
+            }
+            
+            ViewBag.Menu = BuildTreeView(null, 1,"Admin",Menus);
+
             return PartialView("_MenuAdminPartial",
                 context.AspRoleControllers.ToList());            
         }
 
         public ActionResult Index()
         {
+
             
-
-
             return View();
         }
 

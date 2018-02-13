@@ -27,12 +27,12 @@ namespace CarDealer
             createRolesandUsers();
             GetAllController();
             AddController();
-            
 
+            CodeGenerater code = new CodeGenerater();
+            code.GenerateToDb();
 
-        }
+        }        
 
-      
         public void GetAllController()
         {
             using (  ApplicationDbContext context = new ApplicationDbContext())

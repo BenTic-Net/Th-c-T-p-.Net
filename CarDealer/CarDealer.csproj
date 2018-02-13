@@ -228,6 +228,7 @@
     <Compile Include="Areas\Client\Models\UFavoriteViewModal.cs" />
     <Compile Include="AuthAtribute.cs" />
     <Compile Include="ClientCmsAttr.cs" />
+    <Compile Include="CodeGenerater.cs" />
     <Compile Include="Controllers\AboutsController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CarModelsController.cs" />
@@ -238,6 +239,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ManufacturesController.cs" />
+    <Compile Include="Controllers\MenusController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -272,6 +274,7 @@
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserViewModel.cs" />
+    <Compile Include="Models\VerifyCode.cs" />
     <Compile Include="Param.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -363,6 +366,7 @@
     <Content Include="Views\FeedBacks\Details.cshtml" />
     <Content Include="Views\FeedBacks\Edit.cshtml" />
     <Content Include="Views\FeedBacks\Index.cshtml" />
+    <Content Include="Views\Menus\Edit.cshtml" />
     <None Include="Views\Shared\_LoginLayout.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -376,7 +380,6 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />

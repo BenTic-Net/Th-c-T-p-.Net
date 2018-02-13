@@ -16,6 +16,7 @@
                             
                             {
                             @Html.AntiForgeryToken()
+                                <input type="text" name="email" class="hidden" value="@ViewBag.Email" />
                             <div class="form-group">
                                 <input type="text" name="code" class="form-control" placeholder="Your Verifi Code Here*">
                             </div>

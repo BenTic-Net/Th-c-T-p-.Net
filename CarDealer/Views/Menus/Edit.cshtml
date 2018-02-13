@@ -1,6 +1,6 @@
 ﻿
 
-@*@model ICollection<CarDealer.Models.ApplicationDbContext>*@
+@{ Layout = null;}
 <!DOCTYPE html>
 <!--
 This is a starter template page. Use this page to start your new project from
@@ -9,7 +9,29 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <html>
 <head>
     @Scripts.Render("~/bundles/modernizr")
-    @RenderSection("css", false)
+    <style>
+                .sidebar li[id] > a > i {
+            -webkit-transform: scale(0);
+            -moz-transform: scale(0);
+            -ms-transform: scale(0);
+            transform: scale(0);
+            opacity: 4;
+            transition-duration: 0.5s;
+        }
+
+        .sidebar li[id]:hover > a > i {
+            -webkit-transform: scale(1.2);
+            -moz-transform: scale(1.2);
+            -ms-transform: scale(1.2);
+            transform: scale(1.2);
+            opacity: 4;
+            transition-duration: 0.5s;
+        }
+
+
+       
+
+    </style>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -176,7 +198,7 @@ desired effect
                             </ul>
                         </li>
                         <!-- User Account Menu -->
-                        @{ Html.RenderAction("UserPartial", "Manage");}
+                       
 
                         <!-- Control Sidebar Toggle Button -->
                         <li>
@@ -214,7 +236,7 @@ desired effect
                 </form>
                 <!-- /.search form -->
                 <!-- Sidebar Menu -->
-                @{ Html.RenderAction("MenuRender","Home"); }     
+                @Html.Raw(ViewBag.Menu)
             </section>
             <!-- /.sidebar -->
         </aside>
@@ -236,7 +258,7 @@ desired effect
                 <!--------------------------
                   | Your Page Content Here |
                   -------------------------->
-                @RenderBody()
+            
             </section>
             <!-- /.content -->
         </div>
@@ -331,36 +353,192 @@ desired effect
     <!-- Optionally, you can add Slimscroll and FastClick plugins.
          Both of these plugins are recommended to enhance the
          user experience. -->
-    @RenderSection("scripts", required: false)
+   
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 
-    <script>
 
-        var Upload = function ()
-        {
-            $('#img').click();
+<script type="text/javascript">
+
+    var MenuName = '';
+    var MenuLink = '';
+    var Parentid;
+    var MenuId;
+    var MenuOrigin;
+    $(document).ready(function () {
+        var i = 1;
+        //$(".sidebar ul[name*=level-1] a").prepend('<i class="fa fa-bars">' + i++ + '</i>');
+        $(".sidebar ul[name*=level-1]").attr('class', 'sidebar-menu tree').attr('data-widget', 'tree');
+        $('.sidebar-menu li').first().attr('class', 'header').append('Header').children().remove();
+        $('.sidebar-menu li ul').parent().attr('class', 'treeview');
+        $('.treeview').siblings('.treeview').children('a').append('<span class="pull-right-container"><i class="fa fa-angle-left pull-right" ></i ></span >');
+        // $('.treeview-menu').parent().append('<span class="pull-right-container"><i class="fa fa-angle-left pull-right" ></i ></span >');
+        $('.treeview ul').attr('class', 'treeview-menu');
+
+        for (var i = 1; i <= '@ViewBag.Lastlevel'; i++) {
+            var action = "'add'";
+            $('[name*=level-' + i + ']').append('<li onclick="MenuName(this,' + action + ')" ><a><i class="fa fa-plus"></i></a></li>');
         }
-        
-        $(document).ready(function () {
-            $("#img").change(function () {
-                $(this).parent().submit();
-                   
-            });
 
-            var src = $("#UserImg2").attr('src');
-            $("#UserImg").attr('src', src);
+        var action = "'Edit'"
+        $('.sidebar li[id] > a').append('<i class="fa fa-edit"  style="margin-left:10px"></i>&nbsp;&nbsp;<i class="fa fa-trash"></i>');
 
 
-            $(".sidebar ul[name=level1]").attr('class', 'sidebar-menu tree').attr('data-widget', 'tree');
-            $('.sidebar-menu li').first().attr('class', 'header').append('Header').children().remove();
-            $('.sidebar-menu li ul').parent().attr('class', 'treeview');
-            $('.treeview').siblings('.treeview').children('a').append('<span class="pull-right-container"><i class="fa fa-angle-left pull-right" ></i ></span >');
-           // $('.treeview-menu').parent().append('<span class="pull-right-container"><i class="fa fa-angle-left pull-right" ></i ></span >');
-            $('.treeview ul').attr('class', 'treeview-menu');
+        $('.sidebar ').on("click", 'li[id] > a > .fa-edit', function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+            MenuName(this, 'Edit');
 
         });
 
+        $('.sidebar ').on("click", 'li[id] > a > .fa-trash', function (e) {
 
-    </script>
+            e.stopPropagation();
+            e.preventDefault();
+            DeleteMenu(this);
+        });
+
+        $('.fa').click(function (e) {
+            e.preventDefault();
+        });
+        //$('.sidebar li[id]').mouseenter(function () {
+        //    $(this > a > i).
+
+        //})
+
+    });
+        
+   var MenuName= function(p,atn)
+   {
+       if (atn == 'add') {
+           console.log(atn);
+           var id = $(p).parent().attr('name');
+           id = id.split('-')[3];
+           if (id.length === 0) {
+               id = null;
+               console.log(id);
+           }
+           Parentid = Number(id);
+           console.log(Parentid);
+           console.log(p);
+           atn = "'" + atn + "'";
+          // $('#menutxt').parent().parent().replaceWith('<li onclick="MenuName(this,' + atn + ')"><a><i class="fa fa-plus"></i></a></li>')
+           $('.fa-remove').click(/*function () { cancel(this, "add"); }*/)
+           $(p).replaceWith('<li><a><input type="text" id="menutxt" placeholder="Name..." style="color:black; width:150px"/>&nbsp;&nbsp;<i class="fa fa-save" style="font-size:20px;color:white" onclick="MenuLink(this,' + atn + ')"></i>&nbsp;<i class="fa fa-remove" style="font-size:20px;color:white" onclick="cancel(this,' + atn + ')"></i></a></li>');
+       }
+
+       if (atn == 'Edit')
+       {
+
+           atn = "'" + atn + "'";
+           MenuId = $(p).parent().parent().attr('id');
+           var name = $(p).parent().children('span').text();
+           MenuOrigin = $(p).parent().parent()[0].outerHTML;
+           console.log(MenuOrigin);
+           $('.fa-remove').click(/*function () { cancel(this, "Edit"); }*/);
+
+           $(p).parent().parent().replaceWith('<li><a><input type="text" id="menutxt" value="'+name+'" placeholder="Name..." style="color:black; width:150px"/>&nbsp;&nbsp;<i class="fa fa-save" style="font-size:20px;color:white" onclick="MenuLink(this,' + atn + ')"></i>&nbsp;<i class="fa fa-remove" style="font-size:20px;color:white" onclick="cancel(this,' + atn + ')"></i></a></li>');
+           return;
+       }
+
+    }
+
+    var MenuLink = function (p,atn)
+    {
+
+        if (atn == 'add') {
+            atn = "'" + atn + "'";
+            MenuName= $('#menutxt').val();
+           // $('#menutxt').parent().parent().replaceWith('<li onclick="MenuName(this,' + atn + ')"><a><i class="fa fa-plus"></i></a></li>')
+
+            $(p).parent().parent().replaceWith('<li><a><input type="text" id="menutxt" placeholder="Url..." style="color:black; width:150px"/>&nbsp;&nbsp;<i class="fa fa-save" style="font-size:20px;color:white" onclick="MenuPost(this,'+atn+')"></i>&nbsp;<i class="fa fa-remove" style="font-size:20px;color:white" onclick="cancel(this,' + atn + ')"></i></a></li>');
+
+        }
+        if (atn == 'Edit')
+        {
+            atn = "'" + atn + "'";
+            MenuName = $('#menutxt').val();
+            var link = $(MenuOrigin).children('a').attr('href');
+            $(p).parent().parent().replaceWith('<li><a><input type="text" id="menutxt" value="'+link+'" placeholder="Url..." style="color:black; width:150px"/>&nbsp;&nbsp;<i class="fa fa-save" style="font-size:20px;color:white" onclick="MenuPost(this,' + atn + ')"></i>&nbsp;<i class="fa fa-remove" style="font-size:20px;color:white" onclick="cancel(this,' + atn + ')"></i></a></li>');
+        }
+    }
+
+    var MenuPost = function (p,atn)
+    {
+        if (atn == 'add') {
+            atn = "'" + atn + "'";
+            MenuLink = $('#menutxt').val();
+            var m = { "Text": MenuName, "Link": MenuLink, "Type": "Admin", "ParentId": Parentid, "Status": "true" };
+            $.ajax({
+                type: 'POST',
+                url: '/Menus/CreateLink',
+                contentType: "application/json",
+                data: JSON.stringify(m),
+               
+                success :function(d) {
+                    alert('success');
+                    console.log(d);
+                },
+                error: function (d) {
+                    console.log(d);
+                    alert('error');
+                    
+                }
+                });
+        }
+
+        if (atn == 'Edit')
+        {
+            atn = "'" + atn + "'";
+            MenuLink = $('#menutxt').val();
+            var m = { "Text": MenuName, "Link": MenuLink, "Type": "Admin", "ParentId": Parentid, "Status": "true" };
+
+            $.ajax({
+                type: 'POST',
+                url: '/Menus/CreateLink',
+                contentType: "application/json",
+                data: JSON.stringify(m),
+
+                success: function (d) {
+                    alert('success');
+                    console.log(d);
+                },
+                error: function (d) {
+                    console.log(d);
+                    alert('error');
+
+                }
+            });
+
+        }
+    }
+
+    var cancel =function (p,atn) {
+
+        if (atn === 'add') {
+            atn = "'" + atn + "'";
+            $(p).parent().parent().replaceWith('<li onclick="MenuName(this,' + atn + ')" ><a><i class="fa fa-plus"></i></a></li>')
+        }
+        if (atn === 'Edit')
+        {
+            atn = "'" + atn + "'";
+            if ($(MenuOrigin).children('ul').length!==0)
+            MenuOrigin = $(MenuOrigin).children('ul').attr('style', '').parent()[0].outerHTML;
+            
+            $(p).parent().parent().replaceWith(MenuOrigin); 
+        }
+
+    }
+
+    var DeleteMenu = function (p) {
+        if (confirm("Are You Sure?"))
+        {
+
+        }
+
+    }
+
+</script>
+  
 </body>
 </html>
+   
